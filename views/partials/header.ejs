@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Childev</title>
+
+   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Monoton|Raleway'/>
+    <link rel="stylesheet" href="/style/main.css"/>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  
+</head>
+<body>
+
+<nav class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+ <a href="/" class="navbar-brand" style="font-size: x-large"><strong>Childev</strong></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                  <% if(currentUser){ %>
+                  <li><a href="/dashboard">Dashboard</a></li>
+                  <li><a href="#">Welcome <%= currentUser.username %></a></li>
+                  <% } %>
+
+               
+            </ul>
+            
+              <% if(currentUser){ %>
+            <ul class="nav navbar-nav navbar-right">
+             <li><p class="navbar-btn"><a class="btn btn-danger" href="/logout">Logout</a></p></li> 
+             <li>&nbsp; &nbsp;</li> 
+            </ul>
+              <% } %>
+            
+           <ul class="nav navbar-nav navbar-right">
+                 
+                 <li><a href="/login/stuff">Login Stuff</a></li> <!-- GETS the form to login -->
+           </ul>
+
+             <ul class="nav navbar-nav navbar-right">
+                <li class=" dropdown">
+                    <a href="#" class="mydrop btn-success dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parent's Login<span class="caret"></span></a>
+                    <ul class="dropdown-menu" style="padding:18px;">
+                        <li><a href="#">Log in to access the progress of your child</a></li>
+
+                        <li role="separator" class="divider"></li>
+                            <form method='POST' action='/login/parent' ><!-- POSTS the username and password to login -->
+                                <div class="form-group">
+                                <input name='username' type="text" placeholder="Email" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                <input type="password" name='password' placeholder="Password" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-success  btn-block">Sign in</button>
+                            </form>
+
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#j">Forgot username or password?</a></li>
+                    </ul>
+                </li>
+              </ul>
+               <ul class="nav navbar-nav navbar-right">
+                 
+                 <li><a href="/register/nursery">Register your Nursery</a></li> <!-- GETS the form to login -->
+           </ul>
+
+        
+            <!--
+            <form action="/login" method="POST" class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input type="text" name="username" placeholder="Username" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Password" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-log-in"></span> Parent's Login</a></button>
+            </form>
+            
+            -->
+            
+            
+            
+            
+            
+                                   
+          
+    </div>
+  </div>
+</nav>
+<!-------------------------------------------->
+   
+           
+                  <br>
+                  <br>
+                  <br>
+                <div class="container">
+                    <% if(error && error.length>0){ %>
+                    <div class="alert alert-danger alert-dismissable" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <%=error%>
+                    </div>
+            
+                    <% }if(success && success.length>0){ %>
+                    <div class="alert alert-success alert-dismissable" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <%=success%>
+                    </div>
+    
+                        <% } %>
+
+                </div>
+
+    

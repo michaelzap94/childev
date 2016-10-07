@@ -1,0 +1,67 @@
+<% include ../partials/header.ejs %>
+
+ <div class="container  header1">
+      <form id="registerForm" class="formsStyle jumbotron" action="/register/teacher" method="POST">
+        <h1 class='text-center text-inverse'>
+          <strong>Register Your Nursery</strong>
+        </h1>
+        <div class="form-group">
+          <label class="control-label text-inverse" for="firstname">Manager's First Name:</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-user fa-fw fa-lg" aria-hidden="true"></i>
+            </span>
+            <input class="form-control" placeholder="Please enter your First Name"
+            name="firstname" type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label text-inverse" for="lastname">Manager's Last Name:</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-user fa-fw fa-lg" aria-hidden="true"></i>
+            </span>
+            <input class="form-control" placeholder="Please enter your Surname" name="lastname"
+            type="text">
+          </div>
+        </div>
+         <div class="form-group">
+          <label class="control-label text-inverse" for="contactnumber">Nursery's Contact Number:</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-user fa-fw fa-lg" aria-hidden="true"></i>
+            </span>
+            <input class="form-control" placeholder="Please enter your Surname" name="contactnumber"
+            type="text">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label text-inverse" for="username">Manager's Email:</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-envelope-o fa-lg fa-fw" aria-hidden="true"></i>
+            </span>
+            <input type="text" class="form-control" name="username" placeholder="Please enter your email address">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label text-inverse"  for="password">Password:</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i>
+            </span>
+            <input type="password" class="form-control" name="password" placeholder="Please enter your password">
+          </div>
+        </div>
+        <div class=" row ">
+          <div class="col-md-6">
+            <button type="submit" name="submit" id="submit" class="btn btn-block btn-success">Submit</button>
+          </div>
+          <div class="col-md-6">
+            <button type="button" id="resetRegisterForm" onClick="resetThisForm(event, this.id);" class="col-xs-4 btn btn-block btn-warning">Reset</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    
+    <% include ../partials/footer.ejs %>
