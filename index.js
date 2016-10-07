@@ -12,7 +12,7 @@ var LocalStrategy = require('passport-local');
 var User = require('./app/schemas/admin/user.js');
 var Teacher = require('./app/schemas/teacher/teacherSchema.js');
 var Parent = require('./app/schemas/parent/parentSchema.js');
-
+var sendEmail = require("./app/email/mailer.js");
 //var myConfiguration = require('./config/configuration.js');
 var passport = require('passport');
 
@@ -107,61 +107,20 @@ var dashboardRouter = require("./app/routes/dashboardRouter.js");
 app.use('/register',registerRouter);
 app.use('/login',loginRouter);
 app.use('/dashboard',dashboardRouter);
-/*
-   var mailer = require('express-mailer');
- 
-mailer.extend(app, {
-  from: 'admin@childev.com',
-  host: 'smtp.gmail.com', // hostname 
-  secureConnection: true, // use SSL 
-  port: 465, // port for secure SMTP 
-  transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts 
-  auth: {
-    user: 'childev.manager@gmail.com',
-    pass: 'Childevmanager'
-  }
-});
 
 
-app.get('/mail', function (req, res, next) {
-  app.mailer.send('email', {
-    to: 'mikeyfriends@hotmail.com', // REQUIRED. This can be a comma delimited string just like a normal email to field.  
-    subject: 'Test Email', // REQUIRED. 
-    otherProperty: 'Other Property' // All additional properties are also passed to the template as local variables. 
-  }, function (err) {
-    if (err) {
-      // handle error 
-      console.log(err);
-      res.send('There was an error sending the email');
-      return;
-    }
-    res.send('Email Sent');
-  });
-});*/
-var api_key = 'key-b25a508db839214854cbb972351a06a6';
-var domain = "sandbox7a588a3bb90941fd83b9b3f597bebd78.mailgun.org";
-var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
- 
-var data = {
-  from: 'Excited User <admin@childev.com>',
-  to: 'mikeyfriends@hotmail.com',
-  subject: 'Hello',
-  text: 'Testing some Mailgun awesomness!'
-};
+
 
 app.get('/mail',function(req,res){
-    mailgun.messages().send(data, function (error, body) {
-  console.log(body);
-});
+   
+    sendEmail(req,res);
+
 });
  
 
 
 
 app.use('/',launcher);
-
-
-
 
 
  
