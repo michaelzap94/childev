@@ -1,11 +1,12 @@
 var helper = require('sendgrid').mail;
+var sg = require('sendgrid')(process.env.SENDGRID_API);
 var from_email = new helper.Email('noreply@admin.childev.com');
 var to_email = new helper.Email('mikeyfriends@gmail.com');
 var subject = 'Hello World from the SendGrid Node.js Library!';
 var content = new helper.Content('text/plain', 'Hello, Email!');
 var mail = new helper.Mail(from_email, subject, to_email, content);
  
-var sg = require('sendgrid')(process.env.SENDGRID_API);
+
 var request = sg.emptyRequest({
   method: 'POST',
   path: '/v3/mail/send',
@@ -19,7 +20,9 @@ function sendEmail(req,res){
       res.redirect('/');
       
   }else{
-      console.log(response.statusCode+''+response.headers);
+         console.log(error);
+
+      console.log(response.headers);
        req.flash('error', 'Sorry, Email could not be sent. Please contact the Childev Administrator.');
       res.redirect('/');
     

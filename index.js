@@ -18,9 +18,9 @@ var passport = require('passport');
 
 
 //DB
-var dburl = process.env.DATABASEURL || "mongodb://localhost/childevDB";
+var dburl = process.env.DATABASEURL;
 mongoose.connect(dburl);
-
+//process.env.DATABASEURL || "mongodb://localhost/childevDB"
 
 
 // configuration ===============================================================
@@ -112,7 +112,7 @@ app.use('/dashboard',dashboardRouter);
 
 
 app.get('/mail',function(req,res){
-   
+   console.log(process.env.SENDGRID_API);
     sendEmail(req,res);
 
 });
