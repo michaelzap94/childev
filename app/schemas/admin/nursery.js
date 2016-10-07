@@ -40,7 +40,7 @@ mongoose.model("ManagerDetails", ManagerDetailsSchema);
 
 
 // define the schema for our user model
-var userSchema = mongoose.Schema({
+var nurserySchema = mongoose.Schema({
     username:String,
     password:String,
     label:String,
@@ -64,16 +64,16 @@ var userSchema = mongoose.Schema({
 
 
 // generating a hash
-userSchema.methods.generateHash = function(password) {
+nurserySchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
 // checking if password is valid
-userSchema.methods.validPassword = function(password) {
+nurserySchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
 /////////////////////////////////////////IMPORTANT
-userSchema.plugin(passportLocalMongoose);
+nurserySchema.plugin(passportLocalMongoose);
 ///////////////////////////////////////////////////////
 // create the model for users and expose it to our app
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Nursery', nurserySchema);

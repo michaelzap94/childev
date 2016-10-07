@@ -9,7 +9,7 @@ var passport = require('passport');
 var expressSession = require("express-session");
 var cookieParser = require('cookie-parser');
 var LocalStrategy = require('passport-local');
-var User = require('./app/schemas/admin/user.js');
+var Nursery = require('./app/schemas/admin/nursery.js');
 var Teacher = require('./app/schemas/teacher/teacherSchema.js');
 var Parent = require('./app/schemas/parent/parentSchema.js');
 var sendEmail = require("./app/email/mailer.js");
@@ -43,7 +43,7 @@ mongoose.connect(dburl);
     app.use(passport.session());
     
     
-passport.use("user",new LocalStrategy(User.authenticate()));
+passport.use("nursery",new LocalStrategy(Nursery.authenticate()));
 passport.use("teacher",new LocalStrategy(Teacher.authenticate()));
 passport.use("parent",new LocalStrategy(Parent.authenticate()));
 
@@ -52,7 +52,7 @@ passport.use("parent",new LocalStrategy(Parent.authenticate()));
 });
 
 passport.deserializeUser(function(id, done){
-   User.findById(id, function(err, user){
+   Nursery.findById(id, function(err, user){
      if(err) done(err);
        if(user){
          done(null, user);

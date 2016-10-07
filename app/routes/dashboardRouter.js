@@ -3,7 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var isLoggedIn = require("../middlewares/isLoggedIn");
 
-var User = require("../schemas/admin/user.js");
+var Nursery = require("../schemas/admin/nursery.js");
 var Teacher = require("../schemas/teacher/teacherSchema.js");
 var Parent = require("../schemas/parent/parentSchema.js");
   

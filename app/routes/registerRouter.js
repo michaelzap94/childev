@@ -3,7 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var isLoggedIn = require("../middlewares/isLoggedIn");
 
-var User = require("../schemas/admin/user.js");
+var Nursery = require("../schemas/admin/nursery.js");
 var Teacher = require("../schemas/teacher/teacherSchema.js");
 var Parent = require("../schemas/parent/parentSchema.js");
 
@@ -16,7 +16,7 @@ var Parent = require("../schemas/parent/parentSchema.js");
 //-----------------------------------------------------------------    
     router.post('/nursery',function(req,res){
          req.logout();
-         var newUser = new User({username:req.body.username});
+         var newUser = new Nursery({username:req.body.username});
          newUser.label='nursery';
     newUser.managerDetails.push({
             firstname:req.body.firstname,
@@ -27,7 +27,7 @@ var Parent = require("../schemas/parent/parentSchema.js");
         });
     
 
-   User.register(newUser,req.body.password,function(err,dataRetUser){
+   Nursery.register(newUser,req.body.password,function(err,dataRetUser){
        if(err){
            
            req.flash("error",err.message);//err is from "passport package"
@@ -37,7 +37,7 @@ var Parent = require("../schemas/parent/parentSchema.js");
        
        else{
            
-           passport.authenticate("user")(req,res,function(){
+           passport.authenticate("nursery")(req,res,function(){
                req.flash("success","successfully registered " );
 
                res.redirect("/dashboard/manager");

@@ -3,7 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var isLoggedIn = require("../middlewares/isLoggedIn");
 
-var User = require("../schemas/admin/user.js");
+var Nursery = require("../schemas/admin/nursery.js");
 var Teacher = require("../schemas/teacher/teacherSchema.js");
 var Parent = require("../schemas/parent/parentSchema.js");
 
@@ -15,7 +15,7 @@ var Parent = require("../schemas/parent/parentSchema.js");
     });
 //-------------------------------------------------------------------------      //login logic
     //middleware: some code that runs before our final callback
-   router.post('/stuff/manager',passport.authenticate("user", {
+   router.post('/stuff/manager',passport.authenticate("nursery", {
         successRedirect: "/dashboard/manager", 
         failureRedirect: "/passportloginerror",
         failureFlash : true // allow flash messages
