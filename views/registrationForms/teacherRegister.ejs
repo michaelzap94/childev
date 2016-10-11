@@ -1,12 +1,15 @@
 <% include ../partials/header.ejs %>
 
- <div class="container  header1">
-      <form id="registerForm" class="formsStyle jumbotron" action="/register/teacher" method="POST">
-        <h1 class='text-center text-inverse'>
-          <strong>Register Your Nursery</strong>
-        </h1>
+<% if(typeof(nurseryObj) !== 'undefined' && typeof(username) !== 'undefined'){ %> <!--if these parameters are passed, render the form -->
+
+   <div class="container  header1">
+      <form id="teacherRegisterForm" class="formsStyle jumbotron" action="/register/teacher/<%=nurseryObj._id%>" method="POST">
+        <h2 class='text-center text-inverse'>
+          <strong>Register as a teacher for <%=nurseryObj.details[0].name%></strong>
+        </h2>
+        <p><b>Your email is: <%=username%></b></p>
         <div class="form-group">
-          <label class="control-label text-inverse" for="firstname">Manager's First Name:</label>
+          <label class="control-label text-inverse" for="firstname">Teacher's First Name:</label>
           <div class="input-group">
             <span class="input-group-addon">
               <i class="fa fa-user fa-fw fa-lg" aria-hidden="true"></i>
@@ -16,7 +19,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="control-label text-inverse" for="lastname">Manager's Last Name:</label>
+          <label class="control-label text-inverse" for="lastname">Teacher's Last Name:</label>
           <div class="input-group">
             <span class="input-group-addon">
               <i class="fa fa-user fa-fw fa-lg" aria-hidden="true"></i>
@@ -26,31 +29,32 @@
           </div>
         </div>
          <div class="form-group">
-          <label class="control-label text-inverse" for="contactnumber">Nursery's Contact Number:</label>
+          <label class="control-label text-inverse" for="contactnumber">Teacher's Contact Number:</label>
           <div class="input-group">
             <span class="input-group-addon">
               <i class="fa fa-user fa-fw fa-lg" aria-hidden="true"></i>
             </span>
-            <input class="form-control" placeholder="Please enter your Surname" name="contactnumber"
-            type="text">
+            <input class="form-control" placeholder="Please enter your contact number" name="contactnumber"
+            type="tel">
           </div>
         </div>
-        <div class="form-group">
-          <label class="control-label text-inverse" for="username">Manager's Email:</label>
-          <div class="input-group">
-            <span class="input-group-addon">
-              <i class="fa fa-envelope-o fa-lg fa-fw" aria-hidden="true"></i>
-            </span>
-            <input type="text" class="form-control" name="username" placeholder="Please enter your email address">
-          </div>
-        </div>
+        <input type="hidden" class="form-control" name="username" value='<%=username%>'>
         <div class="form-group">
           <label class="control-label text-inverse"  for="password">Password:</label>
           <div class="input-group">
             <span class="input-group-addon">
               <i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i>
             </span>
-            <input type="password" class="form-control" name="password" placeholder="Please enter your password">
+            <input type="password" id='password' class="form-control" name="password" placeholder="Please enter your password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label text-inverse"  for="password_again">Re-enter Password:</label>
+          <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i>
+            </span>
+            <input type="password" class="form-control" name="password_again" placeholder="Please enter your password again">
           </div>
         </div>
         <div class=" row ">
@@ -58,10 +62,15 @@
             <button type="submit" name="submit" id="submit" class="btn btn-block btn-success">Submit</button>
           </div>
           <div class="col-md-6">
-            <button type="button" id="resetRegisterForm" onClick="resetThisForm(event, this.id);" class="col-xs-4 btn btn-block btn-warning">Reset</button>
+            <button type="button" id="resetTeacherRegisterForm" onClick="resetThisForm(event, this.id);" class="col-xs-4 btn btn-block btn-warning">Reset</button>
           </div>
         </div>
       </form>
     </div>
     
+<% }else{ %> <!--otherwise don't render anything, (this is just as extra precaution) -->
+
+<% }%> 
+        <script src='/script/formsHandler.js'></script>
+
     <% include ../partials/footer.ejs %>

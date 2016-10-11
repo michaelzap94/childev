@@ -21,16 +21,16 @@ mongoose.model("TeacherDetails", TeacherDetailsSchema);
 
 
 // define the schema for our user model
-var teacherSchema = mongoose.Schema({
+var teacherSchema = new mongoose.Schema({
     username:String,
     password:String,
     resetPasswordToken: Number,
-    registrationPass:Number,
+    activationhash:String,
+    active:Number,    
     label: String,
     details: [TeacherDetailsSchema]
     
 });
-
 
 // generating a hash
 teacherSchema.methods.generateHash = function(password) {
@@ -44,5 +44,9 @@ teacherSchema.methods.validPassword = function(password) {
 /////////////////////////////////////////IMPORTANT
 teacherSchema.plugin(passportLocalMongoose);
 ///////////////////////////////////////////////////////
+
+
+
+
 // create the model for users and expose it to our app
 module.exports = mongoose.model('Teacher', teacherSchema);

@@ -3,7 +3,6 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
-var methodOverride = require("method-override");
 var flash = require("connect-flash");
 var passport = require('passport');
 var expressSession = require("express-session");
@@ -12,10 +11,8 @@ var LocalStrategy = require('passport-local');
 var Nursery = require('./app/schemas/admin/nursery.js');
 var Teacher = require('./app/schemas/teacher/teacherSchema.js');
 var Parent = require('./app/schemas/parent/parentSchema.js');
-var sendEmail = require("./app/email/mailer.js");
 //var myConfiguration = require('./config/configuration.js');
 var passport = require('passport');
-
 
 //DB
 var dburl = process.env.DATABASEURL;
@@ -29,7 +26,6 @@ mongoose.connect(dburl);
     app.use(bodyParser.urlencoded({extended:true}));
     app.set("view engine", "ejs");
     app.use(express.static(__dirname + "/public"));
-    app.use(methodOverride("_method"));
     app.use(flash()); 
     
     
@@ -102,22 +98,26 @@ app.use(function(req,res,next){
 var launcher = require("./app/routes/launcher.js");
 var registerRouter = require("./app/routes/registerRouter.js");
 var loginRouter = require("./app/routes/loginRouter.js");
-var dashboardRouter = require("./app/routes/dashboardRouter.js");
+
+
+var dashboardManagerRouter = require("./app/routes/manager/dashboardManagerRouter.js");
+var dashboardTeacherRouter = require("./app/routes/teacher/dashboardTeacherRouter.js");
+var dashboardParentRouter = require("./app/routes/parent/dashboardParentRouter.js");
+
+
+var emailVerificationRouter = require("./app/routes/emailVerification.js");
+
+var authorization = require("./app/middlewares/authorization.js");
 
 app.use('/register',registerRouter);
 app.use('/login',loginRouter);
-app.use('/dashboard',dashboardRouter);
+
+app.use('/dashboard/manager/:currentUserId',authorization.isManager,dashboardManagerRouter);
+app.use('/dashboard/teacher/:currentUserId',authorization.isTeacher,dashboardTeacherRouter);
+app.use('/dashboard/parent/:currentUserId',authorization.isParent,dashboardParentRouter);
 
 
-
-
-app.get('/mail',function(req,res){
-   console.log(process.env.SENDGRID_API);
-    sendEmail(req,res);
-
-});
- 
-
+app.use('/',emailVerificationRouter);
 
 
 app.use('/',launcher);

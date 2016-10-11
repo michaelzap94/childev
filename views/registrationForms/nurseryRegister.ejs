@@ -1,137 +1,176 @@
  <% include ../partials/header.ejs %>
 
- <div class="container jumbotron header1">
+ <div class="container header1">
    
-   
-      <form id="registerForm" class="formsStyle " action="/register/nursery" method="POST">
+   <div class='jumbotron'>
+      <form id="registerNursaryForm" class="formsStyle " action="/register/nursery" method="POST">
         <h1 class='text-center text-inverse'>
           <strong>Register Your Nursery</strong>
         </h1>
         
            <div class='row'>
 
-        <div class='col-md-6'>
+              <div class='col-md-6'>
+                  
+                  <div class="form-group">
+                    <label class="control-label text-inverse" for="firstname">Manager's First Name:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw " aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter your First Name"
+                      name="firstname" type="text">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label text-inverse" for="lastname">Manager's Last Name:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw " aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter your Surname" name="lastname"
+                      type="text">
+                    </div>
+                  </div>
+                   <div class="form-group">
+                    <label class="control-label text-inverse" for="managercontactnumber">Manager's Contact Number:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter the manager's contact number" name="managercontactnumber"
+                      type="tel">
+                    </div>
+                  </div>
+                   <div class="form-group">
+                    <label class="control-label text-inverse" for="nurserycontactnumber">Nursery's Contact Number:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter the nursery contact number" name="nurserycontactnumber"
+                      type="tel">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label text-inverse" for="name">Nursery's Name:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter your the name of the nursery you wish to register."
+                      name="name" type="text">
+                    </div>
+                  </div>
+                   <div class="form-group">
+                    <label class="control-label text-inverse" for="urn">Nursery's Unique Reference Number:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter your nursery's URN" name="urn"
+                      type="number">
+                    </div>
+                  </div>
+                 
+                  
+                  
+            </div>
+                  
+            <div class='col-md-6'>
+                  <div class="form-group">
+                    <label class="control-label text-inverse" for="address">Nursery's Address:</label>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" name="address1" placeholder="First line of the nursery's address">
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" name="address2" placeholder="Second line of the nursery's address">
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" name="city" placeholder="City of the nursery's address">
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" name="country" placeholder="Country of the nursery's address">
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" name="postcode" placeholder="Post Code of the nursery's address">
+                      </div>
+                    
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label text-inverse" for="username">Email:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <input type="text" class="form-control" name="username" placeholder="Please enter your email address">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label text-inverse"  for="password">Password:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-lock fa-fw " aria-hidden="true"></i>
+                      </span>
+                      <input id='password' type="password" class="form-control" name="password" placeholder="Please enter your password">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label text-inverse"  for="password_again">Re-enter Password:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-lock fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <input type="password" class="form-control" name="password_again" placeholder="Please enter your password again">
+                    </div>
+                  </div>
+                  
+            </div>
+        </div>
         
         <div class="form-group">
-          <label class="control-label text-inverse" for="firstname">Manager's First Name:</label>
-          <div class="input-group">
-            <span class="input-group-addon">
-              <i class="fa fa-user fa-fw fa-lg" aria-hidden="true"></i>
-            </span>
-            <input class="form-control" placeholder="Please enter your First Name"
-            name="firstname" type="text">
-          </div>
+            <input type="checkbox"  value="termscond" id="termscond" name="termscond">
+            <label class="control-label termscondlabel" for="termscond"> By checking this box, I agree to the Childev <a href='#' target='_blank'>Terms of Use</a>.</label>
         </div>
         <div class="form-group">
-          <label class="control-label text-inverse" for="lastname">Manager's Last Name:</label>
-          <div class="input-group">
-            <span class="input-group-addon">
-              <i class="fa fa-user fa-fw fa-lg" aria-hidden="true"></i>
-            </span>
-            <input class="form-control" placeholder="Please enter your Surname" name="lastname"
-            type="text">
-          </div>
+            <div class="g-recaptcha" data-sitekey="6LfLsQgUAAAAAK-mlEP2jfbtOFIUlJ0Im1qh3ahj"></div>
+            <input type="hidden" class="hiddenRecaptcha required" name="hiddenRecaptcha" id="hiddenRecaptcha">
+
         </div>
-         <div class="form-group">
-          <label class="control-label text-inverse" for="contactnumber">Manager's Contact Number:</label>
-          <div class="input-group">
-            <span class="input-group-addon">
-              <i class="fa fa-user fa-fw fa-lg" aria-hidden="true"></i>
-            </span>
-            <input class="form-control" placeholder="Please enter your Surname" name="contactnumber"
-            type="tel">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label text-inverse" for="username">Manager's Email:</label>
-          <div class="input-group">
-            <span class="input-group-addon">
-              <i class="fa fa-envelope-o fa-lg fa-fw" aria-hidden="true"></i>
-            </span>
-            <input type="text" class="form-control" name="username" placeholder="Please enter your email address">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label text-inverse"  for="password">Password:</label>
-          <div class="input-group">
-            <span class="input-group-addon">
-              <i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i>
-            </span>
-            <input type="password" class="form-control" name="password" placeholder="Please enter your password">
-          </div>
-        </div>
-        
-        
-        </div>
-        
-                <div class='col-md-6'>
-        
-        <div class="form-group">
-          <label class="control-label text-inverse" for="firstname">Manager's First Name:</label>
-          <div class="input-group">
-            <span class="input-group-addon">
-              <i class="fa fa-user fa-fw fa-lg" aria-hidden="true"></i>
-            </span>
-            <input class="form-control" placeholder="Please enter your First Name"
-            name="firstname" type="text">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label text-inverse" for="lastname">Manager's Last Name:</label>
-          <div class="input-group">
-            <span class="input-group-addon">
-              <i class="fa fa-user fa-fw fa-lg" aria-hidden="true"></i>
-            </span>
-            <input class="form-control" placeholder="Please enter your Surname" name="lastname"
-            type="text">
-          </div>
-        </div>
-         <div class="form-group">
-          <label class="control-label text-inverse" for="contactnumber">Nursery's Contact Number:</label>
-          <div class="input-group">
-            <span class="input-group-addon">
-              <i class="fa fa-user fa-fw fa-lg" aria-hidden="true"></i>
-            </span>
-            <input class="form-control" placeholder="Please enter your Surname" name="contactnumber"
-            type="tel">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label text-inverse" for="username">Manager's Email:</label>
-          <div class="input-group">
-            <span class="input-group-addon">
-              <i class="fa fa-envelope-o fa-lg fa-fw" aria-hidden="true"></i>
-            </span>
-            <input type="text" class="form-control" name="username" placeholder="Please enter your email address">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label text-inverse"  for="password">Password:</label>
-          <div class="input-group">
-            <span class="input-group-addon">
-              <i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i>
-            </span>
-            <input type="password" class="form-control" name="password" placeholder="Please enter your password">
-          </div>
-        </div>
-<div class="g-recaptcha" data-sitekey="6LfLsQgUAAAAAK-mlEP2jfbtOFIUlJ0Im1qh3ahj"></div>
 
         <div class=" row ">
-          <div class="col-md-6">
+          <div class="col-md-3">
             <button type="submit" name="submit" id="submit" class="btn btn-block btn-success">Submit</button>
           </div>
-          <div class="col-md-6">
-            <button type="button" id="resetRegisterForm" onClick="resetThisForm(event, this.id);" class="col-xs-4 btn btn-block btn-warning">Reset</button>
+          <div class="col-md-3">
+            <button type="button" id="resetRegisterNursaryForm" onClick="resetThisForm(event, this.id);" class="col-xs-4 btn btn-block btn-warning">Reset</button>
           </div>
         </div>
         
-        </div>
+       
         
-        </div>
+        
         
       </form>
     </div>
     
-<script src='https://www.google.com/recaptcha/api.js'></script>
+  </div>
+    <script src='/script/formsHandler.js'></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     
     <% include ../partials/footer.ejs %>

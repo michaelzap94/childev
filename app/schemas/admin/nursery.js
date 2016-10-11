@@ -6,47 +6,34 @@ var passportLocalMongoose = require("passport-local-mongoose");
 var NurseryDetailsSchema = new mongoose.Schema({
     name:String,
     urn:String,
-    contactnumber:Number,
-    email:String,
-    label: String,
+    nurserycontactnumber:Number,
     address: {
         address1:String,
         address2:String,
         city:String,
         country:String,
         postcode:String
-    }
+    },
+        firstname:String,
+        lastname:String,
+        managercontactnumber:Number,
+        managerlabel: String
+    
     
 });
 mongoose.model("NurseryDetails", NurseryDetailsSchema);
 //----------------------------------------------------------------
-// managerDetails Schema ---------------------------------------------------
-var ManagerDetailsSchema = new mongoose.Schema({
-    firstname:String,
-    lastname:String,
-    contactnumber:Number,
-    email:String,
-    label: String,
-    address: {
-        address1:String,
-        address2:String,
-        city:String,
-        country:String,
-        postcode:String
-    }
-});
-mongoose.model("ManagerDetails", ManagerDetailsSchema);
-//----------------------------------------------------------------
 
 
 // define the schema for our user model
-var nurserySchema = mongoose.Schema({
+var nurserySchema = new mongoose.Schema({
     username:String,
     password:String,
     label:String,
+    active:Number,
+    activationhash:String,
     resetPasswordToken: Number,
     details: [NurseryDetailsSchema],
-    managerDetails: [ManagerDetailsSchema],
     teacher: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "Teacher"
@@ -58,7 +45,10 @@ var nurserySchema = mongoose.Schema({
     children: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: "Children"
-    }]
+    }],
+    waitingRegistrationTeachers: [{type: String}],
+    waitingRegistrationParents: [{type: String}]
+
     
 });
 

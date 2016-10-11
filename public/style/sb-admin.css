@@ -8,7 +8,6 @@
 
 body {
     margin-top: 100px;
-    background-color: #222;
 }
 
 @media(min-width:768px) {
@@ -34,7 +33,7 @@ body {
 
 @media(min-width:768px) {
     #wrapper {
-        padding-left: 225px;
+        padding-left: 170px;
     }
 
     #page-wrapper {
@@ -116,9 +115,9 @@ ul.alert-dropdown {
     .side-nav {
         position: fixed;
         top: 51px;
-        left: 225px;
-        width: 225px;
-        margin-left: -225px;
+        left: 170px;
+        width: 170px;
+        margin-left: -170px;
         border: none;
         border-radius: 0;
         overflow-y: auto;
@@ -129,7 +128,7 @@ ul.alert-dropdown {
     }
 
     .side-nav>li>a {
-        width: 225px;
+        width: 170px;
     }
 
     .side-nav li a:hover,
@@ -224,4 +223,20 @@ ul.alert-dropdown {
 
 .panel-yellow > a:hover {
     color: #df8a13;
+}
+/**mike**/
+table{
+    border:none;
+}
+thead{
+    background-color: #1D1F20;;
+     color: whitesmoke;
+}
+tr:hover{
+    cursor: pointer;
+}
+
+#collapse1 ul{
+    list-style: none;
+    padding-left: 0;
 }

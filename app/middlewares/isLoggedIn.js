@@ -1,8 +1,8 @@
  //CHECK IF USER IS LOGGED IN, if so go to dashboard, otherwise next()
    var isLoggedInDashboard= function(req, res, next){
         if(req.isAuthenticated()){ //comes with "passport package"
-        
-           res.redirect("/dashboard"); 
+            
+           res.redirect("/dashboard/"+req.user.label+"/"+req.user._id); 
     
         }
         else{

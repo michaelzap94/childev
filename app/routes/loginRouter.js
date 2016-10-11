@@ -10,35 +10,44 @@ var Parent = require("../schemas/parent/parentSchema.js");
 
 //--------------------------------------------------------------------------   
     
-    router.get('/stuff',function(req,res){
+    router.get('/staff',function(req,res){
         res.render('./loginForms/stuffLogin.ejs'); 
     });
-//-------------------------------------------------------------------------      //login logic
+//-------------------------------------------------------------------------   
+
+    function logoutFirst(req,res,next){
+        req.logout();//passport destroys all user data in the session.(this comes with "passport package")
+        next();
+    }
+
+//login logic
     //middleware: some code that runs before our final callback
-   router.post('/stuff/manager',passport.authenticate("nursery", {
-        successRedirect: "/dashboard/manager", 
-        failureRedirect: "/passportloginerror",
+   router.post('/staff/manager',logoutFirst,passport.authenticate("nursery",{
+        failureRedirect: "/",
         failureFlash : true // allow flash messages
 
-    }) ,function(req, res){
-        
+    }),function(req, res) {
+    
+        res.redirect('/dashboard/manager/' + req.user._id);
+    
+    
+  });
+  
+    router.post('/staff/teacher',logoutFirst,passport.authenticate("teacher",{
+        failureRedirect: "/",
+        failureFlash : true // allow flash messages
+    
+    }),function(req, res){
+        res.redirect('/dashboard/teacher/' + req.user._id);
     });
-    router.post('/stuff/teacher',passport.authenticate("teacher", {
-        successRedirect: "/dashboard/teacher", 
-        failureRedirect: "/passportloginerror",
+    
+    router.post('/parent',logoutFirst,passport.authenticate("parent", {
+        failureRedirect: "/",
         failureFlash : true // allow flash messages
 
     }) ,function(req, res){
-    
-    });
-    
-    router.post('/parent',passport.authenticate("parent", {
-        successRedirect: "/dashboard/parent", 
-        failureRedirect: "/passportloginerror",
-        failureFlash : true // allow flash messages
+            res.redirect('/dashboard/parent/' + req.user._id);
 
-    }) ,function(req, res){
-    
     });
     
 //--------------------------------------------------------------------------    

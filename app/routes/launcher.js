@@ -1,14 +1,12 @@
 var express = require("express");
 var router = express.Router();
 //var middlewares = require("../config/middlewares");//an object with my custom middleware functions
-var Nursery = require("../schemas/admin/nursery.js");
-var Teacher = require("../schemas/teacher/teacherSchema.js");
-var Parent = require("../schemas/parent/parentSchema.js");
+
 var passport = require('passport');
 var isLoggedIn = require("../middlewares/isLoggedIn");
 
 
-    router.get('/',function(req, res) {
+    router.get('/',isLoggedIn.isLoggedInDashboard,function(req, res) {
             res.render('home.ejs');
         });
         
@@ -21,12 +19,6 @@ var isLoggedIn = require("../middlewares/isLoggedIn");
 
     });
     
- 
-
-   router.get('/passportloginerror',function(req,res){
-         res.render("passportloginerror"); 
-         
-     });
     
     router.get('*',function(req, res) {
        res.render('404.ejs'); 

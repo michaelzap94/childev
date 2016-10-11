@@ -21,11 +21,12 @@ mongoose.model("ParentDetails", ParentDetailsSchema);
 
 
 // define the schema for our user model
-var parentSchema = mongoose.Schema({
+var parentSchema = new mongoose.Schema({
     username:String,
     password:String,
     resetPasswordToken: Number,
-    registrationPass:Number,
+    activationhash:String,
+    active:Number,
     label: String,
     details: [ParentDetailsSchema]
     
