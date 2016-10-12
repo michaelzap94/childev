@@ -28,7 +28,15 @@ var parentSchema = new mongoose.Schema({
     activationhash:String,
     active:Number,
     label: String,
-    details: [ParentDetailsSchema]
+    details: [ParentDetailsSchema],
+    nursery: {
+        id:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref: "Nursery"
+        },
+        username: String
+       
+    }
     
 });
 

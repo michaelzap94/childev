@@ -28,7 +28,15 @@ var teacherSchema = new mongoose.Schema({
     activationhash:String,
     active:Number,    
     label: String,
-    details: [TeacherDetailsSchema]
+    details: [TeacherDetailsSchema],
+    nursery: {
+        id:{
+            type:mongoose.Schema.Types.ObjectId,
+            ref: "Nursery"
+        },
+        username: String
+       
+    }
     
 });
 

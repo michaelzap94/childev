@@ -162,6 +162,10 @@ router.post('/teacher/:nurseryId',function(req,res){
                 if(err){
                     
                 }else{
+                    newUser.nursery = {
+                        id:foundNursery._id,
+                        username: foundNursery.username
+                    }
                     var arr = foundNursery.waitingRegistrationTeachers;
                         arr.forEach(function(emailFoundArr){
                             ++inserted;
@@ -201,22 +205,27 @@ router.post('/parent/:nurseryId',function(req,res){
                 if(err){
                     
                 }else{
-                             var arr = foundNursery.waitingRegistrationParents;
-                                arr.forEach(function(emailFoundArr){
-                                        ++inserted;
-                                        if(req.body.username==emailFoundArr){
-                                               exists = true;
-                                            
-                                           }  
-                                           if(inserted==arr.length && exists==true){
-                                            return registerParentOrTeacher(req,res,newUser,password,foundNursery,parentOrTeacher,Parent);
-                                            }
-                                           if(inserted==arr.length && exists==false){
-                                               
-                                            req.flash('error',"You don't have permision to register as a "+parentOrTeacher+", ask the manager to send you a registration link.");
-                                              return res.redirect('/');
-                                            }
-                                });//loop
+                    
+                    newUser.nursery = {
+                        id:foundNursery._id,
+                        username: foundNursery.username
+                    }
+                     var arr = foundNursery.waitingRegistrationParents;
+                        arr.forEach(function(emailFoundArr){
+                                ++inserted;
+                                if(req.body.username==emailFoundArr){
+                                       exists = true;
+                                    
+                                   }  
+                                   if(inserted==arr.length && exists==true){
+                                    return registerParentOrTeacher(req,res,newUser,password,foundNursery,parentOrTeacher,Parent);
+                                    }
+                                   if(inserted==arr.length && exists==false){
+                                       
+                                    req.flash('error',"You don't have permision to register as a "+parentOrTeacher+", ask the manager to send you a registration link.");
+                                      return res.redirect('/');
+                                    }
+                        });//loop
                 }
             });
     });
