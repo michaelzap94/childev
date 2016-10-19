@@ -92,6 +92,7 @@ var Parent = require("../schemas/parent/parentSchema.js");
             });
 
         }else if(accountType==='parent'){
+            
             Nursery.findOne({'_id':nurseryId,'activationhash':activationhash},function(err,foundNursery){
                 if(err){
                     console.log(err.message);
@@ -99,7 +100,7 @@ var Parent = require("../schemas/parent/parentSchema.js");
                     return res.redirect("/");
     
                 }else{
-                    res.render('registrationForms/parentRegister.ejs',{nurseryObj:foundNursery, username:username});
+                    res.render('registrationForms/parentRegister.ejs',{nurseryObj:foundNursery, username:username, childId: req.query.childId });
 
                 }
             });

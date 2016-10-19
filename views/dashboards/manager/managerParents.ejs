@@ -10,12 +10,21 @@
                     <div class="row">
                       <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                         <form id='emailToRegisterForm'>
-                            <label for="emailToRegister" class="control-label"><h4><b>Send a link so parents can register in this Nursery.</b></h4></label>
-                               <div class="form-group input-group">
-                                    <input id='emailToRegister' name='emailParent' type="email" class="form-control" placeholder="Enter parent's email">
-                                    <span class="input-group-btn"><button class="btn btn-primary" type="submit"> Send Link</button></span>
+                          <h4><b>Send a link so parents can register in this Nursery.</b></h4>
+                            <div class="form-group">
+                                <select class="form-control" name='childId' required>
+                                  <option value=''>Select the child's Name</option>
+                                  <% if(typeof populatedData.children !== 'undefined'){%>
+                                  <% populatedData.children.forEach(function(childFound){ %>
+                                  <option value='<%=childFound._id%>'><%=childFound.details[0].firstname%> <%=childFound.details[0].lastname%></option>
+                                  <% }); }%>
+                                </select>
+
+                               <div class="input-group">
+                                    <input id='emailToRegister' name='emailParent' type="email" class="form-control" placeholder="Enter parent's email" required>
+                                    <span class="input-group-btn"><button class="btn btn-primary" type="submit">Send</button></span>
                               </div>
-                                                 
+                            </div>                    
                         </form>
                       </div>
                     </div>
@@ -28,10 +37,10 @@
                                         if(element!=""){
                                   %>
                                     <li class="list-group-item">
-                                      <span><%=element%></span>
+                                      <span><%=element.email%></span>
                                       <span class='pull-right'>
-                                        <a href='' id='<%=element%>'  onClick="removeFromStillToRegister(event,this.id,'parent');" class='btn btn-xs btn-danger'  data-toggle="tooltip" title="Remove"><i class="fa  fa-fw fa-trash-o" aria-hidden="true"></i></a>
-                                        <a href='' id='<%=element%>'  onClick="resendLink(event,this.id,'parent');" class='btn btn-xs btn-info' data-toggle="tooltip" title="Re-send link"><i class="fa  fa-fw fa-paper-plane-o" aria-hidden="true"></i></a>
+                                        <a href='' id='<%=element.email%>'  onClick="removeFromStillToRegister(event,this.id,'parent','<%=element.childId%>');" class='btn btn-xs btn-danger'  data-toggle="tooltip" title="Remove"><i class="fa  fa-fw fa-trash-o" aria-hidden="true"></i></a>
+                                        <a href='' id='<%=element.email%>'  onClick="resendLink(event,this.id,'parent','<%=element.childId%>');" class='btn btn-xs btn-info' data-toggle="tooltip" title="Re-send link"><i class="fa  fa-fw fa-paper-plane-o" aria-hidden="true"></i></a>
                                         <a class='btn btn-xs btn-warning' data-toggle="tooltip" title="Register User yourself (You will need to set the password for him/her)"><i class="fa  fa-fw fa-user-plus" aria-hidden="true"></i></a>
                                       </span>
                                 </li>
@@ -61,14 +70,15 @@
                               </thead>
                               <tbody id='bodyTableUsers'>
                                 
-                                <% if(typeof populatedDataParents !== 'undefined'){%>
-                                <script>
-                                     var objTeacherFromEjs='<%-populatedDataParents%>';//pass the populated data of Teachers coming from ejs to the Static script
-                                </script>
-                               <% populatedDataParents.forEach(function(objParent){
+                                <% if(typeof populatedData.parent !== 'undefined'){%>
+                               
+                               <% 
+                                   populatedData.parent.forEach(function(objParent){
                                    var parsedData = JSON.stringify(objParent);
+                                   var parsedDataChildrenForThisUserArr = JSON.stringify(objParent.children);
+
                                %>
-                                <tr id='<%=objParent._id%>' class='rowUser' data-objteacher="<%= parsedData %>" data-toggle="modal" data-target="#myModal">
+                                <tr id='<%=objParent._id%>' class='rowUserParent' data-objparent="<%= parsedData %>" data-objchildrenarr="<%=parsedDataChildrenForThisUserArr%>" data-toggle="modal" data-target="#myModal">
                                   <td><%=objParent.details[0].firstname%> <%=objParent.details[0].lastname%></td>
                                   <td><%=objParent.details[0].contactnumber%></td>
                                   <td><%=objParent.username%></td>
@@ -101,7 +111,7 @@
                     <div class="modal-body">
                           <h2 id='justName'></h2>
                             <div class="panel-group" id="accordion">
-                              <div class="panel panel-default">
+                              <div class="panel panel-default" id='parentInfoPanel'><!--panel-->
                                 <div class="panel-heading">
                                   <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Personal Information</a>
@@ -114,40 +124,22 @@
                                       <li id='lastnameLIst'><span><strong>Lastname: </strong></span><span class='info'></span></li>
                                       <li id='contactnumberLIst'><span><strong>Contact Number: </strong></span><span class='info'></span></li>
                                       <li id='usernameLIst'><span><strong>Email/username: </strong></span><span class='info'></span></li>
-                                      <li id='moreInfoLIst'><span><strong>More info: </strong></span><span class='info'></span></li>
+                                      <li id='relationship'><span><strong>Relationship to child: </strong></span><span class='info'></span></li>
+                                      <li id='addressLIst'><span><strong>Address: </strong></span><span class='info'></span></li>
+                                      <li id='cityLIst'><span><strong>City: </strong></span><span class='info'></span></li>
+                                      <li id='countryLIst'><span><strong>Country: </strong></span><span class='info'></span></li>
+                                      <li id='postcodeLIst'><span><strong>Post Code: </strong></span><span class='info'></span></li>
                                     </ul>
                                     
                                   </div>
                                 </div>
-                              </div>
-                              <div class="panel panel-default">
-                                <div class="panel-heading">
-                                  <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Collapsible Group 2</a>
-                                  </h4>
-                                </div>
-                                <div id="collapse2" class="panel-collapse collapse">
-                                  <div class="panel-body">
-                                    
-                                    
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="panel panel-default">
-                                <div class="panel-heading">
-                                  <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Collapsible Group 3</a>
-                                  </h4>
-                                </div>
-                                <div id="collapse3" class="panel-collapse collapse">
-                                  <div class="panel-body">
-                                    
-                                    
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                    </div>
+                              </div><!--panel-->
+                        </div><!-- accordion, panel gorup-->
+                        <h3>Children this parent have in <strong><%=currentUser.details[0].name%></strong>:</h3>
+                        <div class='panel-group' id='containerChildren'>
+                               <!--panels  generated by jquery go here-->
+                        </div>
+                    </div><!--modal body-->
                     <div class="modal-footer">
                       <button type="button" class="btn btn-danger" id='deleteUser'  data-toggle="modal" data-target="#myConfirmation">Delete User</button>
                       <button type="button" class="btn btn-primary">Save changes</button>

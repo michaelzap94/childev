@@ -10,6 +10,10 @@ var Nursery = require("../schemas/admin/nursery.js");
 var Teacher = require("../schemas/teacher/teacherSchema.js");
 var Parent = require("../schemas/parent/parentSchema.js");
 
+var teacherFunctions = require("../childevFunctions/teacherRegister.js");
+var parentFunctions = require("../childevFunctions/parentRegister.js");
+
+
 function capitalizeStarter(str) {
     var arrOfWords = str.split(/\s+/).filter(Boolean);//filters out white spaces
 
@@ -93,54 +97,6 @@ function capitalizeStarter(str) {
 //////////////////////////////////////////////
        //user got here, because the activationhash and nurseryid matched and the form was rendered, if they didn't match, he would not have got here.
  
-    function registerParentOrTeacher(req,res,newUser, password,foundNursery,parentOrTeacher,Schema){
-                
-
-                    Schema.register(newUser,password,function(err,userRegisterd){ //then register
-                       if(err){
-                           req.flash("error",err.message);//err is from "passport package"
-                                  return res.redirect("back");
-                    
-                         }else{
-                             
-                             //then add teacher to that nursery
-                             foundNursery[parentOrTeacher].push(userRegisterd);
-                             foundNursery.save(function(err, data){
-                                if(err){
-                                    console.log(err);
-                                } else {
-                  
-                                        foundNursery.update({ $pull: { waitingRegistrationTeachers : { $in: [ userRegisterd.username ] }, waitingRegistrationParents: { $in: [ userRegisterd.username ] }  } },function(err,dataRet){
-                                              if(err){
-                                                  req.flash('error','Sorry, something went wrong when trying to remove element.');
-                                                  res.redirect('back');
-                                                  console.log('error removing');
-                                              }else{
-                                                 passport.authenticate(parentOrTeacher)(req,res,function(){
-                                                     
-                                                        if(parentOrTeacher==='teacher'){
-                                                            req.flash("success","Successfully registered " +userRegisterd.username);
-                                                            res.redirect("/dashboard/teacher/"+req.user._id);
-                                                        }
-                                                        if(parentOrTeacher==='parent'){
-                                                            req.flash("success","Successfully registered " +userRegisterd.username);
-                                                            res.redirect("/dashboard/parent/"+req.user._id);
-                                                        }
-                                                    
-                                                    });
-                                                  
-                                              }
-                                          }
-                                        );//foundNursary.update, removes the teacher from the waiting registration list in the manager's view
-
-                                }
-                            });
-                        }
-               
-                   });//Teacher.register
-    }
-
-
 
 router.post('/teacher/:nurseryId',function(req,res){
          req.logout();
@@ -174,11 +130,11 @@ router.post('/teacher/:nurseryId',function(req,res){
                                 
                                }  
                                if(inserted==arr.length && exists==true){
-                                    return registerParentOrTeacher(req,res,newUser,password,foundNursery,parentOrTeacher,Teacher);
+                                    return teacherFunctions.registerTeacher(req,res,newUser,password,foundNursery);
                                 }
                                if(inserted==arr.length && exists==false){
                                    
-                                req.flash('error',"You don't have permision to register as a "+parentOrTeacher+", ask the manager to send you a registration link.");
+                                req.flash('error',"You don't have permision to register as a teacher, ask the manager to send you a registration link.");
                                   return res.redirect('/');
                                 }
                             });//loop
@@ -188,18 +144,32 @@ router.post('/teacher/:nurseryId',function(req,res){
 /////////////////////////////////////////////////////////////
 router.post('/parent/:nurseryId',function(req,res){
          req.logout();
+         var childId = req.body.childId;
          var nurseryId = req.params.nurseryId;
          var password = req.body.password;
+         var address = {
+            address1: capitalizeStarter(req.body.address1),
+            address2: capitalizeStarter(req.body.address2),
+            city: capitalizeStarter(req.body.city),
+            country: capitalizeStarter(req.body.country),
+            postcode:req.body.postcode
+         };
          var newUser = new Parent({username:req.body.username});
+         
             newUser.label='parent';
+            
+            newUser.carertype=req.body.carertype;
+            
             newUser.details.push({
             firstname:capitalizeStarter(req.body.firstname),
             lastname: capitalizeStarter(req.body.lastname),
-            contactnumber:req.body.contactnumber
+            contactnumber:req.body.contactnumber,
+            address: address
             });
+            
+         //variables to check if the manager actually sent the link to user, if so continue, otherwise no/
           var inserted = 0,
-          exists = false,
-          parentOrTeacher = 'parent';
+          exists = false;
           
             Nursery.findById(nurseryId,function(err,foundNursery){ //first find Nursery it belongs to
                 if(err){
@@ -213,16 +183,16 @@ router.post('/parent/:nurseryId',function(req,res){
                      var arr = foundNursery.waitingRegistrationParents;
                         arr.forEach(function(emailFoundArr){
                                 ++inserted;
-                                if(req.body.username==emailFoundArr){
+                                if(req.body.username==emailFoundArr.email){
                                        exists = true;
                                     
                                    }  
                                    if(inserted==arr.length && exists==true){
-                                    return registerParentOrTeacher(req,res,newUser,password,foundNursery,parentOrTeacher,Parent);
+                                    return parentFunctions.checkIsParentOfChild(req,res,newUser,password,foundNursery,childId,req.body.username);
                                     }
                                    if(inserted==arr.length && exists==false){
                                        
-                                    req.flash('error',"You don't have permision to register as a "+parentOrTeacher+", ask the manager to send you a registration link.");
+                                    req.flash('error',"You don't have permision to register as a parent, ask the manager to send you a registration link.");
                                       return res.redirect('/');
                                     }
                         });//loop

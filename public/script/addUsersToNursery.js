@@ -24,17 +24,31 @@ $('#emailToRegisterForm').on('submit',function(e){
             $('#flashContainer').html(flashOpenning+"danger"+commonBody+dataRet.error+flashClosing);
         }else{
             $('#flashContainer').html(flashOpenning+"success"+commonBody+dataRet.success+flashClosing);
-            
-             $('#teachersWaitingRegistration').append(
-             $('<li>').attr('class','list-group-item').append(
-            $('<span>').append(dataRet.email)).append(
-            $('<span>').attr('class','pull-right').append(
-            $('<a>').attr('class',' btn btn-xs btn-danger').attr('id',dataRet.email).attr('onClick',"removeFromStillToRegister(event,this.id,'"+dataRet.parentOrTeacher+"');").append($('<i>').attr('class',"fa fa-fw fa-trash-o").attr('aria-hidden',"true")))
-            .append(" ").append(
-            $('<a>').attr('class',' btn btn-xs btn-info').attr('id',dataRet.email).attr('onClick',"removeFromStillToRegister(event,this.id,'"+dataRet.parentOrTeacher+"');").append($('<i>').attr('class',"fa fa-fw fa-paper-plane-o").attr('aria-hidden',"true")))
-            .append(" ").append(
-            $('<a>').attr('class',' btn btn-xs btn-warning').attr('id',dataRet.email).attr('onClick',"removeFromStillToRegister(event,this.id,'"+dataRet.parentOrTeacher+"');").append($('<i>').attr('class',"fa  fa-fw fa-user-plus").attr('aria-hidden',"true") ))
-            ));
+            if(dataRet.childId){
+                  $('#teachersWaitingRegistration').append(
+                 $('<li>').attr('class','list-group-item').append(
+                $('<span>').append(dataRet.email)).append(
+                $('<span>').attr('class','pull-right').append(
+                $('<a>').attr('class',' btn btn-xs btn-danger').attr('id',dataRet.email).attr('onClick',"removeFromStillToRegister(event,this.id,'"+dataRet.parentOrTeacher+"');").append($('<i>').attr('class',"fa fa-fw fa-trash-o").attr('aria-hidden',"true")))
+                .append(" ").append(
+                $('<a>').attr('class',' btn btn-xs btn-info').attr('id',dataRet.email).attr('onClick',"resendLink(event,this.id,'"+dataRet.parentOrTeacher+"','"+dataRet.childId+"');").append($('<i>').attr('class',"fa fa-fw fa-paper-plane-o").attr('aria-hidden',"true")))
+                .append(" ").append(
+                $('<a>').attr('class',' btn btn-xs btn-warning').attr('id',dataRet.email).attr('onClick',"removeFromStillToRegister(event,this.id,'"+dataRet.parentOrTeacher+"');").append($('<i>').attr('class',"fa  fa-fw fa-user-plus").attr('aria-hidden',"true") ))
+                ));
+                
+            }else{
+                 $('#teachersWaitingRegistration').append(
+                 $('<li>').attr('class','list-group-item').append(
+                $('<span>').append(dataRet.email)).append(
+                $('<span>').attr('class','pull-right').append(
+                $('<a>').attr('class',' btn btn-xs btn-danger').attr('id',dataRet.email).attr('onClick',"removeFromStillToRegister(event,this.id,'"+dataRet.parentOrTeacher+"');").append($('<i>').attr('class',"fa fa-fw fa-trash-o").attr('aria-hidden',"true")))
+                .append(" ").append(
+                $('<a>').attr('class',' btn btn-xs btn-info').attr('id',dataRet.email).attr('onClick',"resendLink(event,this.id,'"+dataRet.parentOrTeacher+"','');").append($('<i>').attr('class',"fa fa-fw fa-paper-plane-o").attr('aria-hidden',"true")))
+                .append(" ").append(
+                $('<a>').attr('class',' btn btn-xs btn-warning').attr('id',dataRet.email).attr('onClick',"removeFromStillToRegister(event,this.id,'"+dataRet.parentOrTeacher+"');").append($('<i>').attr('class',"fa  fa-fw fa-user-plus").attr('aria-hidden',"true") ))
+                ));
+                
+            }
         }
     
     }
@@ -42,8 +56,14 @@ $('#emailToRegisterForm').on('submit',function(e){
     
 });
 
-function resendLink(event, id,parentOrTeacher){
-    var resendurl = '/dashboard/manager/'+currentUserId+'/resendlink/'+id+'?parentOrTeacher='+parentOrTeacher;
+function resendLink(event, id,parentOrTeacher,childId){
+    var resendurl;
+    if(childId){
+        resendurl = '/dashboard/manager/'+currentUserId+'/resendlink/'+id+'?parentOrTeacher='+parentOrTeacher+'&childId='+childId;
+    }else{
+        resendurl = '/dashboard/manager/'+currentUserId+'/resendlink/'+id+'?parentOrTeacher='+parentOrTeacher;
+
+    }
     console.log(resendurl);
     event.preventDefault();
    
@@ -64,8 +84,15 @@ function resendLink(event, id,parentOrTeacher){
 }
 
 
-function removeFromStillToRegister(event, id,parentOrTeacher){
-    var resendurl = '/dashboard/manager/'+currentUserId+'/removeFromPending/'+id+'?_method=DELETE&parentOrTeacher='+parentOrTeacher;
+function removeFromStillToRegister(event, id,parentOrTeacher,childId){
+    var resendurl;
+    if(childId){
+        resendurl = '/dashboard/manager/'+currentUserId+'/removeFromPending/'+id+'?parentOrTeacher='+parentOrTeacher+'&childId='+childId;
+    }else{
+        resendurl = '/dashboard/manager/'+currentUserId+'/removeFromPending/'+id+'?parentOrTeacher='+parentOrTeacher;
+
+    }
+    
     event.preventDefault();
     $.ajax({
         type: "GET",
@@ -92,7 +119,7 @@ $('[data-toggle="tooltip"]').tooltip();
  *
  */
  
-$('.rowUser').on('click',function(){
+$('.rowUserTeacher').on('click',function(){
     var objTeacher = $(this).data('objteacher'); //obect passed using 'data' (HTML5 ATTRIBUTE)
 
         
@@ -106,9 +133,109 @@ $('.rowUser').on('click',function(){
     $('#usernameLIst').find('.info').html(objTeacher.username);
     $('#deleteUser').attr('value',objTeacher._id);
 
+  
 
 });
+/**
+ * gets the useer's data from the clicked row.
+ *
+ */
+ 
+$('.rowUserChildren').on('click',function(){
+    var objchildren = $(this).data('objchildren'); //obect passed using 'data' (HTML5 ATTRIBUTE)
 
+        
+    var name = objchildren.details[0].firstname+' '+objchildren.details[0].lastname;
+    
+    /**children Info**/
+    $('#justName').html(name);
+    $('#chfirstnameLIst').find('.info').html(objchildren.details[0].firstname);
+    $('#chlastnameLIst').find('.info').html(objchildren.details[0].lastname);
+    $('#chgenderLIst').find('.info').html(objchildren.details[0].gender);
+    $('#chdobLIst').find('.info').html(objchildren.details[0].dob);
+    $('#chaddressLIst').find('.info').html(objchildren.details[0].address.address1+', '+objchildren.details[0].address.address2);
+    $('#chcityLIst').find('.info').html(objchildren.details[0].address.city);
+    $('#chcountryLIst').find('.info').html(objchildren.details[0].address.country);
+    $('#chpostcodeLIst').find('.info').html(objchildren.details[0].address.postcode);
+
+    /**main carer Info**/
+    $('#firstnameLIst').find('.info').html(objchildren.details[0].maincarerfirstname);
+    $('#lastnameLIst').find('.info').html(objchildren.details[0].maincarerlastname);
+    $('#contactnumberLIst').find('.info').html(objchildren.details[0].maincarercontactnumber);
+    $('#usernameLIst').find('.info').html(objchildren.details[0].maincareremail);
+    $('#relationship').find('.info').html(objchildren.details[0].maincarertype);
+   
+
+    $('#deleteUser').attr('value',objchildren._id);
+    
+   /* var fragment =$('#containerParent'); 
+
+    if($(this).data('objparentarr')){
+        $(this).data('objparentarr').forEach(function(child,index){
+            
+            var childrenInfo = $('<div>').attr('class', 'panel panel-info').append(
+            $('<div>').attr('class','panel-heading').append($('<h4>').attr('class','panel-title').append($('<a>').attr('data-toogle','collapse').attr('data-parent','#containerChildren').attr('href','#coll'+index).append(child.details[0].firstname+' '+child.details[0].lastname)))).append(
+            $('<div>').attr('id','coll'+index).attr('class','panel-collapse collapse in').append($('<div>').attr('class','panel-body').append(
+                $('<ul>').append($('<li>').append($('<strong>').append('Firstname: ')).append(child.details[0].firstname))
+                        .append($('<li>').append($('<strong>').append('Lastname: ')).append(child.details[0].lastname))
+                        .append($('<li>').append($('<strong>').append('Gender: ')).append(child.details[0].gender))
+                        .append($('<li>').append($('<strong>').append('Date Of Birth: ')).append(child.details[0].dob))
+                    
+            )));
+            fragment.append(childrenInfo);
+        });
+          
+    }  
+            */
+});
+
+/**
+ * parent info in the 'dashboardChildren' file
+ *
+ */
+
+$('.rowUserParent').on('click',function(){
+    var objParent = $(this).data('objparent'); //obect passed using 'data' (HTML5 ATTRIBUTE)
+
+        
+       var name = objParent.details[0].firstname+' '+objParent.details[0].lastname;
+    
+ 
+    $('#justName').html(name);
+    $('#firstnameLIst').find('.info').html(objParent.details[0].firstname);
+    $('#lastnameLIst').find('.info').html(objParent.details[0].lastname);
+    $('#contactnumberLIst').find('.info').html(objParent.details[0].contactnumber);
+    $('#usernameLIst').find('.info').html(objParent.username);
+    $('#relationship').find('.info').html(objParent.carertype);
+    $('#addressLIst').find('.info').html(objParent.details[0].address.address1+', '+objParent.details[0].address.address2);
+    $('#cityLIst').find('.info').html(objParent.details[0].address.city);
+    $('#countryLIst').find('.info').html(objParent.details[0].address.country);
+    $('#postcodeLIst').find('.info').html(objParent.details[0].address.postcode);
+
+
+    $('#deleteUser').attr('value',objParent._id);
+    
+    var fragment =$('#containerChildren'); 
+
+    if($(this).data('objchildrenarr')){
+        $(this).data('objchildrenarr').forEach(function(child,index){
+            
+            var childrenInfo = $('<div>').attr('class', 'panel panel-info').append(
+            $('<div>').attr('class','panel-heading').append($('<h4>').attr('class','panel-title').append($('<a>').attr('data-toogle','collapse').attr('data-parent','#containerChildren').attr('href','#coll'+index).append(child.details[0].firstname+' '+child.details[0].lastname)))).append(
+            $('<div>').attr('id','coll'+index).attr('class','panel-collapse collapse in').append($('<div>').attr('class','panel-body').append(
+                $('<ul>').append($('<li>').append($('<strong>').append('Firstname: ')).append(child.details[0].firstname))
+                        .append($('<li>').append($('<strong>').append('Lastname: ')).append(child.details[0].lastname))
+                        .append($('<li>').append($('<strong>').append('Gender: ')).append(child.details[0].gender))
+                        .append($('<li>').append($('<strong>').append('Date Of Birth: ')).append(child.details[0].dob))
+                    
+            )));
+            fragment.append(childrenInfo);
+        });
+          
+    }  
+            
+});
+         
 /**
  * Search users by name
  *
@@ -142,8 +269,8 @@ function mySearchFunction() {
 
  
 $('body').on('hidden.bs.modal', '.modal', function () {
-     /*   $(this).removeData('bs.modal');
-        $(this).find('.modal-body').html("");*/
+     /*   $(this).removeData('bs.modal');*/
+        $(this).find('#containerChildren').html("");//delete children info being displayed
         $('#page-wrapper').css('opacity','');
     });
     

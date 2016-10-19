@@ -1,4 +1,4 @@
-<% include ../partials/header.ejs %>
+<% include ../partials/dashboardCommon/header.ejs %>
 <% if(typeof(nurseryObj) !== 'undefined' && typeof(username) !== 'undefined'){ %> <!--if these parameters are passed, render the form -->
  <div class="container  header1">
       <form id="parentRegisterForm" class="formsStyle jumbotron" action="/register/parent/<%=nurseryObj._id%>" method="POST">
@@ -35,7 +35,56 @@
             <input class="form-control" placeholder="Please enter your contact number" name="contactnumber" type="tel">
           </div>
         </div>
+          <div class="form-group">
+          <label class="control-label text-inverse" for="carerType">Relationship to Child: </label>
+           <div class="input-group">
+            <span class="input-group-addon">
+              <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+            </span>
+              <select id='carertype' name='carertype' class='form-control' required>
+                <option value='' >Relationship to the child.</option>
+                <option value='Mother'>Mother</option>
+                <option value='Father'>Father</option>
+                <option value='Guardian'>Legal Guardian</option>
+              </select>
+          </div>
+        </div>
+        <input type="hidden" class="form-control" name="childId" value='<%=childId%>'>
         <input type="hidden" class="form-control" name="username" value='<%=username%>'>
+        <div class="form-group">
+          <label class="control-label text-inverse" for="address">Your Address:</label>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+              </span>
+              <input type="text" class="form-control" name="address1" placeholder="First line of the nursery's address">
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+              </span>
+              <input type="text" class="form-control" name="address2" placeholder="Second line of the nursery's address">
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+              </span>
+              <input type="text" class="form-control" name="city" placeholder="City of the nursery's address">
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+              </span>
+              <input type="text" class="form-control" name="country" placeholder="Country of the nursery's address">
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon">
+                <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+              </span>
+              <input type="text" class="form-control" name="postcode" placeholder="Post Code of the nursery's address">
+            </div>
+          
+        </div>
         <div class="form-group">
           <label class="control-label text-inverse"  for="password">Password:</label>
           <div class="input-group">
@@ -71,4 +120,4 @@
 
         <script src='/script/formsHandler.js'></script>
 
-    <% include ../partials/footer.ejs %>
+    <% include ../partials/dashboardCommon/footer.ejs %>

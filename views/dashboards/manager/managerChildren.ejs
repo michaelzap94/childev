@@ -6,49 +6,13 @@
             
           
             <div class="container-fluid">
-            </br>
-            
-            
+           
                     <div class="row">
                       <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <form id='emailToRegisterForm'>
-                            <label for="emailToRegister" class="control-label"><h4><b>Send a link so teachers can register in this Nursery.</b></h4></label>
-                               <div class="form-group input-group">
-                                    <input id='emailToRegister' name='emailTeacher' type="email" class="form-control" placeholder="Enter teacher's email">
-                                    <span class="input-group-btn"><button class="btn btn-primary" type="submit"> Send Link</button></span>
-                              </div>
-                                                 
-                        </form>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                          <hr>  
-                        <h4><b>Teachers waiting for registration:</b></h4>
-                                <ul id='teachersWaitingRegistration' class="list-group">
-                                  <% currentUser.waitingRegistrationTeachers.forEach(function(element){
-                                        if(element!=""){
-                                  %>
-                                    <li class="list-group-item">
-                                      <span><%=element%></span>
-                                      <span class='pull-right'>
-                                        <a href='' id='<%=element%>'  onClick="removeFromStillToRegister(event,this.id,'teacher','');" class='btn btn-xs btn-danger' data-toggle="tooltip" title="Remove"><i class="fa  fa-fw fa-trash-o" aria-hidden="true"></i></a>
-                                        <a href='' id='<%=element%>'  onClick="resendLink(event,this.id,'teacher','');" class='btn btn-xs btn-info' data-toggle="tooltip" title="Re-send link"><i class="fa  fa-fw fa-paper-plane-o" aria-hidden="true"></i></a>
-                                        <a id='<%=element%>' class='btn btn-xs btn-warning' data-toggle="tooltip" title="Register User yourself (You will need to set the password for him/her)"><i class="fa  fa-fw fa-user-plus" aria-hidden="true"></i></a>
-                                      </span>
-                                </li>
-                                    
-                                   <% } }); %>
-                                </ul>
-
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <hr>  
-                        <h4><b>You can search for the current registered teachers here:</b></h4>
+                       
+                        <h4><b>You can search for the current registered children here:</b></h4>
                         <div class="form-group input-group">
-                            <input type='search' id='searchUser' onkeyup="mySearchFunction()" placeholder="Search for registered teachers..." class="form-control">
+                            <input type='search' id='searchUser' onkeyup="mySearchFunction()" placeholder="Search for registered children..." class="form-control">
                             <span class="input-group-btn"><button class="btn btn-default" type="button"><i class="fa fa-search"></i> Search</button></span>
                         </div>
                         <div class="table-responsive">
@@ -57,35 +21,35 @@
                               <thead >
                                 <tr>
                                   <th>Name</th>
-                                  <th>Contact Number</th>
-                                  <th>Username</th>
+                                  <th>Gender</th>
+                                  <th>Date Of Birth</th>
                                 </tr>
                               </thead>
                               <tbody id='bodyTableUsers'>
                                 
-                                <% if(typeof populatedDataTeachers !== 'undefined'){%>
-                               
-                               <% populatedDataTeachers.forEach(function(objTeacher){
-                                   var parsedData = JSON.stringify(objTeacher);
+                                <% if(typeof populatedDataChildren !== 'undefined'){%>
+                                <script>
+                                     var objChildrenFromEjs='<%-populatedDataChildren%>';//pass the populated data of Teachers coming from ejs to the Static script
+                                </script>
+                               <% populatedDataChildren.forEach(function(objChildren){
+                                   var parsedData = JSON.stringify(objChildren);
                                %>
-                                <tr id='<%=objTeacher._id%>' class='rowUserTeacher' data-objteacher="<%= parsedData %>" data-toggle="modal" data-target="#myModal">
-                                  <td><%=objTeacher.details[0].firstname%> <%=objTeacher.details[0].lastname%></td>
-                                  <td><%=objTeacher.details[0].contactnumber%></td>
-                                  <td><%=objTeacher.username%></td>
+                                <tr id='<%=objChildren._id%>' class='rowUserChildren' data-objchildren="<%= parsedData %>" data-toggle="modal" data-target="#myModal">
+                                  <td><%=objChildren.details[0].firstname%> <%=objChildren.details[0].lastname%></td>
+                                  <td><%=objChildren.details[0].gender%></td>
+                                  <td><%=objChildren.details[0].dob%></td>
                                 </tr>
                               <% }); }%>
                               </tbody>
                             </table>
                         </div>
-
+                        
                         
                       </div><!-- left-column inside main window -->
                     </div> <!-- main row -->
 
-                 
-              
-              
-             
+
+
             </div>
             <!-- /.container-fluid -->
 
@@ -98,7 +62,7 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="myModalLabel">Teacher working for <strong><%=currentUser.details[0].name%></strong></h4>
+                      <h4 class="modal-title" id="myModalLabel">Child registered in <strong><%=currentUser.details[0].name%></strong></h4>
                     </div>
                     <div class="modal-body">
                           <h2 id='justName'></h2>
@@ -112,26 +76,33 @@
                                 <div id="collapse1" class="panel-collapse collapse in">
                                   <div class="panel-body">
                                     <ul>
-                                      <li id='firstnameLIst'><span><strong>Firstname: </strong></span><span class='info'></span></li>
-                                      <li id='lastnameLIst'><span><strong>Lastname: </strong></span><span class='info'></span></li>
-                                      <li id='contactnumberLIst'><span><strong>Contact Number: </strong></span><span class='info'></span></li>
-                                      <li id='usernameLIst'><span><strong>Email/username: </strong></span><span class='info'></span></li>
-                                      <li id='workerId'><span><strong>Worker Id: </strong></span><span class='info'></span></li>
-                                      <li id='moreInfoLIst'><span><strong>More info: </strong></span><span class='info'></span></li>
+                                      <li id='chfirstnameLIst'><span><strong>Firstname: </strong></span><span class='info'></span></li>
+                                      <li id='chlastnameLIst'><span><strong>Lastname: </strong></span><span class='info'></span></li>
+                                      <li id='chgenderLIst'><span><strong>Gender: </strong></span><span class='info'></span></li>
+                                      <li id='chdobLIst'><span><strong>Date Of Birth: </strong></span><span class='info'></span></li>
+                                      <li id='chaddressLIst'><span><strong>Address: </strong></span><span class='info'></span></li>
+                                      <li id='chcityLIst'><span><strong>City: </strong></span><span class='info'></span></li>
+                                      <li id='chcountryLIst'><span><strong>Country: </strong></span><span class='info'></span></li>
+                                      <li id='chpostcodeLIst'><span><strong>Post Code: </strong></span><span class='info'></span></li>
                                     </ul>
-                                    
                                   </div>
                                 </div>
                               </div>
                               <div class="panel panel-default">
                                 <div class="panel-heading">
                                   <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Collapsible Group 2</a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Main Carer Details</a>
                                   </h4>
                                 </div>
                                 <div id="collapse2" class="panel-collapse collapse">
                                   <div class="panel-body">
-                                    
+                                     <ul>
+                                      <li id='firstnameLIst'><span><strong>Firstname: </strong></span><span class='info'></span></li>
+                                      <li id='lastnameLIst'><span><strong>Lastname: </strong></span><span class='info'></span></li>
+                                      <li id='contactnumberLIst'><span><strong>Contact Number: </strong></span><span class='info'></span></li>
+                                      <li id='usernameLIst'><span><strong>Email: </strong></span><span class='info'></span></li>
+                                      <li id='relationship'><span><strong>Relationship to child: </strong></span><span class='info'></span></li>
+                                     </ul>
                                     
                                   </div>
                                 </div>
@@ -139,7 +110,7 @@
                               <div class="panel panel-default">
                                 <div class="panel-heading">
                                   <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Collapsible Group 3</a>
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Medical Information</a>
                                   </h4>
                                 </div>
                                 <div id="collapse3" class="panel-collapse collapse">
@@ -159,8 +130,8 @@
                   </div>
                 </div>
               </div><!-- Modal -->
-              
-               <!-- Modal confirmation-->
+        
+        <!-- Modal confirmation-->
               <div class="modal fade" id="myConfirmation" tabindex="-1" role="dialog" style='top:20%' aria-labelledby="myModalLabel">
                 <div class="modal-dialog modal-sm " role="document">
                   <div class="modal-content">
@@ -170,7 +141,7 @@
                     </div>
                    
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-danger" id='deleteUserPermanently' data-label='teacher'>Delete User</button>
+                      <button type="button" class="btn btn-danger" id='deleteUserPermanently' data-label='children'>Delete User</button>
                       <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                     </div>
                   </div>
@@ -181,4 +152,3 @@
     <!-- /#wrapper -->
 
   <% include ../../partials/dashboardCommon/dashboardFooter.ejs %>
-

@@ -1,0 +1,216 @@
+<% include ../partials/manager/dashboardColumn.ejs %>
+
+  <div id="page-wrapper">
+
+   <div class="container-fluid">
+
+      <form id="childrenRegisterForm" class="formsStyle " action="/dashboard/manager/<%=currentUser._id%>/children/registerForm" method="POST">
+        <h1 class='text-center text-inverse'>
+          <strong>Register a child for <%=currentUser.details[0].name%></strong>
+        </h1>
+
+           <div class='row'>
+
+              <div class='col-md-6'>
+
+                  <div class="form-group">
+                    <label class="control-label text-inverse" for="firstname">Child's First Name:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw " aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter your First Name"
+                      name="firstname" type="text">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label text-inverse" for="lastname">Child's Last Name:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw " aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter your Surname" name="lastname"
+                      type="text">
+                    </div>
+                  </div>
+                   <div class="form-group">
+                    <label class="control-label text-inverse" for="gender">Child's gender:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <select class="form-control" name='gender' required>
+                        <option value=''>Select the child's gender</option>
+                        <option value='female'>Female</option>
+                        <option value='male'>Male</option>
+                      </select>
+                    </div>
+                  </div>
+                   <div class="form-group">
+                    <label class="control-label text-inverse" for="dob">Child's date of birth:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Enter the child's date of birth" type="text" name='dob' id="datepicker" required >
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label text-inverse" for="address">Child's Address:</label>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" name="address1" placeholder="First line of address">
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" name="address2" placeholder="Second line of address">
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" name="city" placeholder="City">
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" name="country" placeholder="Country">
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" name="postcode" placeholder="Post Code">
+                      </div>
+
+                  </div><!--address from group-->
+             </div><!--first column end -->
+
+            <div class='col-md-6'>
+
+                  <div class="form-group">
+                     <label class="control-label text-inverse" for="maincarerdetails">Main carer's details:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw " aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter your First Name" name="p1firstname" type="text" required>
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw " aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter your Surname" name="p1lastname" type="text" required>
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter the manager's contact number" name="p1contactnumber"
+                      type="tel">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <input type="text" class="form-control" name="p1username" placeholder="Please enter your email address">
+                    </div>
+                     <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <select class="form-control" name='p1carertype' required>
+                        <option value=''>Relationship to child</option>
+                        <option value='Father'>Father</option>
+                        <option value='Mother'>Mother</option>
+                        <option value='Guardian'>Legal Gaurdian</option>
+                      </select>
+                    </div>
+                    <div class="input-group">
+                      <input type="checkbox"  value="true" id="p1sendlink" name="p1sendlink" checked>
+                      <label class="control-label termscondlabel" for="p1sendlink"> Send this parent a registration link.</label>
+                    </div>
+                  </div><!--main carer's details -->
+                <div class="form-group">
+                     <label class="control-label text-inverse" for="maincarerdetails">Second main carer's details:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw " aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter your First Name"
+                      name="p2firstname" type="text">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw " aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter your Surname" name="p2lastname"
+                      type="text">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter the manager's contact number" name="p2contactnumber"
+                      type="tel">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <input type="text" class="form-control" name="p2username" placeholder="Please enter your email address">
+                    </div>
+                     <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <select class="form-control" name='p2carertype'>
+                        <option value=''>Relationship to child</option>
+                        <option value='father'>Father</option>
+                        <option value='mother'>Mother</option>
+                        <option value='guardian'>Legal Gaurdian</option>
+                      </select>
+                    </div>
+                    <div class="input-group">
+                      <input type="checkbox"  value="true" id="p2sendlink" name="p2sendlink">
+                      <label class="control-label termscondlabel" for="p2sendlink"> Send this parent a registration link.</label>
+                    </div>
+                  </div><!--main carer's details -->
+              </div> <!--second column end-->
+          </div><!--end of first row-->
+         <div class=" row ">
+            <div class="col-md-3">
+              <button type="submit" name="submit" id="submit" class="btn btn-block btn-success">Submit</button>
+            </div>
+            <div class="col-md-3">
+              <button type="button" id="resetChildrenRegisterForm" onClick="resetThisForm(event, this.id);" class="col-xs-4 btn btn-block btn-warning">Reset</button>
+            </div>
+          </div>
+
+       </form>
+       
+      </div><!--container end-->
+    </div><!-- /#page-wrapper -->
+        
+  </div><!-- /#wrapper -->
+
+      <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+    <link rel="stylesheet" href="/style/main.css"/>
+    <script src='/script/formsHandler.js'></script>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+</body>
+
+</html>

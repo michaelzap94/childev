@@ -162,6 +162,26 @@
                 minlength: 3,
                 maxlength: 15,
                 required: true
+            },address1: {
+                minlength: 3,
+                maxlength: 30,
+                required: true
+            },address2: {
+                minlength: 3,
+                maxlength: 30,
+                required: false
+            },city: {
+                minlength: 3,
+                maxlength: 20,
+                required: true
+            },country: {
+                minlength: 3,
+                maxlength: 20,
+                required: true
+            },postcode: {
+                minlength: 3,
+                maxlength: 10,
+                required: true
             },
             password: {
                 minlength: 4,
@@ -192,6 +212,66 @@
 
     });
 //---------------------------------------------------  
+ $('#childrenRegisterForm').validate({
+      ignore: ".ignore",
+        rules: {
+            firstname: {
+                minlength: 3,
+                maxlength: 15,
+                required: true
+            },lastname: {
+                minlength: 3,
+                maxlength: 15,
+                required: true
+            },p1contactnumber: {
+                minlength: 3,
+                maxlength: 15,
+                required: true
+            },address1: {
+                minlength: 3,
+                maxlength: 30,
+                required: true
+            },address2: {
+                minlength: 3,
+                maxlength: 30,
+                required: false
+            },city: {
+                minlength: 3,
+                maxlength: 20,
+                required: true
+            },country: {
+                minlength: 3,
+                maxlength: 20,
+                required: true
+            },postcode: {
+                minlength: 3,
+                maxlength: 10,
+                required: true
+            },p1username:{
+                required: true,
+                email: true
+            }
+        },
+        highlight: function(element) {
+            $(element).closest('.input-group').addClass('has-error');
+        },
+        unhighlight: function(element) {
+            $(element).closest('.input-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+            } else {
+                    error.insertAfter(element);
+            }
+        }
+
+
+    });
+
+//-------------------------------------------------------------------
   function resetThisForm(event,btnId) {
         event.preventDefault(); //  IMPORTANT. THIS IS HOW YOU GET THE EVENT OF A CLICK.
         var form;
@@ -209,6 +289,10 @@
           form =  $("#"+btnId).parents().find('#parentRegisterForm')
           validator = $( "#parentRegisterForm" ).validate();
 
+        }else if(btnId==='resetChildrenRegisterForm'){
+          form =  $("#"+btnId).parents().find('#childrenRegisterForm')
+          validator = $( "#childrenRegisterForm" ).validate();
+
         }
         form[0].reset();
 
@@ -219,3 +303,12 @@
     };
 //---------------------------------
 
+ $( function() {
+        Date.format = 'dd/mm/yyyy';
+        $( "#datepicker" ).datepicker({
+          dateFormat: 'dd/mm/yy',
+          changeMonth: true,
+          changeYear: true,
+           yearRange: "-6:+0"
+        });
+      } );

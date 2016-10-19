@@ -18,7 +18,7 @@ var isLoggedIn = require("../middlewares/isLoggedIn");
             res.redirect('/'); //Inside a callback… bulletproof!
 
     });
-    
+  
     
     router.get('*',function(req, res) {
        res.render('404.ejs'); 

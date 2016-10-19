@@ -28,6 +28,7 @@ var teacherSchema = new mongoose.Schema({
     activationhash:String,
     active:Number,    
     label: String,
+    dateCreated:{type:Date, default: Date.now},// if date is empty the default is Date.now
     details: [TeacherDetailsSchema],
     nursery: {
         id:{
@@ -35,8 +36,11 @@ var teacherSchema = new mongoose.Schema({
             ref: "Nursery"
         },
         username: String
-       
-    }
+    },
+    children: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Children"
+    }]
     
 });
 

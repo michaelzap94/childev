@@ -28,6 +28,8 @@ var parentSchema = new mongoose.Schema({
     activationhash:String,
     active:Number,
     label: String,
+    carertype:String,
+    dateCreated:{type:Date, default: Date.now},// if date is empty the default is Date.now
     details: [ParentDetailsSchema],
     nursery: {
         id:{
@@ -35,8 +37,11 @@ var parentSchema = new mongoose.Schema({
             ref: "Nursery"
         },
         username: String
-       
-    }
+    },
+    children: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Children"
+    }]
     
 });
 

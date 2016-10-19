@@ -33,6 +33,7 @@ var nurserySchema = new mongoose.Schema({
     active:Number,
     activationhash:String,
     resetPasswordToken: Number,
+    dateCreated:{type:Date, default: Date.now},// if date is empty the default is Date.now
     details: [NurseryDetailsSchema],
     teacher: [{
             type: mongoose.Schema.Types.ObjectId,
@@ -47,7 +48,7 @@ var nurserySchema = new mongoose.Schema({
             ref: "Children"
     }],
     waitingRegistrationTeachers: [{type: String}],
-    waitingRegistrationParents: [{type: String}]
+    waitingRegistrationParents: [{email:String,childId:String}]
 
     
 });

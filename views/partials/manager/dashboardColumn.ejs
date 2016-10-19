@@ -12,18 +12,22 @@
                         <a href="/dashboard/manager/<%= currentUser._id %>/parents"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Parents</a>
                     </li>
                     <li>
-                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
+                        <a href="/dashboard/manager/<%= currentUser._id %>/children"><i class="fa fa-fw fa-child" aria-hidden="true"></i> Children</a>
                     </li>
                    
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-edit"></i> Forms <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
-                            <li>
-                                <a href="#">Dropdown Item</a>
+                           <li>
+                                <a href="#"><i class="fa fa-fw fa-edit"></i> Register Parents </a>
                             </li>
                             <li>
-                                <a href="#">Dropdown Item</a>
+                                <a href="#"><i class="fa fa-fw fa-edit"></i> Register Teachers </a>
                             </li>
+                             <li>
+                                <a href="/dashboard/manager/<%= currentUser._id %>/children/registerForm"><i class="fa fa-fw fa-edit"></i> Register Children </a>
+                            </li>
+                           
                         </ul>
                     </li>
                    
