@@ -49,8 +49,7 @@ var progressSchema = new mongoose.Schema({
         id:{
             type:mongoose.Schema.Types.ObjectId,
             ref: "Nursery"
-        },
-        username: String
+        }
     },
     teacher: {
         id:{

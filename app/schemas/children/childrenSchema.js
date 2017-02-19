@@ -2,8 +2,27 @@ var mongoose = require('mongoose');
 /*var bcrypt   = require('bcrypt-nodejs');
 var passportLocalMongoose = require("passport-local-mongoose");*/
 
-// children Details Schema ---------------------------------------------------
-var ChildrenDetailsSchema = new mongoose.Schema({
+/**
+ * This Object defines the schema of the user's details.
+ * @namespace
+ * @property {string}  firstname - The firstname of the child.
+ * @property {string}  lastname - The lastname of the child.
+ * @property {Integer} student_id - The student ID of the child.
+ * @property {string}  gender - The gender of the child.
+ * @property {string}  dob - The date of birth of the child.
+ * @property {string}  maincareremail - The main carer's email of the child.
+ * @property {string}  maincarerfirstname - The main carer's firstname of the child.
+ * @property {string}  maincarerlastname - The main carer's lastname of the child.
+ * @property {string}  maincarercontactnumber - The main carer's contact number of the child.
+ * @property {string}  maincarertype - The main carer's type of parenting.
+ * @property {object}  address - The address of the child.
+ * @property {string}  address.address1 - The first line of the address of the child.
+ * @property {string}  address.address2 - The second line of the address of the child.
+ * @property {string}  address.city - The city of the address of the child.
+ * @property {string}  address.country - The country of the address of the child.
+ * @property {string}  address.postcode - The postcode of the child.
+  */
+ var ChildrenDetailsSchema = new mongoose.Schema({
     firstname:String,
     lastname:String,
     student_id:Number,
@@ -29,8 +48,17 @@ mongoose.model("ChildrenDetails", ChildrenDetailsSchema);
 //----------------------------------------------------------------
 
 
-// define the schema for our user model
-var childrenSchema = new mongoose.Schema({
+/**
+ * This Object defines the parent Schema
+ * @namespace
+ * @property {string}  label - A label with value 'children'.
+ * @property {object}  dateCreated - The date the account was created.
+ * @property {object}  details - The 'ChildrenDetailsSchema' schema object.
+ * @property {object}  parent -  The 'Parent' schema object that this child is related to.
+ * @property {object}  teacher -  The 'Teacher' schema object that this child is related to.
+ * @property {object}  nursery -  The 'Nursery' where this child is registered at.
+ */
+ var childrenSchema = new mongoose.Schema({
     label: String,
     dateCreated:{type:Date, default: Date.now},// if date is empty the default is Date.now
     details: [ChildrenDetailsSchema],
@@ -42,13 +70,6 @@ var childrenSchema = new mongoose.Schema({
         },
         username: String
     },
-    teacher: {
-        id:{
-            type:mongoose.Schema.Types.ObjectId,
-            ref: "Teacher"
-        },
-        username: String
-    },
     parent:[{
             type:mongoose.Schema.Types.ObjectId,
             ref: "Parent"
@@ -56,14 +77,17 @@ var childrenSchema = new mongoose.Schema({
     
 });
 
-childrenSchema.pre('update',function(next) {
-    this.model('Nursery').update(
-        { },
-        { "$pull": { "children": this._id } },
-        { "multi": true },
-        next
-    );
+childrenSchema.pre('remove', function (next) {
+    this.model('Parent').update(
+        { children:  this._id }, 
+        { $pull: { children: this._id } }, 
+        { multi: true }, 
+        next);
+   
 });
 
-// create the model for users and expose it to our app
+/**
+* Creates the Parent Schema to be saved in the database.
+* @module app/schemas/children/childrenSchema
+*/
 module.exports = mongoose.model('Children', childrenSchema);

@@ -48,7 +48,7 @@
                     <a href="#" class="mydrop dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Staff Login<span class="caret"></span></a>
                     <ul class="dropdown-menu" style="padding:18px;">
                         <li><a><h4><strong>Access to the Manager's Platform</strong></h4></a></li>
-
+                        <li>
                             <form method='POST' action='/login/staff/manager' ><!-- POSTS the username and password to login -->
                                 <div class="form-group">
                                 <input name='username' type="text" placeholder="Email" class="form-control">
@@ -58,25 +58,59 @@
                                 </div>
                                 <button type="submit" class="btn btn-success  btn-block">Sign in as a Manager</button>
                             </form>
-
-                        <li><a href="#j">Forgot username or password?</a></li>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                            <li class="dropdown-submenu">
+                                <a href='#' class="forgotPassword" tabindex="-1" role="button">Forgot your Password?</a>
+                                <ul class="dropdown-menu" style="padding:18px;">
+                                    <li><a><strong>Check your mail to reset your password.</strong></a></li>
+            
+                                    <li role="separator" class="divider"></li>
+                                        <form action="/manager/newpassword/link" method="POST">
+                                            <div class="form-group">
+                                            <input type="text" placeholder="Email" name="username" class="form-control" required>
+                                            </div>
+                
+                                            <button type="submit" class="btn btn-success  btn-block">Request new Password</button>
+                                         </form>
+        
+                                </ul>
+                            </li>
                         
                         <li role="separator" class="divider"></li>
 
                         
                         <li><a><h4><strong>Access to the Teacher's Platform</strong></h4></a></li>
+                            <li>
+                                <form method='POST' action='/login/staff/teacher' ><!-- POSTS the username and password to login -->
+                                    <div class="form-group">
+                                    <input name='username' type="text" placeholder="Email" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                    <input type="password" name='password' placeholder="Password" class="form-control">
+                                    </div>
+                                    <button type="submit" class="btn btn-success  btn-block">Sign in as a Teacher</button>
+                                </form>                                
+                            </li>
 
-                            <form method='POST' action='/login/staff/teacher' ><!-- POSTS the username and password to login -->
-                                <div class="form-group">
-                                <input name='username' type="text" placeholder="Email" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                <input type="password" name='password' placeholder="Password" class="form-control">
-                                </div>
-                                <button type="submit" class="btn btn-success  btn-block">Sign in as a Teacher</button>
-                            </form>
 
-                        <li><a href="#j">Forgot username or password?</a></li>
+                        <li role="separator" class="divider"></li>
+                            <li class="dropdown-submenu">
+                                <a href='#' class="forgotPassword" tabindex="-1" role="button">Forgot your Password?</a>
+                                <ul class="dropdown-menu" style="padding:18px;">
+                                    <li><a><strong>Check your mail to reset your password.</strong></a></li>
+            
+                                    <li role="separator" class="divider"></li>
+                                        <form action="/teacher/newpassword/link" method="POST">
+                                            <div class="form-group">
+                                            <input type="text" placeholder="Email" name="username" class="form-control" required>
+                                            </div>
+                
+                                            <button type="submit" class="btn btn-success  btn-block">Request new Password</button>
+                                         </form>
+        
+                                </ul>
+                            </li>
                     </ul>
                 </li>
               </ul>
@@ -84,10 +118,11 @@
              <ul class="nav navbar-nav navbar-right">
                 <li class=" dropdown">
                     <a href="#" class="mydrop dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parent's Login<span class="caret"></span></a>
-                    <ul class="dropdown-menu" style="padding:18px;">
+                    <ul class="dropdown-menu" style="padding:18px;" role="menu" aria-labelledby="dropdownMenu">
                         <li><a><h4><strong>Access the progress of your child</h4></strong></a></li>
 
                         <li role="separator" class="divider"></li>
+                        <li>
                             <form method='POST' action='/login/parent' ><!-- POSTS the username and password to login -->
                                 <div class="form-group">
                                 <input name='username' type="text" placeholder="Email" class="form-control">
@@ -97,9 +132,24 @@
                                 </div>
                                 <button type="submit" class="btn btn-success  btn-block">Sign in</button>
                             </form>
-
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#j">Forgot username or password?</a></li>
+                        </li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-submenu">
+                                <a href='#' class="forgotPassword" tabindex="-1" role="button">Forgot your Password?</a>
+                                <ul class="dropdown-menu" style="padding:18px;">
+                                    <li><a><strong>Check your mail to reset your password.</strong></a></li>
+            
+                                    <li role="separator" class="divider"></li>
+                                        <form action="/parent/newpassword/link" method="POST">
+                                            <div class="form-group">
+                                            <input type="text" placeholder="Email" name="username" class="form-control" required>
+                                            </div>
+                
+                                            <button type="submit" class="btn btn-success  btn-block">Request new Password</button>
+                                         </form>
+        
+                                </ul>
+                            </li>
                     </ul>
                 </li>
               </ul>
@@ -112,7 +162,26 @@
   </div>
 </nav>
 <!-------------------------------------------->
+<script>
+$(document).ready(function(){
+  $('.dropdown-submenu a.forgotPassword').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
    
+  });
+  
+  $(document).click(function() {
+    $('.dropdown-submenu a.forgotPassword').next('ul').hide();
+    });
+    
+    $('.dropdown-submenu a.forgotPassword').click(function(e) {
+        e.stopPropagation(); // This is the preferred method.
+        return false;        // This should not be used unless you do not want
+                             // any click events registering inside the div
+    });
+});
+</script> 
            
                   <br>
                   <br>

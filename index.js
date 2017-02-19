@@ -11,6 +11,8 @@ var LocalStrategy = require('passport-local');
 var Nursery = require('./app/schemas/admin/nursery.js');
 var Teacher = require('./app/schemas/teacher/teacherSchema.js');
 var Parent = require('./app/schemas/parent/parentSchema.js');
+var methodOverride = require("method-override");
+
 //var myConfiguration = require('./config/configuration.js');
 var passport = require('passport');
 
@@ -26,6 +28,7 @@ mongoose.connect(dburl);
     app.use(bodyParser.urlencoded({extended:true}));
     app.set("view engine", "ejs");
     app.use(express.static(__dirname + "/public"));
+    app.use(methodOverride("_method"));
     app.use(flash()); 
     
     
@@ -72,19 +75,28 @@ passport.deserializeUser(function(id, done){
 //------------------------
 
 
-
-
-//EVERY FUNCTION USED IN app.use WILL BE USED IN EVERY SINGLE ROUTE.
-//req.user is included in Passport package and
-//-indicates current user, if none then null.
+/** 
+ * This is a middleware where req.user is included in Passport package and indicates current user, if none then null.
+ * @function
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 app.use(function(req,res,next){
     res.locals.currentUser = req.user;// req.locals will pass currentUser to every ejs as variable.(in this case header.ejs)
     next(); // we need next() to move to the next middleware.
     
 });
 
-//pass a variable for every ejs to use it(error,success)
-//it's a key/value map, where "error" and "success in this file are the keys
+
+/** 
+ * This is a middleware where res.locals.error can be used in any EJS document to specify 'error' and res.locals.success to specify 'success'
+ * @function
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
+
 app.use(function(req,res,next){
     res.locals.error = req.flash("error");// req.locals will pass currentUser to every ejs as variable.(in this case header.ejs)
        res.locals.success = req.flash("success");// req.locals will pass currentUser to every ejs as variable.(in this case header.ejs)
@@ -98,6 +110,7 @@ app.use(function(req,res,next){
 var launcher = require("./app/routes/launcher.js");
 var registerRouter = require("./app/routes/registerRouter.js");
 var loginRouter = require("./app/routes/loginRouter.js");
+var resetPassword = require("./app/routes/resetPassword.js");
 
 
 var dashboardManagerRouter = require("./app/routes/manager/dashboardManagerRouter.js");
@@ -118,6 +131,7 @@ app.use('/dashboard/parent/:currentUserId',authorization.isParent,dashboardParen
 
 
 app.use('/',emailVerificationRouter);
+app.use('/',resetPassword);
 
 
 app.use('/',launcher);

@@ -225,7 +225,8 @@
                 required: true
             },p1contactnumber: {
                 minlength: 3,
-                maxlength: 15,
+                maxlength: 20,
+                number:true,
                 required: true
             },address1: {
                 minlength: 3,
@@ -270,6 +271,40 @@
 
 
     });
+    
+//---------------------------------------------------------------------
+
+ $('#passwordChangeForm').validate({
+        rules: {
+           password: {
+                minlength: 4,
+                maxlength: 18,
+                required: true,
+
+            },
+            password_again: {
+              equalTo: "#password"
+            }
+        
+        },
+        highlight: function(element) {
+            $(element).closest('.input-group').addClass('has-error');
+        },
+        unhighlight: function(element) {
+            $(element).closest('.input-group').removeClass('has-error');
+        },
+        errorElement: 'span',
+        errorClass: 'help-block',
+        errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                    error.insertAfter(element.parent());
+            } else {
+                    error.insertAfter(element);
+            }
+        }
+
+
+    });
 
 //-------------------------------------------------------------------
   function resetThisForm(event,btnId) {
@@ -277,20 +312,24 @@
         var form;
         var validator;
         if (btnId==='resetRegisterNursaryForm') {
-          form =  $("#"+btnId).parents().find('#registerNursaryForm')
+          form =  $("#"+btnId).parents().find('#registerNursaryForm');
           validator = $( "#registerNursaryForm" ).validate();
         }
+        else if(btnId==='resetPasswordChangeForm'){
+          form =  $("#"+btnId).parents().find('#passwordChangeForm');
+          validator = $( "#resetPasswordChangeForm" ).validate();
+        }
         else if (btnId === 'resetTeacherRegisterForm') {
-          form =  $("#"+btnId).parents().find('#teacherRegisterForm')
+          form =  $("#"+btnId).parents().find('#teacherRegisterForm');
           validator = $( "#teacherRegisterForm" ).validate();
 
         }
         else if (btnId==='resetParentRegisterForm') {
-          form =  $("#"+btnId).parents().find('#parentRegisterForm')
+          form =  $("#"+btnId).parents().find('#parentRegisterForm');
           validator = $( "#parentRegisterForm" ).validate();
 
         }else if(btnId==='resetChildrenRegisterForm'){
-          form =  $("#"+btnId).parents().find('#childrenRegisterForm')
+          form =  $("#"+btnId).parents().find('#childrenRegisterForm');
           validator = $( "#childrenRegisterForm" ).validate();
 
         }

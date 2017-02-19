@@ -32,8 +32,6 @@ $('#emailToRegisterForm').on('submit',function(e){
                 $('<a>').attr('class',' btn btn-xs btn-danger').attr('id',dataRet.email).attr('onClick',"removeFromStillToRegister(event,this.id,'"+dataRet.parentOrTeacher+"');").append($('<i>').attr('class',"fa fa-fw fa-trash-o").attr('aria-hidden',"true")))
                 .append(" ").append(
                 $('<a>').attr('class',' btn btn-xs btn-info').attr('id',dataRet.email).attr('onClick',"resendLink(event,this.id,'"+dataRet.parentOrTeacher+"','"+dataRet.childId+"');").append($('<i>').attr('class',"fa fa-fw fa-paper-plane-o").attr('aria-hidden',"true")))
-                .append(" ").append(
-                $('<a>').attr('class',' btn btn-xs btn-warning').attr('id',dataRet.email).attr('onClick',"removeFromStillToRegister(event,this.id,'"+dataRet.parentOrTeacher+"');").append($('<i>').attr('class',"fa  fa-fw fa-user-plus").attr('aria-hidden',"true") ))
                 ));
                 
             }else{
@@ -44,8 +42,6 @@ $('#emailToRegisterForm').on('submit',function(e){
                 $('<a>').attr('class',' btn btn-xs btn-danger').attr('id',dataRet.email).attr('onClick',"removeFromStillToRegister(event,this.id,'"+dataRet.parentOrTeacher+"');").append($('<i>').attr('class',"fa fa-fw fa-trash-o").attr('aria-hidden',"true")))
                 .append(" ").append(
                 $('<a>').attr('class',' btn btn-xs btn-info').attr('id',dataRet.email).attr('onClick',"resendLink(event,this.id,'"+dataRet.parentOrTeacher+"','');").append($('<i>').attr('class',"fa fa-fw fa-paper-plane-o").attr('aria-hidden',"true")))
-                .append(" ").append(
-                $('<a>').attr('class',' btn btn-xs btn-warning').attr('id',dataRet.email).attr('onClick',"removeFromStillToRegister(event,this.id,'"+dataRet.parentOrTeacher+"');").append($('<i>').attr('class',"fa  fa-fw fa-user-plus").attr('aria-hidden',"true") ))
                 ));
                 
             }
@@ -83,11 +79,17 @@ function resendLink(event, id,parentOrTeacher,childId){
     });
 }
 
-
-function removeFromStillToRegister(event, id,parentOrTeacher,childId){
+//id is the username.
+function removeFromStillToRegister(event, id,parentOrTeacher,childId,isRegistered){
+    console.log(childId);
     var resendurl;
     if(childId){
-        resendurl = '/dashboard/manager/'+currentUserId+'/removeFromPending/'+id+'?parentOrTeacher='+parentOrTeacher+'&childId='+childId;
+        if(isRegistered){
+             resendurl = '/dashboard/manager/'+currentUserId+'/removeFromPending/'+id+'?parentOrTeacher='+parentOrTeacher+'&childId='+childId+'&isRegistered='+true;
+        }else{
+            resendurl = '/dashboard/manager/'+currentUserId+'/removeFromPending/'+id+'?parentOrTeacher='+parentOrTeacher+'&childId='+childId;
+        
+        }
     }else{
         resendurl = '/dashboard/manager/'+currentUserId+'/removeFromPending/'+id+'?parentOrTeacher='+parentOrTeacher;
 
@@ -110,9 +112,6 @@ function removeFromStillToRegister(event, id,parentOrTeacher,childId){
         }
     });
 }
-//------------------------------------------------------------
-$('[data-toggle="tooltip"]').tooltip();
-//------------------------------------------------
 
 /**
  * gets the useer's data from the clicked row.
@@ -137,13 +136,14 @@ $('.rowUserTeacher').on('click',function(){
 
 });
 /**
- * gets the useer's data from the clicked row.
+ * gets the useer's data from the clicked row. dashboadChildren
  *
  */
  
 $('.rowUserChildren').on('click',function(){
     var objchildren = $(this).data('objchildren'); //obect passed using 'data' (HTML5 ATTRIBUTE)
-
+    var objparentarr = $(this).data('objparentarr');
+    console.log(objparentarr);
         
     var name = objchildren.details[0].firstname+' '+objchildren.details[0].lastname;
     
@@ -168,37 +168,42 @@ $('.rowUserChildren').on('click',function(){
 
     $('#deleteUser').attr('value',objchildren._id);
     
-   /* var fragment =$('#containerParent'); 
+            var fragment =$('#containerParent'); 
 
-    if($(this).data('objparentarr')){
-        $(this).data('objparentarr').forEach(function(child,index){
+    if(objparentarr.length>0){
+        objparentarr.forEach(function(parent,index){
             
+            var unlinkPath = '/dashboard/manager/'+ currentUserId + '/unlink?parentId='+parent._id+'&childId='+objchildren._id;
+
             var childrenInfo = $('<div>').attr('class', 'panel panel-info').append(
-            $('<div>').attr('class','panel-heading').append($('<h4>').attr('class','panel-title').append($('<a>').attr('data-toogle','collapse').attr('data-parent','#containerChildren').attr('href','#coll'+index).append(child.details[0].firstname+' '+child.details[0].lastname)))).append(
-            $('<div>').attr('id','coll'+index).attr('class','panel-collapse collapse in').append($('<div>').attr('class','panel-body').append(
-                $('<ul>').append($('<li>').append($('<strong>').append('Firstname: ')).append(child.details[0].firstname))
-                        .append($('<li>').append($('<strong>').append('Lastname: ')).append(child.details[0].lastname))
-                        .append($('<li>').append($('<strong>').append('Gender: ')).append(child.details[0].gender))
-                        .append($('<li>').append($('<strong>').append('Date Of Birth: ')).append(child.details[0].dob))
-                    
+            $('<div>').attr('class','panel-heading').append($('<span>').attr('class','panel-title').append($('<a>').attr('data-toggle','collapse').attr('data-parent','#containerParent').attr('href','#col'+index).append(parent.details[0].firstname+' '+parent.details[0].lastname))).append(
+           $('<a>').attr('class','btn btn-danger btn-xs pull-right').attr('style','margin-left:5px;').attr('href',unlinkPath).attr('data-toggle','tooltip').attr('title','Unlink parent from child.').append($('<i>').attr('class','fa fa-fw fa-chain-broken'))).append(
+           $('<a>').attr('class','btn btn-primary btn-xs pull-right').attr('href',unlinkPath).attr('data-toggle','tooltip').attr('title','Send message to this parent.').append($('<i>').attr('class','fa fa-fw fa-paper-plane-o')))).append(
+            $('<div>').attr('id','col'+index).attr('class','panel-collapse collapse').append($('<div>').attr('class','panel-body').append(
+                $('<ul>').append($('<li>').append($('<strong>').append('Firstname: ')).append(parent.details[0].firstname))
+                        .append($('<li>').append($('<strong>').append('Lastname: ')).append(parent.details[0].lastname))
+                        .append($('<li>').append($('<strong>').append('Contact Number: ')).append(parent.details[0].contactnumber))
+                        .append($('<li>').append($('<strong>').append('Email: ')).append(parent.username))
+                        .append($('<li>').append($('<strong>').append('Relationship to child: ')).append(parent.carertype))
             )));
-            fragment.append(childrenInfo);
+            fragment.html(childrenInfo);
         });
           
+    }else{
+        $('#containerParent').empty();
     }  
-            */
+     $('[data-toggle="tooltip"]').tooltip();         
 });
 
 /**
- * parent info in the 'dashboardChildren' file
+ * parent info in the 'dashboardParent' file
  *
  */
 
 $('.rowUserParent').on('click',function(){
     var objParent = $(this).data('objparent'); //obect passed using 'data' (HTML5 ATTRIBUTE)
-
-        
-       var name = objParent.details[0].firstname+' '+objParent.details[0].lastname;
+    var objchildrenarr = $(this).data('objchildrenarr');
+   var name = objParent.details[0].firstname+' '+objParent.details[0].lastname;
     
  
     $('#justName').html(name);
@@ -217,23 +222,28 @@ $('.rowUserParent').on('click',function(){
     
     var fragment =$('#containerChildren'); 
 
-    if($(this).data('objchildrenarr')){
-        $(this).data('objchildrenarr').forEach(function(child,index){
+    if(objchildrenarr.length>0){
+       objchildrenarr.forEach(function(child,index){
             
+             var unlinkPath = '/dashboard/manager/'+ currentUserId + '/unlink?parentId='+objParent._id+'&childId='+child._id;
+
             var childrenInfo = $('<div>').attr('class', 'panel panel-info').append(
-            $('<div>').attr('class','panel-heading').append($('<h4>').attr('class','panel-title').append($('<a>').attr('data-toogle','collapse').attr('data-parent','#containerChildren').attr('href','#coll'+index).append(child.details[0].firstname+' '+child.details[0].lastname)))).append(
-            $('<div>').attr('id','coll'+index).attr('class','panel-collapse collapse in').append($('<div>').attr('class','panel-body').append(
+            $('<div>').attr('class','panel-heading').append($('<span>').attr('class','panel-title ').append($('<a>').attr('data-toggle','collapse').attr('data-parent','#containerChildren').attr('href','#col'+index).append(child.details[0].firstname+' '+child.details[0].lastname))).append(
+            $('<a>').attr('class','btn btn-danger btn-xs pull-right').attr('href',unlinkPath).attr('data-toggle','tooltip').attr('title','Unlink parent from child.').append($('<i>').attr('class','fa fa-chain-broken')))).append(
+            $('<div>').attr('id','col'+index).attr('class','panel-collapse collapse').append($('<div>').attr('class','panel-body').append(
                 $('<ul>').append($('<li>').append($('<strong>').append('Firstname: ')).append(child.details[0].firstname))
                         .append($('<li>').append($('<strong>').append('Lastname: ')).append(child.details[0].lastname))
                         .append($('<li>').append($('<strong>').append('Gender: ')).append(child.details[0].gender))
                         .append($('<li>').append($('<strong>').append('Date Of Birth: ')).append(child.details[0].dob))
                     
             )));
-            fragment.append(childrenInfo);
+            fragment.html(childrenInfo);
         });
           
-    }  
-            
+    }else{
+        $('#containerParent').empty();
+    }    
+     $('[data-toggle="tooltip"]').tooltip();       
 });
          
 /**
@@ -288,6 +298,8 @@ $('#deleteUserPermanently').on('click',function() {
         url = '/dashboard/manager/'+currentUserId+'/deleteUser/'+label+'/'+idToDelete;
     }else if(label==='parent'){
         url = '/dashboard/manager/'+currentUserId+'/deleteUser/'+label+'/'+idToDelete;
+    }else if(label==='children'){
+         url = '/dashboard/manager/'+currentUserId+'/deleteUser/'+label+'/'+idToDelete;
     }
     $.ajax({
         type:'GET',
@@ -313,3 +325,7 @@ $('#deleteUserPermanently').on('click',function() {
     
     
 });
+//------------------------------------------------------------
+$('[data-toggle="tooltip"]').tooltip();
+$( document ).tooltip();
+//------------------------------------------------

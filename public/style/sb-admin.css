@@ -10,7 +10,7 @@ body {
     margin-top: 100px;
 }
 
-@media(min-width:768px) {
+@media(min-width:868px) {
     body {
         margin-top: 50px;
     }
@@ -24,6 +24,7 @@ body {
     width: 100%;
     padding: 0;
     background-color: #fff;
+    padding-bottom: 22px;
 }
 
 .huge {
@@ -31,9 +32,9 @@ body {
     line-height: normal;
 }
 
-@media(min-width:768px) {
+@media(min-width:868px) {
     #wrapper {
-        padding-left: 170px;
+        padding-left: 150px;
     }
 
     #page-wrapper {
@@ -111,12 +112,12 @@ ul.alert-dropdown {
 
 /* Side Navigation */
 
-@media(min-width:768px) {
+@media(min-width:868px) {
     .side-nav {
         position: fixed;
         top: 51px;
-        left: 170px;
-        width: 170px;
+        left: 165px;
+        width: 155px;
         margin-left: -170px;
         border: none;
         border-radius: 0;
@@ -165,65 +166,7 @@ ul.alert-dropdown {
     height: 100%;
 }
 
-/* Custom Colored Panels */
 
-.huge {
-    font-size: 40px;
-}
-
-.panel-green {
-    border-color: #5cb85c;
-}
-
-.panel-green > .panel-heading {
-    border-color: #5cb85c;
-    color: #fff;
-    background-color: #5cb85c;
-}
-
-.panel-green > a {
-    color: #5cb85c;
-}
-
-.panel-green > a:hover {
-    color: #3d8b3d;
-}
-
-.panel-red {
-    border-color: #d9534f;
-}
-
-.panel-red > .panel-heading {
-    border-color: #d9534f;
-    color: #fff;
-    background-color: #d9534f;
-}
-
-.panel-red > a {
-    color: #d9534f;
-}
-
-.panel-red > a:hover {
-    color: #b52b27;
-}
-
-.panel-yellow {
-    border-color: #f0ad4e;
-}
-
-.panel-yellow > .panel-heading {
-    border-color: #f0ad4e;
-    color: #fff;
-    background-color: #f0ad4e;
-}
-
-.panel-yellow > a {
-    color: #f0ad4e;
-}
-
-.panel-yellow > a:hover {
-    color: #df8a13;
-}
 /**mike**/
 table{
     border:none;
@@ -248,3 +191,53 @@ tr:hover{
 .clearBlue{
     color: #5bc0de;
 }
+
+
+
+
+#canvasId{
+    margin-top: 10px;
+height: 350px;
+max-width: 350px;
+    width: 100%;
+}
+
+#legend ul {
+  list-style: none;
+}
+#legend ul li {
+  display: block;
+  padding-left: 30px;
+  position: relative;
+  margin-bottom: 4px;
+  border-radius: 5px;
+  padding: 2px 8px 2px 28px;
+  font-size: 14px;
+  cursor: default;
+  -webkit-transition: background-color 200ms ease-in-out;
+  -moz-transition: background-color 200ms ease-in-out;
+  -o-transition: background-color 200ms ease-in-out;
+  transition: background-color 200ms ease-in-out;
+}
+#legend li span {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 100%;
+  border-radius: 5px;
+}
+
+/*main.css*/
+
+.help-block{
+  color:#d9534f;
+}
+
+
+ul{
+    word-wrap: break-word;
+
+}
+

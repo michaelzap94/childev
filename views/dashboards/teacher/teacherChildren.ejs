@@ -7,224 +7,161 @@
             
 
         <div  class="container-fluid">
+                 <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Children 
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-dashboard"></i> Children
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
 
-           <h3>Progress Report for child: <strong><span>Name</span>, <span>Age</span>.</strong></h3>
-           <p><span class='label label-success'>HP</span> High Priority - Parents will be informed if mark is "Needs Special Attention",</p> 
-           <span class='label label-warning'>LP</span> Low Priority - Parents will not be informed even if mark is "Needs Special Attention".</p>
-               <form id='progressReport'>
-                  <div class='row'>
+                    <div class="row">
+                      <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                       
+                        <h4><b>You can search for the current registered children here:</b></h4>
+                        <div class="form-group input-group">
+                            <input type='search' id='searchUser' onkeyup="mySearchFunction()" placeholder="Search for registered children..." class="form-control">
+                            <span class="input-group-btn"><button class="btn btn-default" type="button"><i class="fa fa-search"></i> Search</button></span>
+                        </div>
+                        <div class="table-responsive">
 
-                   <div class='col-md-9'>
-                    <h4><strong><u>Intellectual Development</u></strong> <span class='label label-success' data-toggle="tooltip">HP</span> <span class='label label-warning' data-toggle="tooltip">LP</span></h4>
-                     <ul>
-                              <li>
-                                 <div id='mathematical' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Mathematical Skills </label>
+                        <table class="table table-hover table-striped">
+                              <thead >
+                                <tr>
+                                  <th>Name</th>
+                                  <th>Gender</th>
+                                  <th>Date Of Birth</th>
+                                </tr>
+                              </thead>
+                              <tbody id='bodyTableUsers'>
+                                
+                                <% if(typeof populatedData.children !== 'undefined'){
+                                        
+                                %>
+                                 <% populatedData.children.forEach(function(objChildren){
+                                  
+                               %>
+                                <tr id='<%=objChildren._id%>' class='rowUserChildren' data-objchildren="<%= JSON.stringify(objChildren) %>" data-objparentarr="<%=JSON.stringify(objChildren.parent)%>" data-toggle="modal" data-target="#myModal">
+                                  <td><%=objChildren.details[0].firstname%> <%=objChildren.details[0].lastname%></td>
+                                  <td><%=objChildren.details[0].gender%></td>
+                                  <td><%=objChildren.details[0].dob%></td>
+                                </tr>
+                              <% }); }%>
+                              </tbody>
+                            </table>
+                        </div>
+                        
+                        
+                      </div><!-- left-column inside main window -->
+                    </div> <!-- main row -->
 
-                                      <select name='mathematical' class='form-control' required>
-                                        <option value='' >Mark</option>
-                                        <option value='90'>Developed</option>
-                                        <option value='70'>Good</option>
-                                        <option value='50'>Average</option>
-                                        <option value='30'>Can Improve</option>
-                                        <option value='10'>Needs Special Attention</option>
-                                     </select>
+
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+        
+         <!-- Modal -->
+              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title"><strong  id="myModalLabel"></strong></h4>
+                    </div>
+                    <div class="modal-body">
+                            <div class="panel-group" id="accordion">
+                              <div class="panel panel-default">
+                                <div class="panel-heading">
+                                  <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Personal Information</a>
+                                  </h4>
                                 </div>
-                              </li>
-                              <li>
-                                 <div  id='language' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Language and communication Skills </label>
-
-                                      <select name='language' class='form-control' required>
-                                        <option value='' >Mark</option>
-                                        <option value='90'>Developed</option>
-                                        <option value='70'>Good</option>
-                                        <option value='50'>Average</option>
-                                        <option value='30'>Can Improve</option>
-                                        <option value='10'>Needs Special Attention</option>
-                                     </select>
+                                <div id="collapse1" class="panel-collapse collapse in">
+                                  <div class="panel-body">
+                                    <ul>
+                                      <li id='chfirstnameLIst'><span><strong>Firstname: </strong></span><span class='info'></span></li>
+                                      <li id='chlastnameLIst'><span><strong>Lastname: </strong></span><span class='info'></span></li>
+                                      <li id='chgenderLIst'><span><strong>Gender: </strong></span><span class='info'></span></li>
+                                      <li id='chdobLIst'><span><strong>Date Of Birth: </strong></span><span class='info'></span></li>
+                                      <li id='chaddressLIst'><span><strong>Address: </strong></span><span class='info'></span></li>
+                                      <li id='chcityLIst'><span><strong>City: </strong></span><span class='info'></span></li>
+                                      <li id='chcountryLIst'><span><strong>Country: </strong></span><span class='info'></span></li>
+                                      <li id='chpostcodeLIst'><span><strong>Post Code: </strong></span><span class='info'></span></li>
+                                    </ul>
+                                  </div>
                                 </div>
-                              </li>
-                              <li>
-                                <div id='attention' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Attention skills </label>
-
-                                      <select  name='attention' class='form-control' required>
-                                        <option value='' >Mark</option>
-                                        <option value='90'>Developed</option>
-                                        <option value='70'>Good</option>
-                                        <option value='50'>Average</option>
-                                        <option value='30'>Can Improve</option>
-                                        <option value='10'>Needs Special Attention</option>
-                                     </select>
+                              </div>
+                              <div class="panel panel-default">
+                                <div class="panel-heading">
+                                  <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Main Carer Details</a>
+                                  </h4>
                                 </div>
-                              </li>
-                              <li>
-                                 <div id='recognition' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Recognition and perception of objects, people, etc. </label>
-
-                                      <select  name='recognition' class='form-control' required>
-                                        <option value='' >Mark</option>
-                                        <option value='90'>Developed</option>
-                                        <option value='70'>Good</option>
-                                        <option value='50'>Average</option>
-                                        <option value='30'>Can Improve</option>
-                                        <option value='10'>Needs Special Attention</option>
-                                     </select>
+                                <div id="collapse2" class="panel-collapse collapse">
+                                  <div class="panel-body">
+                                     <ul>
+                                      <li id='firstnameLIst'><span><strong>Firstname: </strong></span><span class='info'></span></li>
+                                      <li id='lastnameLIst'><span><strong>Lastname: </strong></span><span class='info'></span></li>
+                                      <li id='contactnumberLIst'><span><strong>Contact Number: </strong></span><span class='info'></span></li>
+                                      <li id='usernameLIst'><span><strong>Email: </strong></span><span class='info'></span></li>
+                                      <li id='relationship'><span><strong>Relationship to child: </strong></span><span class='info'></span></li>
+                                     </ul>
+                                    
+                                  </div>
                                 </div>
-                              </li>
-                            </ul>
-                   </div><!-- first column -->
-                   
-                 </div><!-- first row -->
-                 <div class='row'>
-
-                   <div class='col-md-9'>
-                    <h4><strong><u>Social and Emotional Development</u></strong> <span class='label label-success' data-toggle="tooltip">HP</span> <span class='label label-warning' data-toggle="tooltip">LP</span></h4>
-                     <ul>
-                              <li>
-                                 <div id='respect' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Affection and respect for others </label>
-
-                                      <select  name='respect' class='form-control' required>
-                                        <option value='' >Mark</option>
-                                        <option value='90'>Developed</option>
-                                        <option value='70'>Good</option>
-                                        <option value='50'>Average</option>
-                                        <option value='30'>Can Improve</option>
-                                        <option value='10'>Needs Special Attention</option>
-                                     </select>
+                              </div>
+                              <div class="panel panel-default">
+                                <div class="panel-heading">
+                                  <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Medical Information</a>
+                                  </h4>
                                 </div>
-                              </li>
-                              <li>
-                                 <div id='teamworking' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Team-working skills </label>
-
-                                      <select  name='teamworking' class='form-control' required>
-                                        <option value='' >Mark</option>
-                                        <option value='90'>Developed</option>
-                                        <option value='70'>Good</option>
-                                        <option value='50'>Average</option>
-                                        <option value='30'>Can Improve</option>
-                                        <option value='10'>Needs Special Attention</option>
-                                     </select>
+                                <div id="collapse3" class="panel-collapse collapse">
+                                  <div class="panel-body">
+                                    
+                                    
+                                  </div>
                                 </div>
-                              </li>
-                              <li>
-                                <div id='independence' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Independence and personal autonomy </label>
+                              </div><!--panel-->
+                            </div><!-- accordion, panel gorup-->
+                            
+                        <h3>Parents this child has registered at <strong><%=populatedData.details[0].name%></strong>:</h3>
+                        <div class='panel-group' id='containerParent'>
+                               <!--panels  generated by jquery go here-->
+                        </div>
+                    </div><!--modal-body-->
+                    <div class="modal-footer">
+                      <a type="button" class="btn btn-success" data-dismiss="modal">See Progress</a>
+                      <a type="button" class="btn btn-warning" data-dismiss="modal">Write Report</a>
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- Modal -->
+        
+      
 
-                                      <select  name='independence' class='form-control' required>
-                                        <option value='' >Mark</option>
-                                        <option value='90'>Developed</option>
-                                        <option value='70'>Good</option>
-                                        <option value='50'>Average</option>
-                                        <option value='30'>Can Improve</option>
-                                        <option value='10'>Needs Special Attention</option>
-                                     </select>
-                                </div>
-                              </li>
-                              <li>
-                                 <div id='feelingsexpression' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Expression of feelings and emotions </label>
 
-                                      <select name='feelingsexpression' class='form-control' required>
-                                        <option value='' >Mark</option>
-                                        <option value='90'>Developed</option>
-                                        <option value='70'>Good</option>
-                                        <option value='50'>Average</option>
-                                        <option value='30'>Can Improve</option>
-                                        <option value='10'>Needs Special Attention</option>
-                                     </select>
-                                </div>
-                              </li>
-                            </ul>
-                   </div><!-- first column -->
-                   
-                 </div><!-- second row -->
-                 <div class='row'>
-
-                   <div class='col-md-9'>
-                    <h4><strong><u>Psychomotor and Physical Development</u></strong> <span class='label label-success' data-toggle="tooltip">HP</span> <span class='label label-warning' data-toggle="tooltip">LP</span></h4>
-                     <ul>
-                              <li>
-                                 <div id='motor' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Motor skills </label>
-
-                                      <select name='motor' class='form-control' required>
-                                        <option value='' >Mark</option>
-                                        <option value='90'>Developed</option>
-                                        <option value='70'>Good</option>
-                                        <option value='50'>Average</option>
-                                        <option value='30'>Can Improve</option>
-                                        <option value='10'>Needs Special Attention</option>
-                                     </select>
-                                </div>
-                              </li>
-                              <li>
-                                 <div id='manipulative' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Manipulative and movement skills </label>
-
-                                      <select name='manipulative' class='form-control' required>
-                                        <option value='' >Mark</option>
-                                        <option value='90'>Developed</option>
-                                        <option value='70'>Good</option>
-                                        <option value='50'>Average</option>
-                                        <option value='30'>Can Improve</option>
-                                        <option value='10'>Needs Special Attention</option>
-                                     </select>
-                                </div>
-                              </li>
-                              <li>
-                                <div  id='hygiene'  class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Personal hygiene </label>
-
-                                      <select name='hygiene' class='form-control' required>
-                                        <option value='' >Mark</option>
-                                        <option value='90'>Developed</option>
-                                        <option value='70'>Good</option>
-                                        <option value='50'>Average</option>
-                                        <option value='30'>Can Improve</option>
-                                        <option value='10'>Needs Special Attention</option>
-                                     </select>
-                                </div>
-                              </li>
-                              <li>
-                                 <div  id='diet'  class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Healthy Diet </label>
-
-                                      <select name='diet' class='form-control' required>
-                                        <option value='' >Mark</option>
-                                        <option value='90'>Developed</option>
-                                        <option value='70'>Good</option>
-                                        <option value='50'>Average</option>
-                                        <option value='30'>Can Improve</option>
-                                        <option value='10'>Needs Special Attention</option>
-                                     </select>
-                                </div>
-                              </li>
-                            </ul>
-                   </div><!-- first column -->
-                   
-                 </div><!-- third row -->
-                   
-                   
-                   
-               </form>
-       
-       
-       
-       
-       
-       
-       </div>
-        <!-- /.container-fluid -->
-
-    </div>
-    <!-- /#page-wrapper -->
 
   </div>
     <!-- /#wrapper -->
     
-    
-<% include ../../partials/dashboardCommon/dashboardFooter.ejs %> 
+  <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+   <script src='/script/teacherFrontEnd.js'></script>
+</body>
+
+</html>

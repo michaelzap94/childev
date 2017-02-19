@@ -1,4 +1,4 @@
-<% include ../../partials/manager/dashboardColumn.ejs %>
+<% include ../../partials/parent/dashboardColumn.ejs %>
 
         <div id="page-wrapper">
             
@@ -16,9 +16,94 @@
                             <li class="active">
                                 <i class="fa fa-dashboard"></i> Dashboard
                             </li>
+                             <li>
+                                <a href="/dashboard/<%=currentUser.label%>/<%=currentUser._id%>/profile"><i class="fa fa-fw fa-user"></i> Profile</a>
+                            </li>
+                            <li>
+                                <a href="/dashboard/<%=currentUser.label%>/<%=currentUser._id%>/settings"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                            </li>
                         </ol>
                     </div>
                 </div>
+                <!--row-->
+                
+                  <div class="row">    
+                  
+                   <div class="col-lg-6 col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-envelope fa-fw"></i> My messages</h3>
+                                </div>
+                                <div class="panel-body">
+                                  
+                                  
+                                  
+                                  
+                                    <div class="text-right">
+                                        <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                    </div><!-- /.col polls -->
+                  
+                    <div class="col-lg-6 col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-envelope fa-fw"></i> My messages</h3>
+                                </div>
+                                <div class="panel-body">
+                                  
+                                  
+                                  
+                                  
+                                    <div class="text-right">
+                                        <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                    </div><!-- /.col polls -->
+                    
+                    <div class="col-lg-6 col-md-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> All Polls </h3>
+                                </div>
+                                <div class="panel-body">
+     
+                                     <h4><i><u>Current Polls:</u></i></h4>
+
+                                         <div class="list-group">
+                                    
+                                    
+                                                <% if(userPollsRet){ 
+                                                    userPollsRet.forEach(function(userPoll){
+                                               %>
+                                                   <a class="list-group-item clearfix" href="/dashboard/<%=currentUser.label%>/<%=currentUser._id%>/polls/<%=userPoll._id%>">
+                                                       
+                                                       <div class='row'>
+                                                           <div class='col-lg-10 col-md-10 col-sm-10 col-xs-9'>
+                                                                <strong class="list-group-item-heading"><%= userPoll.title%></strong>
+                                                                <p class="list-group-item-text">
+                                                                    <%= userPoll.description%>  
+                                                                </p>
+                                                           </div>
+                                                        </div>
+                                                        
+                                                        
+                                                    </a>
+                                           
+                                            
+                                                <% }); } %>
+       
+                                                       
+                                          </div> <!--lis-->
+             
+                                </div>
+                            </div>
+                    </div><!-- /.col polls -->
+                    
+                </div>
+                <!-- /.row -->
               
             </div>
             <!-- /.container-fluid -->
