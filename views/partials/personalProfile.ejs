@@ -1,0 +1,105 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-user fa-fw"></i><strong> Edit Profile</storn></h3>
+    </div>
+    <div class="panel-body">
+       
+        <form id="parentRegisterForm" class="formsStyle jumbotron" action="/register/parent/<%=currentUser._id%>" method="POST">
+     
+            <p><b>Your email is: <%=currentUser.username%></b></p>
+            <div class="form-group">
+              <label class="control-label text-inverse" for="firstname">First Name:</label>
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-user fa-fw fa-lg" aria-hidden="true"></i>
+                </span>
+                <input class="form-control" placeholder="Please enter your First Name"
+                name="firstname" type="text">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label text-inverse" for="lastname">Last Name:</label>
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-user fa-fw fa-lg" aria-hidden="true"></i>
+                </span>
+                <input class="form-control" placeholder="Please enter your Surname" name="lastname"
+                type="text">
+              </div>
+            </div>
+             <div class="form-group">
+              <label class="control-label text-inverse" for="contactnumber">Contact Number:</label>
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-user fa-fw fa-lg" aria-hidden="true"></i>
+                </span>
+                <input class="form-control" placeholder="Please enter your contact number" name="contactnumber" type="tel">
+              </div>
+            </div>
+              <div class="form-group">
+              <label class="control-label text-inverse" for="carerType">Relationship to Child: </label>
+               <div class="input-group">
+                <span class="input-group-addon">
+                  <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                </span>
+                  <select id='carertype' name='carertype' class='form-control' required>
+                    <option value='' >Relationship to the child.</option>
+                    <option value='Mother'>Mother</option>
+                    <option value='Father'>Father</option>
+                    <option value='Guardian'>Legal Guardian</option>
+                  </select>
+              </div>
+            </div>
+            <input type="hidden" class="form-control" name="childId" value='<%=currentUser.childId%>'>
+            <input type="hidden" class="form-control" name="username" value='<%=currentUser.username%>'>
+            <div class="form-group">
+              <label class="control-label text-inverse" for="address">Your Address:</label>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                  </span>
+                  <input type="text" class="form-control" name="address1" placeholder="First line of the nursery's address">
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                  </span>
+                  <input type="text" class="form-control" name="address2" placeholder="Second line of the nursery's address">
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                  </span>
+                  <input type="text" class="form-control" name="city" placeholder="City of the nursery's address">
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                  </span>
+                  <input type="text" class="form-control" name="country" placeholder="Country of the nursery's address">
+                </div>
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                  </span>
+                  <input type="text" class="form-control" name="postcode" placeholder="Post Code of the nursery's address">
+                </div>
+              
+            </div>
+           
+            <div class=" row ">
+              <div class="col-md-6">
+                <button type="submit" name="submit" id="submit" class="btn btn-block btn-success">Submit</button>
+              </div>
+              <div class="col-md-6">
+                <button type="button" id="resetParentRegisterForm" onClick="resetThisForm(event, this.id);" class="col-xs-4 btn btn-block btn-warning">Reset</button>
+              </div>
+            </div>
+          </form>
+           
+            
+          
+     </div><!--panel-body-->
+</div><!--panel-->
+            
+ 

@@ -1,0 +1,185 @@
+<% include ../../partials/manager/dashboardColumn.ejs %>
+      
+     <div id="page-wrapper">
+            
+         <div id='managerViewContainer' class="container-fluid">
+      
+             
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Profile
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-dashboard"></i>  <a href="/">Dashboard</a>
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-user"></i> Profile
+                            </li>
+                          
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+               
+                <h2><strong>Username: </strong><small><%=currentUser.username%></small></h2>
+                <div class="row">
+                  <form id="registerNursaryForm" class="formsStyle" action="/dashboard/<%=currentUser.label%>/<%=currentUser._id%>/profile/edit?_method=PUT" method="POST">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-user fa-fw"></i><strong> Edit Nursery's details</storn></h3>
+                            </div>
+                            <div class="panel-body">
+                               
+                             
+                                    <div class="form-group">
+                                        <label class="control-label text-inverse" for="name">Nursery's Name:</label>
+                                        <div class="input-group">
+                                          <span class="input-group-addon">
+                                            <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                                          </span>
+                                          <input class="form-control" placeholder="Please enter your the name of the nursery you wish to register."
+                                          name="name" type="text" value="<%=currentUser.details[0].name%>">
+                                        </div>
+                                      </div>
+                                       <div class="form-group">
+                                        <label class="control-label text-inverse" for="urn">Nursery's Unique Reference Number:</label>
+                                        <div class="input-group">
+                                          <span class="input-group-addon">
+                                            <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                                          </span>
+                                          <input class="form-control" placeholder="Please enter your nursery's URN" name="urn"
+                                          type="number" value="<%=currentUser.details[0].urn%>">
+                                        </div>
+                                      </div>
+                                      <div class="form-group">
+                                        <label class="control-label text-inverse" for="nurserycontactnumber">Nursery's Contact Number:</label>
+                                        <div class="input-group">
+                                          <span class="input-group-addon">
+                                            <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                                          </span>
+                                          <input class="form-control" placeholder="Please enter the nursery contact number" name="nurserycontactnumber"
+                                          type="tel" value="<%=currentUser.details[0].nurserycontactnumber%>">
+                                        </div>
+                                      </div>
+                                      <div class="form-group">
+                                        <label class="control-label text-inverse" for="address">Nursery's Address:</label>
+                                          <div class="input-group">
+                                            <span class="input-group-addon">
+                                              <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                                            </span>
+                                            <input type="text" class="form-control" name="address1" placeholder="First line of the nursery's address" value="<%=currentUser.details[0].address.address1%>">
+                                          </div>
+                                          <div class="input-group">
+                                            <span class="input-group-addon">
+                                              <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                                            </span>
+                                            <input type="text" class="form-control" name="address2" placeholder="Second line of the nursery's address" value="<%=currentUser.details[0].address.address2%>">
+                                          </div>
+                                          <div class="input-group">
+                                            <span class="input-group-addon">
+                                              <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                                            </span>
+                                            <input type="text" class="form-control" name="city" placeholder="City of the nursery's address" value="<%=currentUser.details[0].address.city%>">
+                                          </div>
+                                          <div class="input-group">
+                                            <span class="input-group-addon">
+                                              <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                                            </span>
+                                            <input type="text" class="form-control" name="country" placeholder="Country of the nursery's address" value="<%=currentUser.details[0].address.country%>">
+                                          </div>
+                                          <div class="input-group">
+                                            <span class="input-group-addon">
+                                              <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                                            </span>
+                                            <input type="text" class="form-control" name="postcode" placeholder="Post Code of the nursery's address" value="<%=currentUser.details[0].address.postcode%>">
+                                          </div>
+                                        
+                                      </div>
+                                   
+                                   
+                                  
+           
+            
+          
+                             </div><!--panel-body-->
+                        </div><!--panel-->
+                    </div><!--col-->
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-user fa-fw"></i><strong> Edit Manager's details</storn></h3>
+                            </div>
+                            <div class="panel-body">
+                               
+
+                                   <div class="form-group">
+                                        <label class="control-label text-inverse" for="firstname">Manager's First Name:</label>
+                                        <div class="input-group">
+                                          <span class="input-group-addon">
+                                            <i class="fa fa-user fa-fw " aria-hidden="true"></i>
+                                          </span>
+                                          <input class="form-control" placeholder="Please enter your First Name"
+                                          name="firstname" type="text" value="<%=currentUser.details[0].firstname%>">
+                                        </div>
+                                      </div>
+                                      <div class="form-group">
+                                        <label class="control-label text-inverse" for="lastname">Manager's Last Name:</label>
+                                        <div class="input-group">
+                                          <span class="input-group-addon">
+                                            <i class="fa fa-user fa-fw " aria-hidden="true"></i>
+                                          </span>
+                                          <input class="form-control" placeholder="Please enter your Surname" name="lastname"
+                                          type="text" value="<%=currentUser.details[0].lastname%>">
+                                        </div>
+                                      </div>
+                                       <div class="form-group">
+                                        <label class="control-label text-inverse" for="managercontactnumber">Manager's Contact Number:</label>
+                                        <div class="input-group">
+                                          <span class="input-group-addon">
+                                            <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                                          </span>
+                                          <input class="form-control" placeholder="Please enter the manager's contact number" name="managercontactnumber"
+                                          type="tel" value="<%=currentUser.details[0].managercontactnumber%>">
+                                        </div>
+                                      </div>
+                              
+                              </div><!--panel-body-->
+                        </div><!--panel-->
+                        
+                           <div style="margin-right:0; margin-left:0;"  class=" row well">
+                               
+                                   <h4 style="margin-left:12px;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Changes cannot be undone.</h4>
+                                   </br>
+                                  <div class="col-md-6">
+                                    <button type="submit" name="submit" id="submit" class="btn btn-block btn-success">Save changes</button>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <button type="button" id="resetRegisterNursaryForm" onClick="resetThisForm(event, this.id);" class="col-xs-4 btn btn-block btn-warning">Reset form</button>
+                                  </div>
+                             </div>
+                    </div><!--col-->
+                 </form><!--form-->
+            </div><!--row-->
+    
+          </div>
+    </div><!--page-wrapper-->
+</div>
+<!-- /#wrapper -->
+        
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        
+        <script src='/script/formsHandler.js'></script>
+
+    
+    </body>
+</html>

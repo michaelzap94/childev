@@ -1,0 +1,192 @@
+<% include ../../partials/parent/dashboardColumn.ejs %> 
+
+<div id="page-wrapper">
+            
+            <% include ../../partials/flashMessage.ejs %>
+            
+            
+
+        <div  class="container-fluid">
+                 <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Medical Information 
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li >
+                                 <a href="/dashboard/<%=currentUser.label%>/<%=currentUser._id%>/children"><i class="fa fa-fw fa-child"></i>Children</a>
+                            </li>
+                             <li class="active">
+                                 <i class="fa fa-fw fa-edit"></i>Medical Information
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+      <form id="childrenRegisterForm" class="formsStyle " action="/dashboard/parent/<%=currentUser._id%>/children/<%=childObject._id%>/medical/edit?_method=PUT" method="POST">
+        
+
+           <div class='row'>
+
+              <div class='col-md-6'>
+
+                  <div class="form-group">
+                    <label class="control-label text-inverse" for="firstname">Child's First Name:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw " aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter your First Name"
+                      name="firstname" type="text" value='<%=childObject.details[0].firstname%>'>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label text-inverse" for="lastname">Child's Last Name:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw " aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter your Surname" name="lastname"
+                      type="text" value='<%=childObject.details[0].lastname%>'>
+                    </div>
+                  </div>
+                   <div class="form-group">
+                    <label class="control-label text-inverse" for="gender">Child's gender:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <select class="form-control" name='gender' required>
+                        <option value=''>Select the child's gender</option>
+                        <option value='female'  <%if(childObject.details[0].gender==='female'){%> selected='selected' <%}%> >Female</option>
+                        <option value='male'  <%if(childObject.details[0].gender==='male'){%> selected='selected' <%}%> >Male</option>
+                      </select>
+                    </div>
+                  </div>
+                   <div class="form-group">
+                    <label class="control-label text-inverse" for="dob">Child's date of birth:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Enter the child's date of birth" type="text" name='dob' id="datepicker" value='<%=childObject.details[0].dob%>' required >
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label text-inverse" for="address">Child's Address:</label>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" name="address1" placeholder="First line of address" value='<%=childObject.details[0].address.address1%>'>
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" name="address2" placeholder="Second line of address" value='<%=childObject.details[0].address.address2%>'>
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" name="city" placeholder="City" value='<%=childObject.details[0].address.city%>'>
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" name="country" placeholder="Country" value='<%=childObject.details[0].address.country%>'>
+                      </div>
+                      <div class="input-group">
+                        <span class="input-group-addon">
+                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                        </span>
+                        <input type="text" class="form-control" name="postcode" placeholder="Post Code" value='<%=childObject.details[0].address.postcode%>'>
+                      </div>
+
+                  </div><!--address from group-->
+             </div><!--first column end -->
+
+            <div class='col-md-6'>
+
+                  <div class="form-group">
+                     <label class="control-label text-inverse" for="maincarerdetails">Main carer's details:</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw " aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter your First Name" name="p1firstname" type="text" required  value='<%=childObject.details[0].maincarerfirstname%>'>
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw " aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter your Surname" name="p1lastname" type="text" required  value='<%=childObject.details[0].maincarerlastname%>'>  
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <input class="form-control" placeholder="Please enter the manager's contact number" name="p1contactnumber"
+                      type="tel"  value='<%=childObject.details[0].maincarercontactnumber%>'>
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <input type="text" class="form-control" name="p1username" placeholder="Please enter your email address"  value='<%=childObject.details[0].maincareremail%>'>
+                    </div>
+                     <div class="input-group">
+                      <span class="input-group-addon">
+                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                      </span>
+                      <select class="form-control" name='p1carertype' required>
+                          <option value='' >Relationship to the child.</option>
+                          <option value='Mother' <%if(childObject.details[0].maincarertype==='Mother'){%> selected='selected' <%}%> >Mother</option>
+                          <option value='Father' <%if(childObject.details[0].maincarertype==='Father'){%> selected='selected' <%}%> >Father</option>
+                          <option value='Guardian' <%if(childObject.details[0].maincarertype==='Guardian'){%> selected='selected' <%}%> >Legal Guardian</option>
+                      </select>
+                    </div>
+                 
+                  </div><!--main carer's details -->
+                <div style="margin-right:0; margin-left:0;"  class=" row well">
+                   
+                       <h4 style="margin-left:12px;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Changes cannot be undone.</h4>
+                       </br>
+                      <div class="col-md-6">
+                          <button type="submit" name="submit" id="submit" class="btn btn-block btn-success">Submit</button>
+                      </div>
+                      <div class="col-md-6">
+                           <button type="button" id="resetChildrenRegisterForm" onClick="resetThisForm(event, this.id);" class="col-xs-4 btn btn-block btn-warning">Reset Form</button>
+                      </div>
+                 </div>
+               
+              </div> <!--second column end-->
+          </div><!--end of first row-->
+
+
+       </form>
+       
+      </div><!--container end-->
+    </div><!-- /#page-wrapper -->
+        
+  </div><!-- /#wrapper -->
+
+      <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+    <link rel="stylesheet" href="/style/main.css"/>
+    <script src='/script/formsHandler.js'></script>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+</body>
+
+</html>

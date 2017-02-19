@@ -1,0 +1,41 @@
+<% include ../dashboardCommon/dashboardHeader.ejs %>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li>
+                        <a href="/dashboard/parent/<%= currentUser._id %>"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="/dashboard/parent/<%= currentUser._id %>/children"><i class="fa fa-fw fa-child" aria-hidden="true"></i> Children</a>
+                    </li>
+                    <li>
+                        <a href="/dashboard/parent/<%= currentUser._id %>/nursery"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Nursery</a>
+                    </li>
+                    <li>
+                        <a href="/dashboard/parent/<%= currentUser._id %>/messages"><i class="fa fa-fw fa-envelope" aria-hidden="true"></i> Messages</a>
+                    </li>
+                   
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-edit"></i> Forms <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                           <li>
+                                <a href="#"><i class="fa fa-fw fa-edit"></i> Register Parents </a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-fw fa-edit"></i> Register Teachers </a>
+                            </li>
+                             <li>
+                                <a href="/dashboard/parent/<%= currentUser._id %>/children/registerForm"><i class="fa fa-fw fa-edit"></i> Register Children </a>
+                            </li>
+                           
+                        </ul>
+                    </li>
+                   
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+        
+        <script>
+         var userIdFromEjs= '<%-currentUser._id %>';//pass variable coming from ejs to Static Scipt
+        </script>

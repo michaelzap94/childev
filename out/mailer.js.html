@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: mailer.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: mailer.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>var helper = require('sendgrid').mail;
+var sg = require('sendgrid')(process.env.SENDGRID_API);
+var crypto = require('crypto');
+var assert = require('assert');
+ 
+/**
+ * This function sends a confirmation email to teachers.
+ * @param {String} username - This parameter is the email of the user.
+ * @param {String} activationhash - This parameter is the activation code.
+ * @param {String} accountType - This is the type of the account, can be 'manager', 'teacher' or 'parent'.
+ * @param {String} nurseryId - This is the ID to which the user should be registerd to.
+ * @param {Function} fn - This is the callback function that has as input parameter the status code: 'response.statusCode'.
+ */
+function sendConfirmationEmail(username,activationhash,accountType,nurseryId,fn){
+    var from_email = new helper.Email('noreply@admin.childev.com','Childev Team');
+    var to_email = new helper.Email(username);
+    var subject = 'Please verify your Childev account';
+    
+    var customStarter='Hi, \n Thanks for using Childev! Please confirm your email address by clicking on the link below. \n';
+    var acticationLink;
+    
+    /**
+     * If nursaryId is not equals to 'noneyet', it means that the email will be sent either to Teachers or Parents
+     * otherwise the email will be sent to a Manager. This is useful because, when the Teacher or Parent
+     * registers, he/she has to belong to a nursary, hence the nursery id is sent as a parameter in the url.
+     *
+     */
+    
+    if(nurseryId==='noneyet'){
+        acticationLink = 'https://childev.herokuapp.com/activate/'+accountType+'?username='+username+'&amp;activationhash='+activationhash;
+
+    }else{
+        acticationLink = 'https://childev.herokuapp.com/activate/'+accountType+'/'+nurseryId+'?username='+username+'&amp;activationhash='+activationhash;
+
+    }
+    
+    var customEnding = '\n Thank you.'
+    
+    var finalMessage = customStarter+acticationLink+customEnding;
+    
+    var content = new helper.Content('text/plain', finalMessage);
+    var mail = new helper.Mail(from_email, subject, to_email, content);
+    var request = sg.emptyRequest({
+      method: 'POST',
+      path: '/v3/mail/send',
+      body: mail.toJSON(),
+    });
+     
+    sg.API(request, function(error, response) {
+     
+       fn(response.statusCode);//callback to access it in the function that calls this.
+      
+    });
+}
+
+/**
+ * This function sends a confirmation email to teachers.
+ * @param {String} username - This parameter is the email of the user.
+ * @param {String} activationhash - This parameter is the activation code.
+ * @param {String} nurseryId - This is the ID to which the user should be registerd to.
+ * @param {String} childId - This is the Id of the child this user is a parent of.
+ * @param {Function} fn - This is the callback function that has as input parameter the status code: 'response.statusCode'.
+ */
+function sendConfirmationEmailToParents(username,activationhash,nurseryId,childId,fn){
+    var from_email = new helper.Email('noreply@admin.childev.com','Childev Team');
+    var to_email = new helper.Email(username);
+    var subject = 'Please verify your Childev account';
+    
+    var customStarter='Hi, \n Thanks for using Childev! Please confirm your email address by clicking on the link below. \n';
+ 
+
+var algorithm = 'aes256';
+var key = 'michaelzap';
+/*
+var cipher = crypto.createCipher(algorithm, key);  
+var encriptedChildId = cipher.update(childId, 'utf8', 'hex') + cipher.final('hex');
+*/
+/* to decrypt: 
+var algorithm = 'aes256';
+var key = 'michaelzap';
+var decipher = crypto.createDecipher(algorithm, key);
+var decryptedChildId = decipher.update(encriptedChildId, 'hex', 'utf8') + decipher.final('utf8');
+
+assert.equal(decryptedChildId, childId);
+*/   
+    var acticationLink = 'https://childev.herokuapp.com/activate/parent/'+nurseryId+'?username='+username+'&amp;activationhash='+activationhash+'&amp;childId='+childId;
+
+   
+    
+    var customEnding = '\n Thank you.'
+    
+    var finalMessage = customStarter+acticationLink+customEnding;
+    
+    var content = new helper.Content('text/plain', finalMessage);
+    var mail = new helper.Mail(from_email, subject, to_email, content);
+    var request = sg.emptyRequest({
+      method: 'POST',
+      path: '/v3/mail/send',
+      body: mail.toJSON(),
+    });
+     
+    sg.API(request, function(error, response) {
+     
+       fn(response.statusCode);//callback to access it in the functin that calls this.
+      
+    });
+}
+
+/**
+ * This module contains the methods that are responsible for sending emails and exports them as an object to be called externally.
+ * @module app/email/mailer
+ */
+module.exports = {sendConfirmationEmail:sendConfirmationEmail,
+                sendConfirmationEmailToParents:sendConfirmationEmailToParents
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-app_email_mailer.html">app/email/mailer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#sendConfirmationEmail">sendConfirmationEmail</a></li><li><a href="global.html#sendConfirmationEmailToParents">sendConfirmationEmailToParents</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.2</a> on Mon Nov 28 2016 01:24:05 GMT+0000 (UTC)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

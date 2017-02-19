@@ -1,0 +1,108 @@
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+                           
+
+         <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-lock fa-lg fa-fw"></i><strong>Reset your password</storn></h3>
+            </div>
+            <div class="panel-body">
+               
+                <ul>
+                   
+                    <li >
+                    Enter your new Password in both fields and then click on Reset Password.
+                    </li>
+                     <li >
+                    This cannot be undone.
+                    </li>
+                  
+                </ul>
+                           
+                
+                <form id="passwordChangeForm" action="/dashboard/<%=currentUser.label%>/<%=currentUser._id%>/settings/edit?_method=PUT" method="POST">
+                    <div class="well">    
+                        <div class="form-group">
+                            <label class="control-label" for="password">New Password:</label>
+            
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i></span>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Please enter your password"/>
+                            </div>
+                        </div>
+            
+                        <div class="form-group">
+                            <label class="control-label" for="password">New Password:</label>
+            
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i></span>
+                                <input type="password" class="form-control" id="password_again" name="password_again" placeholder="Please enter your password again"/>
+                            </div>
+                        </div>
+                       
+                    </div><!--well-->
+                    <div class=" row ">
+                        <div class="col-md-6"> <button type="submit" name="submit" id="submit" class="btn btn-block btn-success"/><strong>Reset Password</strong></div>
+                        <div class="col-md-6">  <button type="button" id="resetPasswordChangeForm" onClick="resetThisForm(event, this.id);" class="col-xs-4 btn btn-block btn-warning" ><strong>Clear Form</strong></button></div>
+        
+                    </div>
+                        
+                        
+                </form>
+                    
+                  
+             </div><!--panel-body-->
+        </div><!--panel-->
+            
+    </div>
+                
+    <div class='col-lg-6 col-md-6 col-sm-6'>
+
+            
+             <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-exclamation-triangle fa-fw" aria-hidden="true"></i> Delete your account</strong></h3>
+                    </div>
+                    <div class="panel-body">
+                        
+                        <form action="/dashboard/<%=currentUser.label%>/<%=currentUser._id%>/settings/delete?_method=DELETE" method="POST">
+                            <ul>
+                                <li >
+                                This Nursery will be permanently removed from our Database.
+                                </li>
+                                <li>
+                                You will immediately lose access to all information
+                                associated with this account.
+                                </li>
+                                <li >
+                                All of the users information linked to this Nursery will be removed, and your username will
+                                be available to anyone signing up for a new account.
+                                </li>
+                                <li >
+                                <strong>This cannot be undone.</strong>
+                                </li>
+                            </ul>
+                           
+                                                        
+                                                    
+                          <div class="well">
+                              <div class="form-group">
+                                    <label class="control-label" for="delete_password">Enter Current Password To Delete Account:</label>
+                    
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-lock fa-lg fa-fw" aria-hidden="true"></i></span>
+                                        <input type="password" class="form-control" id="delete_password" name="delete_password" placeholder="Please enter your password"/>
+                                    </div>
+                                </div>
+                          </div>
+                          <div class="col-md-6"> <button type="submit" name="submit" id="submit" class="btn btn-danger btn-large"/><strong>Delete Account</strong></div>
+
+                        </form>
+                        
+                    </div><!--panel-->
+            </div>
+            
+     </div><!--col-->
+
+</div><!--row-->

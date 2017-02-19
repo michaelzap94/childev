@@ -1,0 +1,165 @@
+<% include ../../partials/parent/dashboardColumn.ejs %>
+      
+     <div id="page-wrapper">
+            
+         <div id='managerViewContainer' class="container-fluid">
+      
+             
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Profile
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-dashboard"></i>  <a href="/">Dashboard</a>
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-user"></i> Profile
+                            </li>
+                          
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+               
+                <h2><strong>Username: </strong><small><%=currentUser.username%></small></h2>
+                <div class="row">
+                  <form id="parentRegisterForm" class="formsStyle" action="/dashboard/parent/<%=currentUser._id%>/profile/edit?_method=PUT" method="POST">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-user fa-fw"></i><strong> Edit your details</storn></h3>
+                            </div>
+                            <div class="panel-body">
+                               
+                             
+                               <div class="form-group">
+                                  <label class="control-label text-inverse" for="firstname">First Name:</label>
+                                  <div class="input-group">
+                                    <span class="input-group-addon">
+                                      <i class="fa fa-user fa-fw " aria-hidden="true"></i>
+                                    </span>
+                                    <input class="form-control" placeholder="Please enter your First Name"
+                                    name="firstname" type="text" value="<%=currentUser.details[0].firstname%>">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="control-label text-inverse" for="lastname">Last Name:</label>
+                                  <div class="input-group">
+                                    <span class="input-group-addon">
+                                      <i class="fa fa-user fa-fw " aria-hidden="true"></i>
+                                    </span>
+                                    <input class="form-control" placeholder="Please enter your Surname" name="lastname"
+                                    type="text" value="<%=currentUser.details[0].lastname%>">
+                                  </div>
+                                </div>
+                                 <div class="form-group">
+                                  <label class="control-label text-inverse" for="managercontactnumber">Contact Number:</label>
+                                  <div class="input-group">
+                                    <span class="input-group-addon">
+                                      <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                                    </span>
+                                    <input class="form-control" placeholder="Please enter contact number" name="contactnumber"
+                                    type="tel" value="<%=currentUser.details[0].contactnumber%>">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label text-inverse" for="carerType">Relationship to Child: </label>
+                                     <div class="input-group">
+                                      <span class="input-group-addon">
+                                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
+                                      </span>
+                                        <select id='carertype' name='carertype' class='form-control' required>
+                                          <option value='' >Relationship to the child.</option>
+                                          <option value='Mother' <%if(currentUser.carertype==='Mother'){%> selected='selected' <%}%> >Mother</option>
+                                          <option value='Father' <%if(currentUser.carertype==='Father'){%> selected='selected' <%}%> >Father</option>
+                                          <option value='Guardian' <%if(currentUser.carertype==='Guardian'){%> selected='selected' <%}%> >Legal Guardian</option>
+                                        </select>
+                                    </div>
+                                  </div>
+
+                                     
+                             </div><!--panel-body-->
+                        </div><!--panel-->
+                    </div><!--col-->
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-map fa-fw"></i><strong>  Address</storn></h3>
+                            </div>
+                            <div class="panel-body">
+                              
+                                 <div class="form-group">
+                                      <div class="input-group">
+                                        <span class="input-group-addon">
+                                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                                        </span>
+                                        <input type="text" class="form-control" name="address1" placeholder="First line address" value="<%=currentUser.details[0].address.address1%>">
+                                      </div>
+                                      <div class="input-group">
+                                        <span class="input-group-addon">
+                                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                                        </span>
+                                        <input type="text" class="form-control" name="address2" placeholder="Second line address" value="<%=currentUser.details[0].address.address2%>">
+                                      </div>
+                                      <div class="input-group">
+                                        <span class="input-group-addon">
+                                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                                        </span>
+                                        <input type="text" class="form-control" name="city" placeholder="City" value="<%=currentUser.details[0].address.city%>">
+                                      </div>
+                                      <div class="input-group">
+                                        <span class="input-group-addon">
+                                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                                        </span>
+                                        <input type="text" class="form-control" name="country" placeholder="Country" value="<%=currentUser.details[0].address.country%>">
+                                      </div>
+                                      <div class="input-group">
+                                        <span class="input-group-addon">
+                                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
+                                        </span>
+                                        <input type="text" class="form-control" name="postcode" placeholder="Post Code" value="<%=currentUser.details[0].address.postcode%>">
+                                      </div>
+                                  </div>
+                               
+
+                                    
+                              
+                              </div><!--panel-body-->
+                        </div><!--panel-->
+                        
+                           <div style="margin-right:0; margin-left:0;"  class=" row well">
+                               
+                                   <h4 style="margin-left:12px;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Changes cannot be undone.</h4>
+                                   </br>
+                                  <div class="col-md-6">
+                                    <button type="submit" name="submit" id="submit" class="btn btn-block btn-success">Save changes</button>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <button type="button" id="resetParentRegisterForm" onClick="resetThisForm(event, this.id);" class="col-xs-4 btn btn-block btn-warning">Reset form</button>
+                                  </div>
+                             </div>
+                    </div><!--col-->
+                 </form><!--form-->
+            </div><!--row-->
+    
+          </div>
+    </div><!--page-wrapper-->
+</div>
+<!-- /#wrapper -->
+        
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        
+        <script src='/script/formsHandler.js'></script>
+
+    
+    </body>
+</html>
