@@ -10,6 +10,7 @@ $('.rowUserChildren').on('click',function(){
         
     var name = objchildren.details[0].firstname+' '+objchildren.details[0].lastname;
     
+    
     /**children Info**/
     $('#myModalLabel').html(name);
     $('#chfirstnameLIst').find('.info').html(objchildren.details[0].firstname);
@@ -27,20 +28,31 @@ $('.rowUserChildren').on('click',function(){
     $('#contactnumberLIst').find('.info').html(objchildren.details[0].maincarercontactnumber);
     $('#usernameLIst').find('.info').html(objchildren.details[0].maincareremail);
     $('#relationship').find('.info').html(objchildren.details[0].maincarertype);
+    
+      /**Medical Information**/
+    $('#illnesses').find('.info').html(objchildren.medicalInfo[0].illnesses);
+    $('#allergies').find('.info').html(objchildren.medicalInfo[0].allergies);
+    $('#medications').find('.info').html(objchildren.medicalInfo[0].medications);
+    $('#foodNotAllowed').find('.info').html(objchildren.medicalInfo[0].dob);
+    $('#disabilities').find('.info').html(objchildren.medicalInfo[0].disabilities);
+    $('#specialSupport').find('.info').html(objchildren.medicalInfo[0].specialSupport);
+    $('#doctorName').find('.info').html(objchildren.medicalInfo[0].doctorName);
+    $('#doctorContactnumber').find('.info').html(objchildren.medicalInfo[0].doctorContactnumber);
+    $('#doctorAddress').find('.info').html(objchildren.medicalInfo[0].doctorAddress);
    
 
     $('#deleteUser').attr('value',objchildren._id);
     
-            var fragment =$('#containerParent'); 
+    var fragment =$('#containerParent'); 
 
     if(objparentarr.length>0){
         objparentarr.forEach(function(parent,index){
             
-            var unlinkPath = '/dashboard/teacher/'+ currentUserId + '/message/send/new?parentId='+parent._id;
+            var sendMessageLink = '/dashboard/teacher/'+currentUserId+'/messages/new?userIdTo='+parent._id+'&labelTo=parent';
 
             var childrenInfo = $('<div>').attr('class', 'panel panel-info').append(
             $('<div>').attr('class','panel-heading').append($('<span>').attr('class','panel-title').append($('<a>').attr('data-toggle','collapse').attr('data-parent','#containerParent').attr('href','#col'+index).append(parent.details[0].firstname+' '+parent.details[0].lastname))).append(
-           $('<a>').attr('class','btn btn-primary btn-xs pull-right').attr('href',unlinkPath).attr('data-toggle','tooltip').attr('title','Send a message to this parent').append($('<i>').attr('class','fa fa-fw fa-paper-plane-o')))).append(
+           $('<a>').attr('class','btn btn-primary btn-xs pull-right').attr('href',sendMessageLink).attr('data-toggle','tooltip').attr('title','Send a message to this parent').append($('<i>').attr('class','fa fa-fw fa-paper-plane-o')))).append(
             $('<div>').attr('id','col'+index).attr('class','panel-collapse collapse').append($('<div>').attr('class','panel-body').append(
                 $('<ul>').append($('<li>').append($('<strong>').append('Firstname: ')).append(parent.details[0].firstname))
                         .append($('<li>').append($('<strong>').append('Lastname: ')).append(parent.details[0].lastname))

@@ -5,7 +5,9 @@ var isLoggedIn = require("../../middlewares/isLoggedIn");
 var sendEmail = require('../../email/mailer.js');
 var votingFunctions = require("../../votingSystem/votingMain.js");
 var myUtilities = require("../../childevFunctions/myUtilities.js");
+var messagingFunctions = require("../../messagingSystem/messagingFunctions.js");
 
+var Message = require("../../schemas/messages/messagesSchema.js");
 var Nursery = require("../../schemas/admin/nursery.js");
 var Teacher = require("../../schemas/teacher/teacherSchema.js");
 var Parent = require("../../schemas/parent/parentSchema.js");
@@ -148,11 +150,24 @@ router.post("/children/registerForm", isLoggedIn.isLoggedInNext, function(req, r
     country: myUtilities.capitalizeStarter(req.body.country),
     postcode: req.body.postcode
   };
+   var medicalInfoSubmitted = {
+            doctorAddress: '',
+            doctorContactnumber: '',
+            doctorName: '',
+            disabilities: '',
+            medications: '',
+            illnesses:'',
+            allergies: '',
+            foodNotAllowed:'',
+            specialSupport: '',
+       }
+       
 
   var ukDateFormat = req.body.dob;
   /*
   new Date(dateFromForm.split('/')[2], dateFromForm.split('/')[1] - 1, dateFromForm.split('/')[0]);
   */
+  newUser.medicalInfo.push(medicalInfoSubmitted);
   newUser.details.push({
     address: address,
     firstname: firstname,
@@ -678,6 +693,108 @@ router.put("/profile/edit",isLoggedIn.isLoggedInNext,function(req,res){
      var childId = req.query.childId;
      myUtilities.unlinkParentFromChild(req,res,parentId,childId);
  });
+ 
+ 
+ /**MESSAGES*************************************************/
+  
+ /**
+  * INBOX
+  *
+  */
+  router.get('/messages',isLoggedIn.isLoggedInNext,function(req, res) {
+    
+      var nurseryId = req.user._id;
+      Message.find({"nursery.id":nurseryId , "to.id":req.user._id}).exec(function(err, messagesFound){
+          if(err){
+              req.flash('error',err);
+              res.redirect('/');
+          }else{
+            res.render("./dashboards/manager/managerMessages.ejs",{ messagesFound:  messagesFound}); 
+             
+          }
+      });
+
+ });
+ 
+  /**
+  * SENT
+  *
+  */
+  router.get('/messages/sent',isLoggedIn.isLoggedInNext,function(req, res) {
+      var nurseryId = req.user._id;
+      Message.find({"nursery.id":nurseryId , "from.id":req.user._id}).exec(function(err, messagesFound){
+         if(err){
+              req.flash('error',err);
+              res.redirect('/');
+          }else{
+            res.render("./dashboards/manager/managerMessagesSent.ejs",{ messagesFound:  messagesFound}); 
+             
+          }      
+          
+      });
+
+ });
+ 
+   /**
+  * NEW MESSAGE
+  *
+  */
+  router.get('/messages/new',isLoggedIn.isLoggedInNext,function(req, res) {
+       var userIdTo= req.query.userIdTo;
+      var label = req.query.labelTo;
+      var schema;
+      
+        if(userIdTo && label){
+                if(label==="parent"){
+                   schema = Parent;
+               }else if(label==="teacher"){
+                   schema = Teacher;
+               }else if(label==="manager"){
+                   schema = Nursery;
+               }else{
+                    req.flash("error","Label could not be identified.")
+                    res.redirect("back");
+               }
+                schema.findById(userIdTo,function(err, userFound) {
+                    
+                    res.render("./dashboards/manager/managerMessagesNew.ejs",{oneUserFound:userFound});
+        
+                });
+    
+        }else{
+           Nursery.findById( req.user._id).populate('parent').populate('teacher').exec(function(err, populatedNurseryParents) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  //pass to the ejs an array of objects containing all of the teachers' data that work for this nursery
+                  res.render("./dashboards/manager/managerMessagesNew.ejs",{populatedNurseryParents:populatedNurseryParents});
+                }
+              });
+        } 
+
+ });
+ 
+  /**
+  * NEW MESSAGE, check if URL has query arguments userIdTo & label, if so then populate the new message form with these details,
+  * otherwise, populate the form with all of the nursery data including manager details and teacher details
+  *
+  */
+  router.post('/messages/new',isLoggedIn.isLoggedInNext,function(req, res) {
+
+    messagingFunctions.sendNewMessage(req,res);
+
+ });
+ 
+   /**
+  * DELETE a message
+  *
+  */
+  router.get('/messages/:messageId/delete',isLoggedIn.isLoggedInNext,function(req, res) {
+
+    messagingFunctions.deleteMessage(req,res);
+
+ });
+ 
  /**
   * 
   * @module app/routes/manager/dashboardManagerRouter

@@ -193,7 +193,7 @@ tr:hover{
 }
 
 
-
+/********Polls*************/
 
 #canvasId{
     margin-top: 10px;
@@ -228,6 +228,7 @@ max-width: 350px;
   height: 100%;
   border-radius: 5px;
 }
+/*************************/
 
 /*main.css*/
 
@@ -241,3 +242,24 @@ ul{
 
 }
 
+#parentNurseryViewContainer ul{
+      list-style: none;
+      word-wrap: break-word;
+      padding-left: 0px;
+      font-size: medium;
+
+
+}
+
+#parentNurseryViewContainer .info{
+ font-style: italic;
+ font-weight: normal;
+        
+
+}
+
+.messages ul{
+     list-style: none;
+      word-wrap: break-word;
+      padding-left: 0px;
+}

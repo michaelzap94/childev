@@ -3,14 +3,14 @@
         <div id="page-wrapper">
             
             <% include ../../partials/flashMessage.ejs %>
-
-            <div id='managerViewContainer' class="container-fluid">
-
+    
+            <div id='parentNurseryViewContainer' class="container-fluid">
+    
                 <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Nursery Information
+                            Nursery: <small><%= populatedNurseryFound.details[0].name%></small>
                         </h1>
                         <ol class="breadcrumb">
                             <li class="active">
@@ -22,12 +22,101 @@
                 </div>
                 <!--row-->
                 
-            
-            
-            
-            
-            
-              
+                
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-user fa-fw"></i><strong> Nursery</storn></h3>
+                            </div>
+                            <div class="panel-body">
+                               
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title"><i class="fa fa-user fa-fw"></i><strong> Nursery details</storn></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                            <ul>
+                                              <li id='nurseryName'><span><strong>Nursery name: </strong></span><span class='info'><%= populatedNurseryFound.details[0].name%></span></li>
+                                              <li id='nurseryEmail'><span><strong>Nursery's email: </strong></span><span class='info'><%= populatedNurseryFound.username%></span></li>
+                                              <li id='nurseryContactNumber'><span><strong>Nursery's Contact Number: </strong></span><span class='info'><%= populatedNurseryFound.details[0].nurserycontactnumber%></span></li>
+                                              <li id='nurseryUrn'><span><strong>Nursery's Unique Reference Number: </strong></span><span class='info'><%= populatedNurseryFound.details[0].urn%></span></li>
+                                              <li id='nurseryAddress'><span><strong>Address: </strong></span><span class='info'><%= populatedNurseryFound.details[0].address.address1%>, <%= populatedNurseryFound.details[0].address.address2%></span></li>
+                                              <li id='nurseryCity'><span><strong>City: </strong></span><span class='info'><%= populatedNurseryFound.details[0].address.city%></span></li>
+                                              <li id='nurseryCountry'><span><strong>Country: </strong></span><span class='info'><%= populatedNurseryFound.details[0].address.country%></span></li>
+                                              <li id='nurseryPostCode'><span><strong>Post Code: </strong></span><span class='info'><%= populatedNurseryFound.details[0].address.postcode%></span></li>
+                                            </ul>
+                                    </div><!--panel-body-->
+                                </div><!--panel-->
+                                            
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title"><i class="fa fa-user fa-fw"></i><strong> Manager details</storn></h3>
+                                    </div>
+                                    <div class="panel-body">
+                                            <ul>
+                                              <li id='managerFirstname'><span><strong>Manager's First Name: </strong></span><span class='info'><%= populatedNurseryFound.details[0].firstname%></span></li>
+                                              <li id='managerLastname'><span><strong>Manager's Last Name: </strong></span><span class='info'><%= populatedNurseryFound.details[0].lastname%></span></li>
+                                              <li id='managerContactNumber'><span><strong>Manager's Contact Number: </strong></span><span class='info'><%= populatedNurseryFound.details[0].managercontactnumber%></span></li>
+                                            </ul>  
+                                    </div><!--panel-body-->
+                                </div><!--panel-->        
+                                    
+                                <a href='/dashboard/<%=currentUser.label%>/<%=currentUser._id%>/messages/new?userIdTo=<%=populatedNurseryFound._id%>&labelTo=<%=populatedNurseryFound.label%>'  class='btn btn-primary btn-block'>Send Message</a>
+
+                             </div><!--panel-body-->
+                        </div><!--panel-->
+                    </div><!--col-->
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-users fa-fw"></i><strong>  Teachers</storn></h3>
+                            </div>
+                            <div class="panel-body">
+                              
+                               <div class="panel-group" id="accordion">
+                                   
+                                 <% if(populatedNurseryFound.teacher !== 'undefined'){ 
+                                      populatedNurseryFound.teacher.forEach(function(teacherObject,index){ %>
+                                 
+                                  
+                               
+                                  <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                      <span class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse<%=index%>"><%=teacherObject.details[0].firstname%> <%=teacherObject.details[0].lastname%></a>
+                                      </span>
+                                      <span>
+                                         <a href='/dashboard/<%=currentUser.label%>/<%=currentUser._id%>/messages/new?userIdTo=<%=teacherObject._id%>&labelTo=<%=teacherObject.label%>' class='btn btn-primary btn-xs pull-right' data-toggle='tooltip' title='Send message to this teacher.'>
+                                             <i class='fa fa-fw fa-paper-plane-o'></i>
+                                        </a>
+                                      </span>
+                                    </div>
+                                    <div id="collapse<%=index%>" class="panel-collapse collapse">
+                                      <div class="panel-body">
+                                         <ul>
+                                          <li id='firstnameLIst'><span><strong>Firstname: </strong></span><span class='info'><%=teacherObject.details[0].firstname%></span></li>
+                                          <li id='lastnameLIst'><span><strong>Lastname: </strong></span><span class='info'><%=teacherObject.details[0].lastname%></span></li>
+                                          <li id='contactnumberLIst'><span><strong>Contact Number: </strong></span><span class='info'><%=teacherObject.details[0].contactnumber%></span></li>
+                                          <li id='usernameLIst'><span><strong>Email: </strong></span><span class='info'><%=teacherObject.username%></span></li>
+                                         </ul>
+                                        
+                                      </div><!--panel-body-->
+                                    </div><!--panel-collapse-->
+                                  </div><!--panel-->
+                                <% }); }%>
+                                
+                            </div><!-- accordion, panel gorup-->
+                                
+                              
+                            </div><!--panel-body-->
+                        </div><!--panel-->
+                    </div><!--col-->
+                </div><!--row-->
+    
+                
             </div>
             <!-- /.container-fluid -->
 

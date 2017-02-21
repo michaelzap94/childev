@@ -96,7 +96,7 @@ function myloopnow(res, email, parentOrTeacher, childId, existsInPopulated, nurs
       }
     }); //loop
   } else if (parentOrTeacher === 'parent') {
-      if(!existsInPopulated){
+      if(!existsInPopulated){//parent does not exist so check waitingLinkingParents
         arr = nurseryFound.waitingRegistrationParents;
         arr.forEach(function(emailFoundArr) {
           ++inserted;
@@ -112,7 +112,7 @@ function myloopnow(res, email, parentOrTeacher, childId, existsInPopulated, nurs
             return checktosend(exists, existsInPopulated, email, parentOrTeacher, childId, nurseryFound, res);
           }
         }); //loop
-      }else{
+      }else{//parent exists so check waitingLinkingParents
          arr = nurseryFound.waitingLinkingParents;
          arr.forEach(function(emailFoundArr) {
           ++inserted;
@@ -163,7 +163,8 @@ function checkLinkChildToParent(email, parentOrTeacher, childId, isRegistered,fo
                 email: email,
                 childId: childId,
                 name:name,
-                success: message
+                success: message,
+                isRegistered:isRegistered
               });
       }
       if (inserted == arrLength && exists == false) {
@@ -177,7 +178,8 @@ function checkLinkChildToParent(email, parentOrTeacher, childId, isRegistered,fo
                 email: email,
                 childId: childId,
                 name:name,
-                success: message
+                success: message,
+                isRegistered:isRegistered
               });
             }
           });

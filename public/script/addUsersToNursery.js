@@ -24,19 +24,24 @@ $('#emailToRegisterForm').on('submit',function(e){
             $('#flashContainer').html(flashOpenning+"danger"+commonBody+dataRet.error+flashClosing);
         }else{
             $('#flashContainer').html(flashOpenning+"success"+commonBody+dataRet.success+flashClosing);
-            if(dataRet.childId){
-                  $('#teachersWaitingRegistration').append(
-                 $('<li>').attr('class','list-group-item').append(
-                $('<span>').append(dataRet.email)).append(
+            if(dataRet.isRegistered){
+                console.log(dataRet);
+                $('#waitingLinkingParents').append(
+                $('<li>').attr('class','list-group-item').append(
+                $('<div>').attr('class','row').append(
+                $('<div>').attr('class','col-lg-10 col-md-10 col-sm-10 col-xs-9').append(
+                $('<strong>').attr('class','list-group-item-heading').append(dataRet.email)).append(
+                $('<p>').attr('class','list-group-item-text').append('To Child: '+dataRet.name))).append(
+                $('<div>').attr('class','col-lg-2 col-md-2 col-sm-2 col-xs-1').append(
                 $('<span>').attr('class','pull-right').append(
-                $('<a>').attr('class',' btn btn-xs btn-danger').attr('id',dataRet.email).attr('onClick',"removeFromStillToRegister(event,this.id,'"+dataRet.parentOrTeacher+"');").append($('<i>').attr('class',"fa fa-fw fa-trash-o").attr('aria-hidden',"true")))
+                $('<a>').attr('class',' btn btn-xs btn-danger').attr('id',dataRet.email).attr('onClick',"removeFromStillToRegister(event,this.id,'"+dataRet.parentOrTeacher+"','"+dataRet.childId+"','isRegistered');").append($('<i>').attr('class',"fa fa-fw fa-trash-o").attr('aria-hidden',"true")))
                 .append(" ").append(
                 $('<a>').attr('class',' btn btn-xs btn-info').attr('id',dataRet.email).attr('onClick',"resendLink(event,this.id,'"+dataRet.parentOrTeacher+"','"+dataRet.childId+"');").append($('<i>').attr('class',"fa fa-fw fa-paper-plane-o").attr('aria-hidden',"true")))
-                ));
+                ))));
                 
             }else{
-                 $('#teachersWaitingRegistration').append(
-                 $('<li>').attr('class','list-group-item').append(
+                $('#teachersWaitingRegistration').append(
+                $('<li>').attr('class','list-group-item').append(
                 $('<span>').append(dataRet.email)).append(
                 $('<span>').attr('class','pull-right').append(
                 $('<a>').attr('class',' btn btn-xs btn-danger').attr('id',dataRet.email).attr('onClick',"removeFromStillToRegister(event,this.id,'"+dataRet.parentOrTeacher+"');").append($('<i>').attr('class',"fa fa-fw fa-trash-o").attr('aria-hidden',"true")))
@@ -131,6 +136,9 @@ $('.rowUserTeacher').on('click',function(){
     $('#contactnumberLIst').find('.info').html(objTeacher.details[0].contactnumber);
     $('#usernameLIst').find('.info').html(objTeacher.username);
     $('#deleteUser').attr('value',objTeacher._id);
+    
+    var sendMessageTeacherLink = '/dashboard/manager/'+currentUserId+'/messages/new?userIdTo='+objTeacher._id+'&labelTo=teacher';
+    $('#sendMessageTeacher').attr('href', sendMessageTeacherLink);
 
   
 
@@ -164,6 +172,17 @@ $('.rowUserChildren').on('click',function(){
     $('#contactnumberLIst').find('.info').html(objchildren.details[0].maincarercontactnumber);
     $('#usernameLIst').find('.info').html(objchildren.details[0].maincareremail);
     $('#relationship').find('.info').html(objchildren.details[0].maincarertype);
+    
+      /**Medical Information**/
+    $('#illnesses').find('.info').html(objchildren.medicalInfo[0].illnesses);
+    $('#allergies').find('.info').html(objchildren.medicalInfo[0].allergies);
+    $('#medications').find('.info').html(objchildren.medicalInfo[0].medications);
+    $('#foodNotAllowed').find('.info').html(objchildren.medicalInfo[0].dob);
+    $('#disabilities').find('.info').html(objchildren.medicalInfo[0].disabilities);
+    $('#specialSupport').find('.info').html(objchildren.medicalInfo[0].specialSupport);
+    $('#doctorName').find('.info').html(objchildren.medicalInfo[0].doctorName);
+    $('#doctorContactnumber').find('.info').html(objchildren.medicalInfo[0].doctorContactnumber);
+    $('#doctorAddress').find('.info').html(objchildren.medicalInfo[0].doctorAddress);
    
 
     $('#deleteUser').attr('value',objchildren._id);
@@ -172,13 +191,13 @@ $('.rowUserChildren').on('click',function(){
 
     if(objparentarr.length>0){
         objparentarr.forEach(function(parent,index){
-            
+            var sendMessageParentLink = '/dashboard/manager/'+currentUserId+'/messages/new?userIdTo='+parent._id+'&labelTo=parent';
             var unlinkPath = '/dashboard/manager/'+ currentUserId + '/unlink?parentId='+parent._id+'&childId='+objchildren._id;
 
             var childrenInfo = $('<div>').attr('class', 'panel panel-info').append(
             $('<div>').attr('class','panel-heading').append($('<span>').attr('class','panel-title').append($('<a>').attr('data-toggle','collapse').attr('data-parent','#containerParent').attr('href','#col'+index).append(parent.details[0].firstname+' '+parent.details[0].lastname))).append(
            $('<a>').attr('class','btn btn-danger btn-xs pull-right').attr('style','margin-left:5px;').attr('href',unlinkPath).attr('data-toggle','tooltip').attr('title','Unlink parent from child.').append($('<i>').attr('class','fa fa-fw fa-chain-broken'))).append(
-           $('<a>').attr('class','btn btn-primary btn-xs pull-right').attr('href',unlinkPath).attr('data-toggle','tooltip').attr('title','Send message to this parent.').append($('<i>').attr('class','fa fa-fw fa-paper-plane-o')))).append(
+           $('<a>').attr('class','btn btn-primary btn-xs pull-right').attr('href',sendMessageParentLink).attr('data-toggle','tooltip').attr('title','Send message to this parent.').append($('<i>').attr('class','fa fa-fw fa-paper-plane-o')))).append(
             $('<div>').attr('id','col'+index).attr('class','panel-collapse collapse').append($('<div>').attr('class','panel-body').append(
                 $('<ul>').append($('<li>').append($('<strong>').append('Firstname: ')).append(parent.details[0].firstname))
                         .append($('<li>').append($('<strong>').append('Lastname: ')).append(parent.details[0].lastname))
@@ -217,8 +236,10 @@ $('.rowUserParent').on('click',function(){
     $('#countryLIst').find('.info').html(objParent.details[0].address.country);
     $('#postcodeLIst').find('.info').html(objParent.details[0].address.postcode);
 
-
     $('#deleteUser').attr('value',objParent._id);
+    
+    var sendMessageParentLink = '/dashboard/manager/'+currentUserId+'/messages/new?userIdTo='+objParent._id+'&labelTo=parent';
+    $('#sendMessageParent').attr('href', sendMessageParentLink);
     
     var fragment =$('#containerChildren'); 
 

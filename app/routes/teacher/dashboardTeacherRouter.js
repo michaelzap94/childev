@@ -4,10 +4,13 @@
  var isLoggedIn = require("../../middlewares/isLoggedIn");
  var sendEmail = require('../../email/mailer.js');
  var votingFunctions = require("../../votingSystem/votingMain.js");
-var myUtilities = require("../../childevFunctions/myUtilities.js");
-var bcrypt   = require('bcrypt-nodejs');
+ var myUtilities = require("../../childevFunctions/myUtilities.js");
+ var messagingFunctions = require("../../messagingSystem/messagingFunctions.js");
+
+ var bcrypt   = require('bcrypt-nodejs');
 
 
+ var Message = require("../../schemas/messages/messagesSchema.js");
  var Nursery = require("../../schemas/admin/nursery.js");
  var Teacher = require("../../schemas/teacher/teacherSchema.js");
  var Parent = require("../../schemas/parent/parentSchema.js");
@@ -140,10 +143,108 @@ router.put("/profile/edit",function(req,res){
 });
 
 
+ /**MESSAGES*************************************************/
+  
+ /**
+  * INBOX
+  *
+  */
+  router.get('/messages',isLoggedIn.isLoggedInNext,function(req, res) {
+      var nurseryId = req.user.nursery.id;
+      Message.find({"nursery.id":nurseryId , "to.id":req.user._id}).exec(function(err, messagesFound){
+          if(err){
+              req.flash('error',err);
+              res.redirect('/');
+          }else{
+            res.render("./dashboards/teacher/teacherMessages.ejs",{ messagesFound:  messagesFound}); 
+             
+          }
+      });
 
+ });
 
+ /**
+  * SENT
+  *
+  */
+  router.get('/messages/sent',isLoggedIn.isLoggedInNext,function(req, res) {
+    var nurseryId = req.user.nursery.id;
+      Message.find({"nursery.id":nurseryId , "from.id":req.user._id}).exec(function(err, messagesFound){
+         if(err){
+              req.flash('error',err);
+              res.redirect('/');
+          }else{
+            res.render("./dashboards/teacher/teacherMessagesSent.ejs",{ messagesFound:  messagesFound}); 
+             
+          }      
+          
+      });
+ 
+ });
+ 
+  /**
+  * NEW MESSAGE
+  *
+  */
+  router.get('/messages/new',isLoggedIn.isLoggedInNext,function(req, res) {
+       var userIdTo= req.query.userIdTo;
+      var label = req.query.labelTo;
+      var schema;
+      
+        if(userIdTo && label){
+                if(label==="parent"){
+                   schema = Parent;
+               }else if(label==="teacher"){
+                   schema = Teacher;
+               }else if(label==="manager"){
+                   schema = Nursery;
+               }else{
+                    req.flash("error","Label could not be identified.")
+                    res.redirect("back");
+               }
+                schema.findById(userIdTo,function(err, userFound) {
+                    
+                    res.render("./dashboards/teacher/teacherMessagesNew.ejs",{oneUserFound:userFound});
+        
+                });
+    
+        }else{
+           Nursery.findById( req.user.nursery.id).populate('parent').exec(function(err, populatedNurseryParents) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  //pass to the ejs an array of objects containing all of the teachers' data that work for this nursery
+                  res.render("./dashboards/teacher/teacherMessagesNew.ejs",{populatedNurseryParents:populatedNurseryParents});
+                }
+              });
+        } 
+      
 
+ });
+ 
+ 
+  /**
+  * NEW MESSAGE, check if URL has query arguments userIdTo & label, if so then populate the new message form with these details,
+  * otherwise, populate the form with all of the nursery data including manager details and teacher details
+  *
+  */
+  router.post('/messages/new',isLoggedIn.isLoggedInNext,function(req, res) {
 
+    messagingFunctions.sendNewMessage(req,res);
+
+ });
+ 
+  /**
+  * DELETE a message
+  *
+  */
+  router.get('/messages/:messageId/delete',isLoggedIn.isLoggedInNext,function(req, res) {
+
+    messagingFunctions.deleteMessage(req,res);
+
+ });
+ 
+ 
  /**
   * 
   * @module app/routes/parent/dashboardTeacherRouter

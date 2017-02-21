@@ -145,40 +145,7 @@ router.get('/linkaccount/:accountType/:nurseryId', function(req, res) {
 //variables to check if the manager actually sent the link to user, if so continue, otherwise no/
  var inserted = 0;
   var exists = false;
-  /*
-  Nursery.findOne({
-      '_id': nurseryId,
-      'activationhash': activationhash
-    }).populate('parent', null, {
-    username: username
-  }).exec(function(err, nurseryFound) {
-    if (err) {
-      return res.send({
-        error: 'Sorry this id was not found'
-      });
-    } else {
-       
-      if (nurseryFound[parentOrTeacher].length > 0) {
-        existsInPopulated = true;
-        
-        var populatedChildrenInParent = nurseryFound.parent[0].children;
-        populatedChildrenInParent.forEach(function(element){//check if the parent is already link to the child.
-          ++inserted;
-          if(element==childId){
-            exists = true;
-          }
-          if(inserted==populatedChildrenInParent.length && exists === true){
-            return res.send({
-                    error: 'This parent is already linked to this child.'
-                  });
-          }
-           if(inserted==populatedChildrenInParent.length && exists === false){
 
-          }
-        });
-    
-    */
-    
    Nursery.findOne({
       '_id': nurseryId,
       'activationhash': activationhash

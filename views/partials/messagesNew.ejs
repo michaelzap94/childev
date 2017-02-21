@@ -1,0 +1,88 @@
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-envelope fa-fw"></i><strong> New Message</storn></h3>
+    </div>
+    <div class="panel-body">
+       
+          <form id='messageForm' action="/dashboard/<%= currentUser.label %>/<%= currentUser._id %>/messages/new" method='POST'>
+              <% if(typeof oneUserFound != 'undefined'){ %>
+                    <div>
+                      <span>To: </span><span><%=oneUserFound.details[0].firstname%> <%=oneUserFound.details[0].lastname%> (<%=oneUserFound.label%>)</span>
+                    </div>
+                    
+                    
+                   <input class="form-control" name='userToObject' id="userToObject" type="hidden" 
+                    value='{"userIdTo":"<%=oneUserFound._id%>","messageToName":"<%=oneUserFound.details[0].firstname%> <%=oneUserFound.details[0].lastname%>","label":"<%=oneUserFound.label%>","usernameTo":"<%=oneUserFound.username%>"}' />
+                    
+
+
+              <% }else if(typeof populatedNurseryTeachers != 'undefined'){ %>
+              
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <h4><b>List of Teachers/Manager registered at <%=populatedNurseryTeachers.details[0].name%></b></h4>
+                            <div class="form-group">
+                                <label>To:</label>
+                                <select class="form-control" name='userToObject' required>
+                                  <option value=''>Select the User you want to send a message to.</option>
+                                  <option value='{"userIdTo":"<%=populatedNurseryTeachers._id%>","messageToName":"<%=populatedNurseryTeachers.details[0].firstname%> <%=populatedNurseryTeachers.details[0].lastname%>","label":"<%=populatedNurseryTeachers.label%>","usernameTo":"<%=populatedNurseryTeachers.username%>"}'>
+                                      <%=populatedNurseryTeachers.details[0].firstname%> <%=populatedNurseryTeachers.details[0].lastname%> (<%=populatedNurseryTeachers.label%>)
+                                  </option>
+                                  <% if(populatedNurseryTeachers.teacher.length>0){%>
+                                  <% populatedNurseryTeachers.teacher.forEach(function(teacherFound){ %>
+                                  <option value='{"userIdTo":"<%=teacherFound._id%>","messageToName":"<%=teacherFound.details[0].firstname%> <%=teacherFound.details[0].lastname%>","label":"<%=teacherFound.label%>","usernameTo":"<%=teacherFound.username%>"}'>
+                                      <%=teacherFound.details[0].firstname%> <%=teacherFound.details[0].lastname%> (<%=teacherFound.label%>)
+                                  </option>
+                                  <% }); }%>
+                                </select>
+                            </div>                    
+                      </div>
+                    </div>
+                  
+              <% }else if(typeof populatedNurseryParents!= 'undefined'){ %>
+              
+                    <div class="row">
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                          <h4><b>List of Parents registered at <%=populatedNurseryParents.details[0].name%></b></h4>
+                            <div class="form-group">
+                               <label>To:</label>
+                                <select class="form-control" name='userToObject' required>
+                                  <option value=''>Select the User you want to send a message to.</option>
+                                  <% if(currentUser.label === 'teacher'){ %>
+                                  <option value='{"userIdTo":"<%=populatedNurseryParents._id%>","messageToName":"<%=populatedNurseryParents.details[0].firstname%> <%=populatedNurseryParents.details[0].lastname%>","label":"<%=populatedNurseryParents.label%>","usernameTo":"<%=populatedNurseryParents.username%>"}'>
+                                      <%=populatedNurseryParents.details[0].firstname%> <%=populatedNurseryParents.details[0].lastname%> (<%=populatedNurseryParents.label%>)
+                                  </option>
+                                  <% }else if(currentUser.label === 'manager'){%>
+                                   <% if(populatedNurseryParents.teacher.length>0){%>
+                                  <% populatedNurseryParents.teacher.forEach(function(teacherFound){ %>
+                                  <option value='{"userIdTo":"<%=teacherFound._id%>","messageToName":"<%=teacherFound.details[0].firstname%> <%=teacherFound.details[0].lastname%>","label":"<%=teacherFound.label%>","usernameTo":"<%=teacherFound.username%>"}'>
+                                      <%=teacherFound.details[0].firstname%> <%=teacherFound.details[0].lastname%> (<%=teacherFound.label%>)
+                                  </option>
+                                  <% }); } }%>
+                                  <% if(populatedNurseryParents.parent.length>0){%>
+                                  <% populatedNurseryParents.parent.forEach(function(parentFound){ %>
+                                  <option value='{"userIdTo":"<%=parentFound._id%>","messageToName":"<%=parentFound.details[0].firstname%> <%=parentFound.details[0].lastname%>","label":"<%=parentFound.label%>","usernameTo":"<%=parentFound.username%>"}'>
+                                      <%=parentFound.details[0].firstname%> <%=parentFound.details[0].lastname%> (<%=parentFound.label%>)
+                                  </option>
+                                  <% }); }%>
+                                </select>
+                            </div>                    
+                      </div>
+                    </div>
+                  
+              <% } %>
+              
+              
+             <div class="form-group">
+                <label for="messageContent">Message:</label>
+                <textarea style='resize:vertical;'class="form-control" rows="8" name='messageContent' id="messageContent" required></textarea>
+              </div>             
+              
+              <button type='submit' class='btn btn-success btn-block'>Send Message</button>
+
+          </form>
+            
+        
+
+     </div><!--panel-body-->
+</div><!--panel-->

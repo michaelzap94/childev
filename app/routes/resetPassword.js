@@ -82,7 +82,7 @@ router.get("/:label/newpassword",function(req,res){
     if(token.length>0&&id.length>0){
     schema.findById(id,function(err, userFound) {
         if(err){
-            res.send("Something went wrong, try again later.")
+            res.send("Something went wrong, try again later.");
         }
         else{
             if(userFound.resetPasswordToken===parseInt(token)){
@@ -127,7 +127,7 @@ router.put("/:label/newpassword/:id",function(req,res){
     }
     schema.findById(id,function(err, userFound) {
       if(err){
-       req.flash("error","Password was not updated.")
+       req.flash("error","Password was not updated.");
        res.redirect('/');
         }
       else{

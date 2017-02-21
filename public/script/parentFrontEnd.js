@@ -25,6 +25,17 @@ $('.rowUserChildren').on('click',function(){
     $('#contactnumberLIst').find('.info').html(objchildren.details[0].maincarercontactnumber);
     $('#usernameLIst').find('.info').html(objchildren.details[0].maincareremail);
     $('#relationship').find('.info').html(objchildren.details[0].maincarertype);
+    
+    /**Medical Information**/
+    $('#illnesses').find('.info').html(objchildren.medicalInfo[0].illnesses);
+    $('#allergies').find('.info').html(objchildren.medicalInfo[0].allergies);
+    $('#medications').find('.info').html(objchildren.medicalInfo[0].medications);
+    $('#foodNotAllowed').find('.info').html(objchildren.medicalInfo[0].dob);
+    $('#disabilities').find('.info').html(objchildren.medicalInfo[0].disabilities);
+    $('#specialSupport').find('.info').html(objchildren.medicalInfo[0].specialSupport);
+    $('#doctorName').find('.info').html(objchildren.medicalInfo[0].doctorName);
+    $('#doctorContactnumber').find('.info').html(objchildren.medicalInfo[0].doctorContactnumber);
+    $('#doctorAddress').find('.info').html(objchildren.medicalInfo[0].doctorAddress);
    
 
    $('#seeProgress').attr('href',basicPath+'/children/'+objchildren._id+'/progress');
@@ -56,3 +67,8 @@ function mySearchFunction() {
         }
     }
 }
+
+
+//------------------------------------------------------------
+$('[data-toggle="tooltip"]').tooltip();
+$( document ).tooltip();

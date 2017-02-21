@@ -29,145 +29,165 @@
         
 
            <div class='row'>
-
               <div class='col-md-6'>
-
-                  <div class="form-group">
-                    <label class="control-label text-inverse" for="firstname">Child's First Name:</label>
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                        <i class="fa fa-user fa-fw " aria-hidden="true"></i>
-                      </span>
-                      <input class="form-control" placeholder="Please enter your First Name"
-                      name="firstname" type="text" value='<%=childObject.details[0].firstname%>'>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label text-inverse" for="lastname">Child's Last Name:</label>
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                        <i class="fa fa-user fa-fw " aria-hidden="true"></i>
-                      </span>
-                      <input class="form-control" placeholder="Please enter your Surname" name="lastname"
-                      type="text" value='<%=childObject.details[0].lastname%>'>
-                    </div>
-                  </div>
-                   <div class="form-group">
-                    <label class="control-label text-inverse" for="gender">Child's gender:</label>
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
-                      </span>
-                      <select class="form-control" name='gender' required>
-                        <option value=''>Select the child's gender</option>
-                        <option value='female'  <%if(childObject.details[0].gender==='female'){%> selected='selected' <%}%> >Female</option>
-                        <option value='male'  <%if(childObject.details[0].gender==='male'){%> selected='selected' <%}%> >Male</option>
-                      </select>
-                    </div>
-                  </div>
-                   <div class="form-group">
-                    <label class="control-label text-inverse" for="dob">Child's date of birth:</label>
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
-                      </span>
-                      <input class="form-control" placeholder="Enter the child's date of birth" type="text" name='dob' id="datepicker" value='<%=childObject.details[0].dob%>' required >
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="control-label text-inverse" for="address">Child's Address:</label>
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
-                        </span>
-                        <input type="text" class="form-control" name="address1" placeholder="First line of address" value='<%=childObject.details[0].address.address1%>'>
-                      </div>
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
-                        </span>
-                        <input type="text" class="form-control" name="address2" placeholder="Second line of address" value='<%=childObject.details[0].address.address2%>'>
-                      </div>
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
-                        </span>
-                        <input type="text" class="form-control" name="city" placeholder="City" value='<%=childObject.details[0].address.city%>'>
-                      </div>
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
-                        </span>
-                        <input type="text" class="form-control" name="country" placeholder="Country" value='<%=childObject.details[0].address.country%>'>
-                      </div>
-                      <div class="input-group">
-                        <span class="input-group-addon">
-                          <i class="fa fa-map-marker fa-fw" aria-hidden="true"></i>
-                        </span>
-                        <input type="text" class="form-control" name="postcode" placeholder="Post Code" value='<%=childObject.details[0].address.postcode%>'>
-                      </div>
-
-                  </div><!--address from group-->
+                   <div class="panel-group" id="accordion1">
+                          <div class="panel panel-primary">
+                            <div class="panel-heading">
+                              <span class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion1" href="#collapse1"><i class="fa fa-user-md fa-fw"></i><strong> Illnesses</a>
+                              </span>
+                            </div>
+                            <div id="collapse1" class="panel-collapse collapse in">
+                              <div class="panel-body">
+                                 <div class="form-group">
+                                    <label for="illnesses">Illnesess your child has:</label>
+                                    <textarea style='resize:vertical;'class="form-control" rows="5" name='illnesses' id="illnesses"><%= childObject.medicalInfo[0].illnesses%></textarea>
+                                 </div> 
+                  
+                                
+                              </div><!--panel-body-->
+                            </div><!--panel-collapse-->
+                          </div><!--panel-->
+                    </div><!-- accordion, panel gorup-->
              </div><!--first column end -->
+             
+             <div class='col-md-6'>
+                            
+                          <div class="panel-group" id="accordion2">
+                                  <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                      <span class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion2" href="#collapse2"><i class="fa fa-user-md fa-fw"></i><strong> Food Child is not Allowed to Eat</a>
+                                      </span>
+                                    </div>
+                                    <div id="collapse2" class="panel-collapse collapse in">
+                                      <div class="panel-body">
+                                        <div class="form-group">
+                                            <label for="food">What food can your child NOT eat?</label>
+                                            <textarea style='resize:vertical;'class="form-control" rows="5" name='food' id="food"><%= childObject.medicalInfo[0].foodNotAllowed%></textarea>
+                                        </div> 
 
-            <div class='col-md-6'>
-
-                  <div class="form-group">
-                     <label class="control-label text-inverse" for="maincarerdetails">Main carer's details:</label>
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                        <i class="fa fa-user fa-fw " aria-hidden="true"></i>
-                      </span>
-                      <input class="form-control" placeholder="Please enter your First Name" name="p1firstname" type="text" required  value='<%=childObject.details[0].maincarerfirstname%>'>
-                    </div>
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                        <i class="fa fa-user fa-fw " aria-hidden="true"></i>
-                      </span>
-                      <input class="form-control" placeholder="Please enter your Surname" name="p1lastname" type="text" required  value='<%=childObject.details[0].maincarerlastname%>'>  
-                    </div>
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
-                      </span>
-                      <input class="form-control" placeholder="Please enter the manager's contact number" name="p1contactnumber"
-                      type="tel"  value='<%=childObject.details[0].maincarercontactnumber%>'>
-                    </div>
-                    <div class="input-group">
-                      <span class="input-group-addon">
-                        <i class="fa fa-envelope-o fa-fw" aria-hidden="true"></i>
-                      </span>
-                      <input type="text" class="form-control" name="p1username" placeholder="Please enter your email address"  value='<%=childObject.details[0].maincareremail%>'>
-                    </div>
-                     <div class="input-group">
-                      <span class="input-group-addon">
-                        <i class="fa fa-user fa-fw" aria-hidden="true"></i>
-                      </span>
-                      <select class="form-control" name='p1carertype' required>
-                          <option value='' >Relationship to the child.</option>
-                          <option value='Mother' <%if(childObject.details[0].maincarertype==='Mother'){%> selected='selected' <%}%> >Mother</option>
-                          <option value='Father' <%if(childObject.details[0].maincarertype==='Father'){%> selected='selected' <%}%> >Father</option>
-                          <option value='Guardian' <%if(childObject.details[0].maincarertype==='Guardian'){%> selected='selected' <%}%> >Legal Guardian</option>
-                      </select>
-                    </div>
-                 
-                  </div><!--main carer's details -->
-                <div style="margin-right:0; margin-left:0;"  class=" row well">
-                   
-                       <h4 style="margin-left:12px;"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Changes cannot be undone.</h4>
-                       </br>
-                      <div class="col-md-6">
-                          <button type="submit" name="submit" id="submit" class="btn btn-block btn-success">Submit</button>
-                      </div>
-                      <div class="col-md-6">
-                           <button type="button" id="resetChildrenRegisterForm" onClick="resetThisForm(event, this.id);" class="col-xs-4 btn btn-block btn-warning">Reset Form</button>
-                      </div>
-                 </div>
-               
+                                      </div><!--panel-body-->
+                                    </div><!--panel-collapse-->
+                                  </div><!--panel-->
+                            </div><!-- accordion, panel gorup-->
               </div> <!--second column end-->
           </div><!--end of first row-->
+          
+           <div class='row'>
+              <div class='col-md-6'>
+                           <div class="panel-group" id="accordion3">
+                                  <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                      <span class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion3" href="#collapse3"><i class="fa fa-user-md fa-fw"></i><strong> Allergies</storn></a>
+                                      </span>
+                                    </div>
+                                    <div id="collapse3" class="panel-collapse collapse in">
+                                      <div class="panel-body">
+                                          <div class="form-group">
+                                            <label for="allergies">Allergies your child has:</label>
+                                            <textarea style='resize:vertical;'class="form-control" rows="5" name='allergies' id="allergies"><%= childObject.medicalInfo[0].allergies%></textarea>
+                                          </div>                                         
+                                      </div><!--panel-body-->
+                                    </div><!--panel-collapse-->
+                                  </div><!--panel-->
+                            </div><!-- accordion, panel gorup-->
+                      </div><!--column-->
 
+             <div class='col-md-6'>
+                   <div class="panel-group" id="accordion4">
+                        <div class="panel panel-primary">
+                          <div class="panel-heading">
+                            <span class="panel-title">
+                              <a data-toggle="collapse" data-parent="#accordion4" href="#collapse4"><i class="fa fa-user-md fa-fw"></i><strong> Medications Child is taking</storn></a>
+                            </span>
+                          </div>
+                          <div id="collapse4" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                              
+                              <div class="form-group">
+                                <label for="medications">What medications is your child taking?</label>
+                                <textarea style='resize:vertical;'class="form-control" rows="5" name='medications' id="medications"><%= childObject.medicalInfo[0].medications%></textarea>
+                              </div>
 
+                            </div><!--panel-body-->
+                          </div><!--panel-collapse-->
+                        </div><!--panel-->
+                  </div><!-- accordion, panel gorup-->
+              </div><!--column-->
+          </div><!--end of first row-->          
+         
+        
+          <div class='row'>
+              <div class='col-md-6'>
+                   <div class="panel-group" id="accordion5">
+                        <div class="panel panel-primary">
+                          <div class="panel-heading">
+                            <span class="panel-title">
+                              <a data-toggle="collapse" data-parent="#accordion5" href="#collapse5"><i class="fa fa-user-md fa-fw"></i><strong> Extra information</storn></a>
+                            </span>
+                          </div>
+                          <div id="collapse5" class="panel-collapse collapse in">
+                            <div class="panel-body">
+
+                              <div class='form-group'>
+                                <label for='disabilityDetails'>Please give details if child has any disability:</label>
+                                <textarea style='resize:vertical;'class="form-control" rows="5" name='disabilityDetails' id="disabilityDetails"><%= childObject.medicalInfo[0].disabilities%></textarea>
+                              </div>
+                              
+                              <div class="form-group">
+                                <label for="specialSupport">What special support will the child require within the nursery?</label>
+                                <textarea style='resize:vertical;'class="form-control" rows="5" name='specialSupport' id="specialSupport"><%= childObject.medicalInfo[0].specialSupport%></textarea>
+                              </div>
+                               
+                              
+                            </div><!--panel-body-->
+                          </div><!--panel-collapse-->
+                        </div><!--panel-->
+                  </div><!-- accordion, panel gorup-->                
+             </div><!--first column end -->            
+            
+            
+            <div class='col-md-6'>
+                   <div class="panel-group" id="accordion6">
+                        <div class="panel panel-primary">
+                          <div class="panel-heading">
+                            <span class="panel-title">
+                              <a data-toggle="collapse" data-parent="#accordion6" href="#collapse6"><i class="fa fa-hospital-o fa-fw"></i><strong> Hospital information</storn></a>
+                            </span>
+                          </div>
+                          <div id="collapse6" class="panel-collapse collapse in">
+                            <div class="panel-body">
+                              
+                              <div class="form-group">
+                                  <label for="doctorName">Doctor’s Name:</label>
+                                  <input type="text" class="form-control" name='doctorName' id="doctorName" value='<%= childObject.medicalInfo[0].doctorName%>'>
+                                </div>
+                                <div class="form-group">
+                                  <label for="doctorAddress">Doctor’s Address:</label>
+                                  <input type="text" class="form-control" name='doctorAddress' id="doctorAddress" value='<%= childObject.medicalInfo[0].doctorAddress%>'>
+                                </div>
+                               <div class="form-group">
+                                  <label for="doctorContactnumber">Doctor’s Telephone Number:</label>
+                                  <input type="number" class="form-control" name='doctorContactnumber' id="doctorContactnumber" value='<%= childObject.medicalInfo[0].doctorContactnumber%>'>
+                                </div>
+                              
+                            </div><!--panel-body-->
+                          </div><!--panel-collapse-->
+                        </div><!--panel-->
+                  </div><!-- accordion, panel gorup-->
+                  
+                  <div style="margin-right:0; margin-left:0;"  class=" row well">
+                          <button type="submit" name="submit" id="submit" class="btn btn-block btn-success">Save</button>
+
+                  </div>
+            </div><!--col end-->  
+          </div><!--third row-->
+
+              
+
+      
        </form>
        
       </div><!--container end-->
@@ -177,16 +197,11 @@
 
       <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-
-    <link rel="stylesheet" href="/style/main.css"/>
-    <script src='/script/formsHandler.js'></script>
-    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    
+    <script src='/script/formsHandler.js'></script>
 
-    <!-- Bootstrap Core JavaScript -->
+
 </body>
 
 </html>

@@ -69,7 +69,7 @@
                           <hr>  
                         <h4><b>Parents still to be linked:</b></h4>
 
-                                <ul id='teachersWaitingRegistration' class="list-group">
+                                <ul id='waitingLinkingParents' class="list-group">
                                   <% currentUser.waitingLinkingParents.forEach(function(element){
                                         if(element!=""){
                                   %>
@@ -186,7 +186,7 @@
                     </div><!--modal body-->
                     <div class="modal-footer">
                       <button type="button" class="btn btn-danger" id='deleteUser'  data-toggle="modal" data-target="#myConfirmation">Delete User</button>
-                      <a type="button" class="btn btn-primary" href='#'>Send Message</a>
+                      <a type="button" class="btn btn-primary" id='sendMessageParent'>Send Message</a>
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                   </div>

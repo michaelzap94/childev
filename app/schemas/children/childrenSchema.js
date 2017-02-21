@@ -3,6 +3,43 @@ var mongoose = require('mongoose');
 var passportLocalMongoose = require("passport-local-mongoose");*/
 
 /**
+ * This Object defines the schema of the user's medical information.
+ * @namespace
+ * @property {string}  firstname - The firstname of the child.
+ * @property {string}  lastname - The lastname of the child.
+ * @property {Integer} student_id - The student ID of the child.
+ * @property {string}  gender - The gender of the child.
+ * @property {string}  dob - The date of birth of the child.
+ * @property {string}  maincareremail - The main carer's email of the child.
+ * @property {string}  maincarerfirstname - The main carer's firstname of the child.
+ * @property {string}  maincarerlastname - The main carer's lastname of the child.
+ * @property {string}  maincarercontactnumber - The main carer's contact number of the child.
+ * @property {string}  maincarertype - The main carer's type of parenting.
+ * @property {object}  address - The address of the child.
+ * @property {string}  address.address1 - The first line of the address of the child.
+ * @property {string}  address.address2 - The second line of the address of the child.
+ * @property {string}  address.city - The city of the address of the child.
+ * @property {string}  address.country - The country of the address of the child.
+ * @property {string}  address.postcode - The postcode of the child.
+  */
+ var ChildrenMedicalSchema = new mongoose.Schema({
+   medications:{type:String, default: ''},
+   illnesses:{type:String, default: ''},
+   allergies:{type:String, default: ''},
+   foodNotAllowed:{type:String, default: ''},
+   specialSupport:{type:String, default: ''},
+   disabilities:{type:String, default: ''},
+   doctorName:{type:String, default: ''},
+   doctorAddress:{type:String, default: ''},
+   doctorContactnumber:{type:String, default: ''}
+   
+   
+});
+mongoose.model("ChildrenMedical", ChildrenMedicalSchema);
+//----------------------------------------------------------------
+
+
+/**
  * This Object defines the schema of the user's details.
  * @namespace
  * @property {string}  firstname - The firstname of the child.
@@ -39,9 +76,6 @@ var passportLocalMongoose = require("passport-local-mongoose");*/
         city:String,
         country:String,
         postcode:String
-    },
-    medicalInfo:{
-        
     }
 });
 mongoose.model("ChildrenDetails", ChildrenDetailsSchema);
@@ -62,6 +96,7 @@ mongoose.model("ChildrenDetails", ChildrenDetailsSchema);
     label: String,
     dateCreated:{type:Date, default: Date.now},// if date is empty the default is Date.now
     details: [ChildrenDetailsSchema],
+    medicalInfo: [ChildrenMedicalSchema],
     parentsemails: [{type: String}],
     nursery: {
         id:{
@@ -77,6 +112,10 @@ mongoose.model("ChildrenDetails", ChildrenDetailsSchema);
     
 });
 
+/**
+ * Remove this child reference from his parent schema
+ *
+ */
 childrenSchema.pre('remove', function (next) {
     this.model('Parent').update(
         { children:  this._id }, 
