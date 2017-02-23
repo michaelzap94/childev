@@ -41,7 +41,8 @@ $('.rowUserChildren').on('click',function(){
     $('#doctorAddress').find('.info').html(objchildren.medicalInfo[0].doctorAddress);
    
 
-    $('#deleteUser').attr('value',objchildren._id);
+    $('#seeReports').attr('href','/dashboard/teacher/'+currentUserId+'/report/'+objchildren._id);
+    $('#newReport').attr('href','/dashboard/teacher/'+currentUserId+'/report/'+objchildren._id+'/new');
     
     var fragment =$('#containerParent'); 
 

@@ -4,22 +4,28 @@
             
             <% include ../../partials/flashMessage.ejs %>
             
-            
+        <script>
+         var childAge= '<%-childAge%>';//pass variable coming from ejs to Static JS Scipt
+        </script>   
 
         <div  class="container-fluid">
 
-           <h3>Progress Report for child: <strong><span>Name</span>, <span>Age</span>.</strong></h3>
+           <h3>Progress Report for child: <strong><span><%=childFound.details[0].firstname%> <%=childFound.details[0].lastname%></span>. DOB: <%=childFound.details[0].dob%></span>. Age: <span><%=childAge%></span>.</strong></h3>
            <p><span class='label label-success'>HP</span> High Priority - Parents will be informed if mark is "Needs Special Attention",</p> 
-           <span class='label label-warning'>LP</span> Low Priority - Parents will not be informed even if mark is "Needs Special Attention".</p>
+           <p></p><span class='label label-warning'>LP</span> Low Priority - Parents will not be informed even if mark is "Needs Special Attention".</p>
+           <p></p><span class='label label-info'>Note:</span> As the child’s age increases the Skills that had a higher priority first will have a lower priority after because he/she should have already gained those skills at an early age. 
+           If you believe a child needs special support in any particular area, you should send a message to his/her parents, giving some suggestions as to how to address that problem.
+           </p>
+            <div class='jumbotron'>
                <form id='progressReport'>
                   <div class='row'>
 
                    <div class='col-md-9'>
-                    <h4><strong><u>Intellectual Development</u></strong> <span class='label label-success' data-toggle="tooltip">HP</span> <span class='label label-warning' data-toggle="tooltip">LP</span></h4>
+                    <h4><span id='intellectualInfo' data-toggle="modal" data-target="#myModal"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip" title='Click to see how this skill is evaluated at this age' ></i></span> <strong><u>Intellectual Development</u></strong></h4>
                      <ul>
                               <li>
                                  <div id='mathematical' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Mathematical Skills </label>
+                                  <label class="control-label text-inverse" for="carerType"><span class='label'></span> Mathematical Skills </label>
 
                                       <select name='mathematical' class='form-control' required>
                                         <option value='' >Mark</option>
@@ -33,7 +39,7 @@
                               </li>
                               <li>
                                  <div  id='language' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Language and communication Skills </label>
+                                  <label class="control-label text-inverse" for="carerType"><span class='label'></span> Language and communication Skills </label>
 
                                       <select name='language' class='form-control' required>
                                         <option value='' >Mark</option>
@@ -47,7 +53,7 @@
                               </li>
                               <li>
                                 <div id='attention' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Attention skills </label>
+                                  <label class="control-label text-inverse" for="carerType"><span class='label'></span> Attention skills </label>
 
                                       <select  name='attention' class='form-control' required>
                                         <option value='' >Mark</option>
@@ -61,7 +67,7 @@
                               </li>
                               <li>
                                  <div id='recognition' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Recognition and perception of objects, people, etc. </label>
+                                  <label class="control-label text-inverse" for="carerType"><span class='label'></span> Recognition and perception of objects, people, etc. </label>
 
                                       <select  name='recognition' class='form-control' required>
                                         <option value='' >Mark</option>
@@ -80,11 +86,11 @@
                  <div class='row'>
 
                    <div class='col-md-9'>
-                    <h4><strong><u>Social and Emotional Development</u></strong> <span class='label label-success' data-toggle="tooltip">HP</span> <span class='label label-warning' data-toggle="tooltip">LP</span></h4>
+                    <h4><span  id='socialInfo' data-toggle="modal" data-target="#myModal"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip" title='Click to see how this skill is evaluated at this age' ></i></span> <strong><u>Social and Emotional Development</u></strong></h4>
                      <ul>
                               <li>
                                  <div id='respect' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Affection and respect for others </label>
+                                  <label class="control-label text-inverse" for="carerType"><span class='label'></span> Affection and respect for others </label>
 
                                       <select  name='respect' class='form-control' required>
                                         <option value='' >Mark</option>
@@ -98,7 +104,7 @@
                               </li>
                               <li>
                                  <div id='teamworking' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Team-working skills </label>
+                                  <label class="control-label text-inverse" for="carerType"><span class='label'></span> Team-working skills </label>
 
                                       <select  name='teamworking' class='form-control' required>
                                         <option value='' >Mark</option>
@@ -112,7 +118,7 @@
                               </li>
                               <li>
                                 <div id='independence' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Independence and personal autonomy </label>
+                                  <label class="control-label text-inverse" for="carerType"><span class='label'></span> Independence and personal autonomy </label>
 
                                       <select  name='independence' class='form-control' required>
                                         <option value='' >Mark</option>
@@ -126,7 +132,7 @@
                               </li>
                               <li>
                                  <div id='feelingsexpression' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Expression of feelings and emotions </label>
+                                  <label class="control-label text-inverse" for="carerType"><span class='label'></span> Expression of feelings and emotions </label>
 
                                       <select name='feelingsexpression' class='form-control' required>
                                         <option value='' >Mark</option>
@@ -145,11 +151,11 @@
                  <div class='row'>
 
                    <div class='col-md-9'>
-                    <h4><strong><u>Psychomotor and Physical Development</u></strong> <span class='label label-success' data-toggle="tooltip">HP</span> <span class='label label-warning' data-toggle="tooltip">LP</span></h4>
+                    <h4><span  id='physicalInfo' data-toggle="modal" data-target="#myModal"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip" title='Click to see how this skill is evaluated at this age' ></i></span> <strong><u>Psychomotor and Physical Development</u></strong></h4>
                      <ul>
                               <li>
                                  <div id='motor' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Motor skills </label>
+                                  <label class="control-label text-inverse" for="carerType"><span class='label'></span> Motor skills </label>
 
                                       <select name='motor' class='form-control' required>
                                         <option value='' >Mark</option>
@@ -163,7 +169,7 @@
                               </li>
                               <li>
                                  <div id='manipulative' class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Manipulative and movement skills </label>
+                                  <label class="control-label text-inverse" for="carerType"><span class='label'></span> Manipulative and movement skills </label>
 
                                       <select name='manipulative' class='form-control' required>
                                         <option value='' >Mark</option>
@@ -177,7 +183,7 @@
                               </li>
                               <li>
                                 <div  id='hygiene'  class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Personal hygiene </label>
+                                  <label class="control-label text-inverse" for="carerType"><span class='label'></span> Personal hygiene </label>
 
                                       <select name='hygiene' class='form-control' required>
                                         <option value='' >Mark</option>
@@ -191,7 +197,7 @@
                               </li>
                               <li>
                                  <div  id='diet'  class="form-group form-inline">
-                                  <label class="control-label text-inverse" for="carerType"><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip"></i> <span class='label'></span> Healthy Diet </label>
+                                  <label class="control-label text-inverse" for="carerType"><span class='label'></span> Healthy Diet </label>
 
                                       <select name='diet' class='form-control' required>
                                         <option value='' >Mark</option>
@@ -208,11 +214,11 @@
                    
                  </div><!-- third row -->
                    
-                   
+                <button class='btn btn-success btn-lg' type='submit'>Create Report</button>
                    
                </form>
        
-       
+           </div><!--jumbotron-->
        
        
        
@@ -222,9 +228,39 @@
 
     </div>
     <!-- /#page-wrapper -->
+    
+      <!-- Modal -->
+              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">
+                          <strong  id="myModalLabel"></strong>
+                      </h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <h4 id='myModalBody'></h4>
+
+                    </div><!--modal-body-->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- Modal -->
+    
 
   </div>
     <!-- /#wrapper -->
     
-    
-<% include ../../partials/dashboardCommon/dashboardFooter.ejs %> 
+  <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+      <script src='/script/reportFormHandler.js'></script>
+</body>
+
+</html>

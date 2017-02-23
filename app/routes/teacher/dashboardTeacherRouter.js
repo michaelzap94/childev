@@ -244,6 +244,29 @@ router.put("/profile/edit",function(req,res){
 
  });
  
+ /***REPORT************************************************************/
+ 
+ /**
+  * Gets the form to write a report, It makes sure child is actually registered in the same nursery as the teacher.
+  *
+  */
+   router.get('/report/:childId/new',isLoggedIn.isLoggedInNext,function(req, res) {
+      var nurseryId = req.user.nursery.id;//nursery the teacher belongs to.
+      
+      Children.findById({"nursery.id":nurseryId , "_id":req.params.childId}).exec(function(err, childFound){
+          if(err){
+              req.flash('error',err);
+              console.log(err);
+              res.redirect('/');
+          }else{
+              var childAge = myUtilities.calculateAge(childFound.details[0].dob);
+            res.render("./dashboards/teacher/teacherReportForm.ejs",{ childFound:  childFound, childAge:childAge }); 
+             
+          }
+      });
+
+ });
+ 
  
  /**
   * 

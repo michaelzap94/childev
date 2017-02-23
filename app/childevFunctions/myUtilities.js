@@ -172,6 +172,33 @@ function unlinkChildFromParent(req,res,parentId,childId,parentFound){
 }
 
 /**
+ * will return the age of a child based on his birthday
+ *
+ */
+function calculateAge(birthdate){
+    var today = new Date();
+    var arrHoldingAgeValues=birthdate.split('/');
+    
+    var childAgeYear = arrHoldingAgeValues[2];
+    var childAgeMonth = arrHoldingAgeValues[1];
+    var childAgeDay = arrHoldingAgeValues[0];
+    
+    var childAge = today.getFullYear() - childAgeYear;
+    var month = today.getMonth() - childAgeMonth;
+    
+    if (month < 0 || (month === 0 && today.getDate() < childAgeDay)) {
+        childAge--;
+    }
+    if(childAge<0){
+        return 0;
+    }else{
+        return childAge;
+    }
+    
+
+}
+
+/**
  * 
  * @module app/childevFunctions/parentRegister
  */
@@ -179,5 +206,6 @@ module.exports = {
   resetPassword: resetPassword,
   capitalizeStarter:capitalizeStarter,
   deleteUser:deleteUser,
-  unlinkParentFromChild:unlinkParentFromChild
+  unlinkParentFromChild:unlinkParentFromChild,
+  calculateAge:calculateAge
 }

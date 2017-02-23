@@ -348,5 +348,5 @@ $('#deleteUserPermanently').on('click',function() {
 });
 //------------------------------------------------------------
 $('[data-toggle="tooltip"]').tooltip();
-$( document ).tooltip();
+//$( document ).tooltip();
 //------------------------------------------------
