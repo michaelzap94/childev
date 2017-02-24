@@ -263,3 +263,9 @@ ul{
       word-wrap: break-word;
       padding-left: 0px;
 }
+
+/*******REPORT FORM*********/
+#physicalInfo , #socialInfo , #intellectualInfo{
+     cursor: pointer; 
+     cursor: hand; 
+}

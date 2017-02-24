@@ -13,6 +13,9 @@ var phyDev23='At these age, it is very important that they start being able to m
 var phyDev34='At these age, it is very important that children become aware of their personal hygiene, they must learn to go to the toilet by themselves and start cleaning themselves up. Also, it is important that they can manipulate pens and pencils well because at these ages they will start learning how to write, and also so they can wash their own hands and learn how to use toilet paper and wipes.';
 var phyDev56='At these age, it is very important that children are already aware of their personal hygiene and that they can go to the toilet by themselves and clean themselves up because next year children will go to primary school and teachers will not be able to go to the toilet with them. Moreover, they should learn about a healthy diet, and that they should not always eat sweets and fast food and that they should eat fruits and vegetables instead.';
  
+var hp="<span class='label label-primary'>HP</span>";
+var lp="<span class='label label-warning'>LP</span>";
+
 /**
 * description
 *
@@ -76,6 +79,88 @@ $('#physicalInfo').on('click',function(){
     
     $('#myModalBody').html(phyInfo);
 });
+
+
+/**LABEL**************************/
+//----------INTELLECTUAL---------------------------/
+    if(0<=childAge<2){
+        $('#mathematical').find('.infoLabel').html(lp);
+        $('#language').find('.infoLabel').html(hp);
+        $('#attention').find('.infoLabel').html(lp);
+        $('#recognition').find('.infoLabel').html(hp);
+        
+    }else if(2<=childAge<=3){
+        $('#mathematical').find('.infoLabel').html(lp);
+        $('#language').find('.infoLabel').html(hp);
+        $('#attention').find('.infoLabel').html(lp);
+        $('#recognition').find('.infoLabel').html(hp);        
+    }else if(3<childAge<=4){
+        $('#mathematical').find('.infoLabel').html(lp);
+        $('#language').find('.infoLabel').html(hp);
+        $('#attention').find('.infoLabel').html(hp);
+        $('#recognition').find('.infoLabel').html(lp);        
+    }else if(5<=childAge){
+        $('#mathematical').find('.infoLabel').html(lp);
+        $('#language').find('.infoLabel').html(hp);
+        $('#attention').find('.infoLabel').html(hp);
+        $('#recognition').find('.infoLabel').html(lp);        
+    }
+
+//-----------SOCIAL------------------------------------------/
+    if(0<=childAge<2){
+        $('#respect').find('.infoLabel').html(lp);
+        $('#teamworking').find('.infoLabel').html(lp);
+        $('#independence').find('.infoLabel').html(hp);
+        $('#feelingsexpression').find('.infoLabel').html(hp);
+        
+    }else if(2<=childAge<=3){
+        $('#respect').find('.infoLabel').html(hp);
+        $('#teamworking').find('.infoLabel').html(lp);
+        $('#independence').find('.infoLabel').html(hp);
+        $('#feelingsexpression').find('.infoLabel').html(lp);
+        
+    }else if(3<childAge<=4){
+        $('#respect').find('.infoLabel').html(hp);
+        $('#teamworking').find('.infoLabel').html(lp);
+        $('#independence').find('.infoLabel').html(hp);
+        $('#feelingsexpression').find('.infoLabel').html(lp);
+        
+    }else if(5<=childAge){
+        $('#respect').find('.infoLabel').html(lp);
+        $('#teamworking').find('.infoLabel').html(hp);
+        $('#independence').find('.infoLabel').html(hp);
+        $('#feelingsexpression').find('.infoLabel').html(lp);
+        
+    }
+
+//-------PHYSICAL---------------------------------------------------/
+    if(0<=childAge<2){
+        $('#motor').find('.infoLabel').html(hp);
+        $('#manipulative').find('.infoLabel').html(hp);
+        $('#hygiene').find('.infoLabel').html(lp);
+        $('#diet').find('.infoLabel').html(lp);
+
+    }else if(2<=childAge<=3){
+        $('#motor').find('.infoLabel').html(hp);
+        $('#manipulative').find('.infoLabel').html(hp);
+        $('#hygiene').find('.infoLabel').html(lp);
+        $('#diet').find('.infoLabel').html(lp);
+        
+    }else if(3<childAge<=4){
+        $('#motor').find('.infoLabel').html(lp);
+        $('#manipulative').find('.infoLabel').html(hp);
+        $('#hygiene').find('.infoLabel').html(hp);
+        $('#diet').find('.infoLabel').html(lp);
+        
+    }else if(5<=childAge){
+        $('#motor').find('.infoLabel').html(lp);
+        $('#manipulative').find('.infoLabel').html(lp);
+        $('#hygiene').find('.infoLabel').html(hp);
+        $('#diet').find('.infoLabel').html(hp);
+        
+    }
+
+//-----------------------------------------------------------------/
 
 
 /**
