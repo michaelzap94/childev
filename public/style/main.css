@@ -10,25 +10,20 @@ body {
 
 	}
 
-/*	################################################################
-	SITE WRAPS
-################################################################# */
+/*Presentation*************************************/
 
 #presentation {
 	min-height: 500px;
 	padding-top: 30px;
 	text-align: center;
+	color: white;
+
 }
 
 #presentation h3, h5 {
-	color: white;
 	font-weight: 400;
 }
 
-#presentation h1 {
-	color: white;
-	margin-bottom: 25px;
-}
 
 
 /* Carousel */
@@ -45,7 +40,7 @@ height: 500px; /* This is your slider height */
 
 #wrapper {
   margin-top: 50px;
-  margin-bottom: 10px;
+  
 
 }
 
@@ -89,7 +84,7 @@ height: 500px; /* This is your slider height */
 
 
 
-/* Services Wrap */
+/* Services */
 #service {
 	margin-top: 50px;
 	padding-top: 30px;
@@ -111,7 +106,6 @@ height: 500px; /* This is your slider height */
 
 #benefits{
   	background-color: #00b3fe;
-  	margin-bottom: 0px;
   	padding-top: 30px;
   	padding-bottom: 30px;
   	color: white;
@@ -120,16 +114,61 @@ height: 500px; /* This is your slider height */
 }
 .myBorder{
     text-align: center;
-    border: 2px solid rgba(255,255,255,0.3);
+    border: 1px solid rgba(255,255,255,0.3);
 }
 .insideBorder{
-      border-right: 2px solid rgba(255,255,255,0.3);
+      border: 1px solid rgba(255,255,255,0.3);
 }
+
+/***********************************************/
+
+#evaluationOverall{
+
+	min-height: 200px;
+	padding-top: 30px;
+	padding-bottom: 20px;
+	text-align: center;
+	color: white;
+
+}
+
+#informationByAge{
+	color:#384452;
+	padding-bottom: 20px;
+	text-align: center;
+
+
+}
+#informationByAge h2{
+	margin-top: 0;
+	margin-bottom: 20px;
+	color:white;
+
+}
+.myList{
+	text-align: left;
+}
+
+#informationByAge .row{
+	border: 1px solid rgba(0,0,0,0.3);
+	background-color: #ffffff;
+  	color: #384452;
+
+	
+
+}
+
+.boxBorder{
+	border: 1px solid rgba(0,0,0,0.3);
+
+}
+
+
 /**Footer****************************************************/
 #footerwrap {
 	padding-top: 30px;
 	padding-bottom: 30px;
-	background: #384452;
+	background: #222222;
 }
 
 #footerwrap p {
