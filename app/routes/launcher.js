@@ -23,6 +23,17 @@ router.get('/', isLoggedIn.isLoggedInDashboard, function(req, res) {
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
+router.get('/evaluation', isLoggedIn.isLoggedInDashboard, function(req, res) {
+  res.render('evaluation.ejs');
+});
+
+/**
+ * This function first check if the user isLoggedIn, if so, it redirects the user to his dashboard,
+ * otherwise, the home page presented to unauthenticated users will be rendered.
+ * 
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 router.get('/dashboard', isLoggedIn.isLoggedInDashboard, function(req, res) {
   res.redirect('back');
 });

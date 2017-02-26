@@ -6,10 +6,11 @@
  var votingFunctions = require("../../votingSystem/votingMain.js");
  var myUtilities = require("../../childevFunctions/myUtilities.js");
  var messagingFunctions = require("../../messagingSystem/messagingFunctions.js");
+ var reportFunctions = require("../../reportSystem/reportFunctions.js");
 
  var bcrypt   = require('bcrypt-nodejs');
 
-
+ var Report = require("../../schemas/progressReports/reportSchema.js");
  var Message = require("../../schemas/messages/messagesSchema.js");
  var Nursery = require("../../schemas/admin/nursery.js");
  var Teacher = require("../../schemas/teacher/teacherSchema.js");
@@ -253,7 +254,7 @@ router.put("/profile/edit",function(req,res){
    router.get('/report/:childId/new',isLoggedIn.isLoggedInNext,function(req, res) {
       var nurseryId = req.user.nursery.id;//nursery the teacher belongs to.
       
-      Children.findById({"nursery.id":nurseryId , "_id":req.params.childId}).exec(function(err, childFound){
+      Children.findOne({"nursery.id":nurseryId , "_id":req.params.childId}).exec(function(err, childFound){
           if(err){
               req.flash('error',err);
               console.log(err);
@@ -267,7 +268,35 @@ router.put("/profile/edit",function(req,res){
 
  });
  
+ /**
+  * Handles the creation of report.
+  *
+  */
+    router.post('/report/:childId',isLoggedIn.isLoggedInNext,function(req, res) {
+     reportFunctions.createReport(req,res);
+     
+ });
  
+  /**
+  * Gets the report, It makes sure child is actually registered in the same nursery as the teacher.
+  *
+  */
+   router.get('/report/:childId',isLoggedIn.isLoggedInNext,function(req, res) {
+      var nurseryId = req.user.nursery.id;//nursery the teacher belongs to.
+      
+      Report.find({"nursery.id":nurseryId , "children.id":req.params.childId}).exec(function(err, reportFound){
+          if(err){
+              console.log(err);
+              req.flash('error',err);
+              res.redirect('/');
+          }else{
+             
+            res.render("./dashboards/teacher/teacherChildrenReport.ejs",{ reportFound:  reportFound }); 
+             
+          }
+      });
+
+ });
  /**
   * 
   * @module app/routes/parent/dashboardTeacherRouter

@@ -9,15 +9,32 @@
         </script>   
 
         <div  class="container-fluid">
-
-           <h3>Progress Report for child: <strong><span><%=childFound.details[0].firstname%> <%=childFound.details[0].lastname%></span>. DOB: <%=childFound.details[0].dob%></span>. Age: <span><%=childAge%></span>.</strong></h3>
-           <p><span class='label label-primary'>HP</span> High Priority - Parents will be informed if mark is "Needs Special Attention",</p> 
-           <p></p><span class='label label-warning'>LP</span> Low Priority - Parents will not be informed even if mark is "Needs Special Attention".</p>
-           <p></p><span class='label label-info'>Note:</span> As the child’s age increases the Skills that had a higher priority first will have a lower priority after because he/she should have already gained those skills at an early age. 
-           If you believe a child needs special support in any particular area, you should send a message to his/her parents, giving some suggestions as to how to address that problem.
-           </p>
-            <div class='jumbotron' >
-               <form id='progressReport'>
+            
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2 class="page-header">
+                           Progress Report for child: <small><strong><%=childFound.details[0].firstname%> <%=childFound.details[0].lastname%></strong>. DOB: <%=childFound.details[0].dob%></span>. Age: <span><%=childAge%></span>.</small>
+                        </h2>
+            
+                           <p><span class='label label-primary'>HP</span> High Priority - Parents will be informed if mark is "Needs Special Attention",</p> 
+                           <p></p><span class='label label-warning'>LP</span> Low Priority - Parents will not be informed even if mark is "Needs Special Attention".</p>
+                           <p></p><span class='label label-info'>Note:</span> As the child’s age increases the Skills that had a higher priority first will have a lower priority after because he/she should have already gained those skills at an early age. 
+                           If you believe a child needs special support in any particular area, you should send a message to his/her parents, giving some suggestions as to how to address that problem.
+                           </p>
+              
+                        
+                        <ol class="breadcrumb">
+                            <li class="active">
+                                <i class="fa fa-edit"></i> Report Form
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+          <div class='jumbotron' >
+               <form id='progressReport' action='/dashboard/teacher/<%=currentUser._id%>/report/<%=childFound._id%>' method='POST'>
+                    <input name='childAge' value='<%=childAge%>' type='hidden' />
                   <div class='row'>
 
                    <div class='col-md-9'>
@@ -27,7 +44,7 @@
                                  <div id='mathematical' class="form-group form-inline">
                                   <label class="control-label text-inverse" for="carerType"><span class='infoLabel'></span> Mathematical Skills </label>
 
-                                      <select name='mathematical' class='form-control' required>
+                                      <select name='intellectual[mathematical]' class='form-control' required>
                                         <option value='' >Mark</option>
                                         <option value='90'>Developed</option>
                                         <option value='70'>Good</option>
@@ -41,7 +58,7 @@
                                  <div  id='language' class="form-group form-inline">
                                   <label class="control-label text-inverse" for="carerType"><span class='infoLabel'></span> Language and communication Skills </label>
 
-                                      <select name='language' class='form-control' required>
+                                      <select name='intellectual[language]' class='form-control' required>
                                         <option value='' >Mark</option>
                                         <option value='90'>Developed</option>
                                         <option value='70'>Good</option>
@@ -55,7 +72,7 @@
                                 <div id='attention' class="form-group form-inline">
                                   <label class="control-label text-inverse" for="carerType"><span class='infoLabel'></span> Attention skills </label>
 
-                                      <select  name='attention' class='form-control' required>
+                                      <select  name='intellectual[attention]' class='form-control' required>
                                         <option value='' >Mark</option>
                                         <option value='90'>Developed</option>
                                         <option value='70'>Good</option>
@@ -69,7 +86,7 @@
                                  <div id='recognition' class="form-group form-inline">
                                   <label class="control-label text-inverse" for="carerType"><span class='infoLabel'></span> Recognition and perception of objects, people, etc. </label>
 
-                                      <select  name='recognition' class='form-control' required>
+                                      <select  name='intellectual[recognition]' class='form-control' required>
                                         <option value='' >Mark</option>
                                         <option value='90'>Developed</option>
                                         <option value='70'>Good</option>
@@ -92,7 +109,7 @@
                                  <div id='respect' class="form-group form-inline">
                                   <label class="control-label text-inverse" for="carerType"><span class='infoLabel'></span> Affection and respect for others </label>
 
-                                      <select  name='respect' class='form-control' required>
+                                      <select  name='social[respect]' class='form-control' required>
                                         <option value='' >Mark</option>
                                         <option value='90'>Developed</option>
                                         <option value='70'>Good</option>
@@ -106,7 +123,7 @@
                                  <div id='teamworking' class="form-group form-inline">
                                   <label class="control-label text-inverse" for="carerType"><span class='infoLabel'></span> Team-working skills </label>
 
-                                      <select  name='teamworking' class='form-control' required>
+                                      <select  name='social[teamworking]' class='form-control' required>
                                         <option value='' >Mark</option>
                                         <option value='90'>Developed</option>
                                         <option value='70'>Good</option>
@@ -120,7 +137,7 @@
                                 <div id='independence' class="form-group form-inline">
                                   <label class="control-label text-inverse" for="carerType"><span class='infoLabel'></span> Independence and personal autonomy </label>
 
-                                      <select  name='independence' class='form-control' required>
+                                      <select  name='social[independence]' class='form-control' required>
                                         <option value='' >Mark</option>
                                         <option value='90'>Developed</option>
                                         <option value='70'>Good</option>
@@ -134,7 +151,7 @@
                                  <div id='feelingsexpression' class="form-group form-inline">
                                   <label class="control-label text-inverse" for="carerType"><span class='infoLabel'></span> Expression of feelings and emotions </label>
 
-                                      <select name='feelingsexpression' class='form-control' required>
+                                      <select name='social[feelingsexpression]' class='form-control' required>
                                         <option value='' >Mark</option>
                                         <option value='90'>Developed</option>
                                         <option value='70'>Good</option>
@@ -157,7 +174,7 @@
                                  <div id='motor' class="form-group form-inline">
                                   <label class="control-label text-inverse" for="carerType"><span class='infoLabel'></span> Motor skills </label>
 
-                                      <select name='motor' class='form-control' required>
+                                      <select name='physical[motor]' class='form-control' required>
                                         <option value='' >Mark</option>
                                         <option value='90'>Developed</option>
                                         <option value='70'>Good</option>
@@ -171,7 +188,7 @@
                                  <div id='manipulative' class="form-group form-inline">
                                   <label class="control-label text-inverse" for="carerType"><span class='infoLabel'></span> Manipulative and movement skills </label>
 
-                                      <select name='manipulative' class='form-control' required>
+                                      <select name='physical[manipulative]' class='form-control' required>
                                         <option value='' >Mark</option>
                                         <option value='90'>Developed</option>
                                         <option value='70'>Good</option>
@@ -185,7 +202,7 @@
                                 <div  id='hygiene'  class="form-group form-inline">
                                   <label class="control-label text-inverse" for="carerType"><span class='infoLabel'></span> Personal hygiene </label>
 
-                                      <select name='hygiene' class='form-control' required>
+                                      <select name='physical[hygiene]' class='form-control' required>
                                         <option value='' >Mark</option>
                                         <option value='90'>Developed</option>
                                         <option value='70'>Good</option>
@@ -199,7 +216,7 @@
                                  <div  id='diet'  class="form-group form-inline">
                                   <label class="control-label text-inverse" for="carerType"><span class='infoLabel'></span> Healthy Diet </label>
 
-                                      <select name='diet' class='form-control' required>
+                                      <select name='physical[diet]' class='form-control' required>
                                         <option value='' >Mark</option>
                                         <option value='90'>Developed</option>
                                         <option value='70'>Good</option>

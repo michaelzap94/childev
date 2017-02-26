@@ -108,6 +108,11 @@ mongoose.model("ChildrenDetails", ChildrenDetailsSchema);
     parent:[{
             type:mongoose.Schema.Types.ObjectId,
             ref: "Parent"
+        }],
+        
+    report:[{
+            type:mongoose.Schema.Types.ObjectId,
+            ref: "Report"
         }]
     
 });

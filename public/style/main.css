@@ -1,7 +1,67 @@
-.wrapper {
-  margin-top: 60px;
-  margin-bottom: 10px;
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+
+
+body { 
+	margin: 0; 
+	height: 100%; 
+	font-family: 'Lato', sans-serif;
+	background-color: #00b3fe;
+
+	}
+
+/*	################################################################
+	SITE WRAPS
+################################################################# */
+
+#presentation {
+	min-height: 500px;
+	padding-top: 30px;
+	text-align: center;
 }
+
+#presentation h3, h5 {
+	color: white;
+	font-weight: 400;
+}
+
+#presentation h1 {
+	color: white;
+	margin-bottom: 25px;
+}
+
+
+/* Carousel */
+
+#homeCarousel{
+}
+
+.slider-size {
+height: 500px; /* This is your slider height */
+}
+
+
+/*******************************************/
+
+#wrapper {
+  margin-top: 50px;
+  margin-bottom: 10px;
+
+}
+
+.header1{
+    margin-top: 50px;
+
+}
+
+.navbar{
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    padding-top:5px;
+    padding-bottom:5px;
+
+}
+
 
 .form-signin {
   max-width: 580px;
@@ -25,3 +85,74 @@
     margin-top: -1px;
 }
 
+/*********************************************/
+
+
+
+/* Services Wrap */
+#service {
+	margin-top: 50px;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	background: #ffffff;
+	text-align: center;
+
+
+}
+
+#service i {
+  padding: 10px;
+	color: #384452;
+	font-size: 60px;
+	
+}
+
+/*Benefits*******************************************************/
+
+#benefits{
+  	background-color: #00b3fe;
+  	margin-bottom: 0px;
+  	padding-top: 30px;
+  	padding-bottom: 30px;
+  	color: white;
+
+
+}
+.myBorder{
+    text-align: center;
+    border: 2px solid rgba(255,255,255,0.3);
+}
+.insideBorder{
+      border-right: 2px solid rgba(255,255,255,0.3);
+}
+/**Footer****************************************************/
+#footerwrap {
+	padding-top: 30px;
+	padding-bottom: 30px;
+	background: #384452;
+}
+
+#footerwrap p {
+	color: #bfc9d3;
+}
+
+#footerwrap h4 {
+	color: white;
+}
+
+#footerwrap i {
+	font-size: 30px;
+	color: #bfc9d3;
+	padding-right: 25px;
+}
+
+#footerwrap i:hover {
+	color: #00b3fe
+}
+/***********************************/
+
+
+.mySeparator {
+	border-bottom: 2px solid #ffffff;
+	margin-bottom: 20px;
+}

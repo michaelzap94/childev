@@ -4,10 +4,14 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
-/* Global Styles */
+/* MY IMPORTS */
+
+@import url('https://fonts.googleapis.com/css?family=Lato');
 
 body {
     margin-top: 100px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
 }
 
 @media(min-width:868px) {
@@ -44,8 +48,12 @@ body {
 
 /* Top Navigation */
 
+
+
 .top-nav {
     padding: 0 15px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
 }
 
 .top-nav>li {
@@ -114,6 +122,8 @@ ul.alert-dropdown {
 
 @media(min-width:868px) {
     .side-nav {
+        font-family: 'Lato', sans-serif;
+        font-weight: 600;        
         position: fixed;
         top: 51px;
         left: 165px;
@@ -268,4 +278,15 @@ ul{
 #physicalInfo , #socialInfo , #intellectualInfo{
      cursor: pointer; 
      cursor: hand; 
+}
+
+/***************************/
+/* Overwrite bootsrap */
+.row-offset-0 {
+    margin-left: 0;
+    margin-right: 0;
+}
+.row-offset-0 > * {
+    padding-left: 2px;
+    padding-right: 2px;
 }
