@@ -71,9 +71,9 @@
        // var valueContainer = tr.append("td").append('div').classed('myLegendValuePercentage',true);
         
 
-        tr.append("td").classed('myLegendValue',true)
+       /* tr.append("td").classed('myLegendValue',true)
             .text(function(d){ return d.value;});
-
+*/
         tr.append("td").classed('myLegendPercentage',true)
             .text(function(d){ return getLegend(d,myStartData);});
 

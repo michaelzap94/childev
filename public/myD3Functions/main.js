@@ -1,9 +1,29 @@
-
-function main(myDataArray){
+function filterData(myDataArray,monthSelected,yearSelected){
+    var monthSelected = parseInt(monthSelected);  
+    var yearSelected = parseInt(yearSelected);
+    //filter data passed to only display data created on a specific month
+    var updatedData = myDataArray.filter(function(reportObject){
+        var dateCreated = new Date(reportObject.dateCreated);
+        var monthCreated = dateCreated.getMonth();
+        var yearCreated = dateCreated.getFullYear();
+        if(monthCreated===monthSelected&&yearCreated===yearSelected){
+            return reportObject;
+        }
+    });
     
-    myDataArray.forEach(function(e,i){
-        e.week = 'Report ' + (i+1);
-    })
+    console.log(updatedData);
+    return updatedData;
+}
+
+function main(myDataArray,monthSelected,yearSelected){
+    var mainFunctions = {};
+    //filter data passed to only display data created on a specific month
+    var filteredDataByDate = filterData(myDataArray,monthSelected,yearSelected);
+    
+    //add a reportNumber attribute to object
+    filteredDataByDate.forEach(function(e,i){
+        e.reportNumber = 'Report ' + (i+1);
+    });
 
 /****DIMENSIONS AND PADDING****************************************************************************/
     //dimensions of the SVG
@@ -30,9 +50,8 @@ function main(myDataArray){
 
    // create function for x-axis mapping.
     var xScale = d3.scale.ordinal()
-        .domain(myDataArray.map(function(d) { return d.week; }))
-        .rangeRoundBands([paddingLeftSide, dim.width-paddingLeftSide], 0.12)
-        ;
+        .domain(filteredDataByDate.map(function(d) { return d.reportNumber; }))
+        .rangeRoundBands([paddingLeftSide, dim.width-paddingLeftSide], 0.12);
         
    // Create function for y-axis map.
     var yScale = d3.scale.linear()
@@ -61,14 +80,14 @@ function main(myDataArray){
 /******BARS*******************************************************************************/
  
     // Bars of the main graph
-    var myBars = svg.selectAll(".oneBar").data(myDataArray).enter()
+    var myBars = svg.selectAll(".oneBar").data(filteredDataByDate).enter()
             .append("g").attr("class", "oneBar");
     
     
        //Rectangles.
         myBars.append("rect")
             .attr({
-                x: function(d) { return xScale(d.week);},
+                x: function(d) { return xScale(d.reportNumber);},
                 y: function(d) { return yScale(d.avgValue);},
                 "width": xScale.rangeBand(),
                 "height": function(d) { return dim.height - yScale(d.avgValue)+9;},//the +9 is because the stroke-width is 2px and the padding in axis is 10
@@ -154,8 +173,80 @@ function main(myDataArray){
 
     }
     
-     
+    mainFunctions.updateMain = function(myDataArray,monthSelected,yearSelected){
+        
+        var filteredDataUpdate = filterData(myDataArray,monthSelected,yearSelected);
+        
+            //add a reportNumber attribute to object
+            filteredDataUpdate.forEach(function(e,i){
+                e.reportNumber = 'Report ' + (i+1);
+            });
     
+
+    
+        // Update function for y-axis map.
+        yScale.domain([0, 1000]).range([dim.height, 0]).nice();
+        
+        
+        //  Update function for x-axis map.
+        xScale.domain(filteredDataUpdate.map(function(d) { return d.reportNumber; }))
+        .rangeRoundBands([paddingLeftSide, dim.width-paddingLeftSide], 0.12);
+        
+        
+        //  Update x-Axis.
+        var xAxisUpdate = d3.svg.axis().scale(xScale).orient("bottom");
+         svg.selectAll(".x").transition().duration(500)
+         .attr({
+        "transform": "translate(0," + (dim.height+paddingBottom) + ")"
+        }).call(xAxisUpdate);
+        
+        
+            // Y axis of graph 
+        var yAxisUpdate = d3.svg.axis().scale(yScale).orient("left").ticks(10);
+        svg.selectAll("y").attr({
+       "transform": "translate("+paddingLeftSide+","+paddingBottom+")"
+        }).call(yAxisUpdate);
+        
+        // Update bars Data of the main graph with the new data
+         var myBarsUpdate = svg.selectAll(".oneBar").data(filteredDataUpdate);
+         
+         /***************************************************/
+         //if one bar was previusly deleted, create it again.
+         myBarsUpdate.enter().append("g").attr("class", "oneBar").append("rect")
+            .attr({
+                x: function(d) { return xScale(d.reportNumber);},
+                y: function(d) { return yScale(d.avgValue);},
+                "width": xScale.rangeBand(),
+                "height": function(d) { return dim.height - yScale(d.avgValue)+9;},//the +9 is because the stroke-width is 2px and the padding in axis is 10
+                "fill":colorBars
+            }).on("click", myClickEvent);;
+        /*************************************************************/
+        
+       //Rectangles update
+        myBarsUpdate.select("rect").transition().duration(500).ease("linear")
+            .attr({
+                x: function(d) { return xScale(d.reportNumber);},
+                y: function(d) { return yScale(d.avgValue);},
+                "width": xScale.rangeBand(),
+                "height": function(d) { return dim.height - yScale(d.avgValue)+9;},//the +9 is because the stroke-width is 2px and the padding in axis is 10
+                "fill":colorBars
+            });
+            
+        //Delete bars that don't exist in the new data    
+        myBarsUpdate.exit().remove();
+       
+       /*
+            // transition the frequency labels location and change value.
+            myBars.select("text").transition().duration(500)
+                .text(function(d){ return d3.format(",")(d[1])})
+                .attr("y", function(d) {return y(d[1])-5; });      */    
+                
+        
+        
+
+        }        
+
+    return mainFunctions;
     
     
 }//main function

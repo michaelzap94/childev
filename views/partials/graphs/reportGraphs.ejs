@@ -85,8 +85,11 @@ table.myLegend{
 <script>
   var dataFromServer = <%- jsonReportFound %>;
   var childAge = '<%- reportFound[0].childAge %>';
-  console.log(childAge);
+  var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 </script>
+<% 
+  var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+%>
 
 <div  class="container-fluid">
      <!-- Page Heading -->
@@ -95,11 +98,8 @@ table.myLegend{
             <h2 class="page-header">
                Progress Report of child: <small><strong><%=reportFound[0].children.id.details[0].firstname%> <%=reportFound[0].children.id.details[0].lastname%></strong>. DOB: <%=reportFound[0].children.id.details[0].dob%></span>. Age: <span><%=reportFound[0].childAge%></span>.</small>
             </h2>
-          <!--  <ol class="breadcrumb">
-                <li class="active">
-                    <i class="fa fa-tasks"></i> Report
-                </li>
-            </ol>   -->
+               <p><span class='label label-primary'>HP</span> High Priority - Parents will be informed if mark is 10 out of 100. "Needs Special Attention",</p> 
+               <p></p><span class='label label-warning'>LP</span> Low Priority - Parents will not be informed even if mark is 10 out of 100. "Needs Special Attention".</p>
         </div>
     </div>
     <!-- /.row -->
@@ -112,18 +112,58 @@ table.myLegend{
             <div class="col-md-8 col-xs-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
-                           <div class="pull-right">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        Select Month
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right" role="menu">
-                                        <li><a>miked</a></li>
-                                    </ul>
-                                </div>
+                        <div class='row'>
+                            <div class='col-md-6'>
+                                <i class="fa fa-bar-chart-o fa-fw"></i> Average Development - <strong><span class='monthSelected'></span></strong>
                             </div>
+                             <div class="col-md-6">
+                               <form id='showDataForm'>
+                                   <div class="row row-offset-0">
+                                      <div class="col-md-5 col-sm-5 col-xs-5">
+                                          <div class="form-group">
+                                              <select class="form-control" name='monthSelected' required>
+                                                     <option value=''>Month</option>
+                                                     <% 
+                                                     var monthsAlreadyPassed = {};
+                                                     if(typeof reportFound != 'undefined'){
+                                                            reportFound.forEach(function(d){
+                                                                if(!monthsAlreadyPassed.hasOwnProperty(d.dateCreated.getMonth())){
+                                                                     var availableMonth = d.dateCreated.getMonth();
+                                                                     monthsAlreadyPassed[availableMonth] = "checked";
+                                                     %>            
+                                                      <option value='<%=availableMonth%>'><%=monthNames[availableMonth]%></option>
+      
+                                                    <% } });}%>
+                                              </select>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-5 col-sm-5 col-xs-5">
+                                          <div class="form-group">
+                                              <select class="form-control" name='yearSelected' required>
+                                                  <option value=''>Year</option>
+                                                    <% 
+                                                    var yearsAlreadyPassed = {};
+                                                    if(typeof reportFound != 'undefined'){
+                                                            reportFound.forEach(function(d,i){
+                                                                if(!yearsAlreadyPassed.hasOwnProperty(d.dateCreated.getFullYear())){
+                                                                    var availableYear = d.dateCreated.getFullYear();
+                                                                    yearsAlreadyPassed[availableYear] = "checked";
+                                                                
+                                                    %>
+                                                        <option value='<%=availableYear%>'><%=availableYear%></option>
+                                                    <% } });}%>
+                                              </select>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-2 col-sm-2 col-xs-2">
+                                            <button class='btn btn-default btn-block' type='submit' id='showDataBtn'><i class='fa fa-eye'></i></button>
+                                       </div>
+                                    </div><!--row-->
+                                </form>            
+                               </div><!--Select Column-->
+                            
+                        </div><!--heading row  -->
+                          
                     </div> <!-- /.panel-heading -->
                     <div class="panel-body">
                         
@@ -136,7 +176,7 @@ table.myLegend{
             <div class="col-md-4 col-xs-12">
                 <div class="panel panel-success">
                     <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Average Data Using Priorities
                        
                     </div> <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -206,7 +246,23 @@ table.myLegend{
     <script src='/myD3Functions/main.js'></script>
     <script src='/myD3Functions/pieChartMain.js'></script>
     <script>
-      main(dataFromServer);
+        var currentDate = new Date();
+        var currentMonth = currentDate.getMonth();
+        var currentYear = currentDate.getFullYear();
+
+        $('.monthSelected').html(monthNames[currentMonth] + ' ' +currentYear);
+        
+        var mainGraph = main(dataFromServer,currentMonth,currentYear);
+        
+        $('#showDataForm').on('submit',function(e){
+            e.preventDefault();
+            var monthSelected = $('select[name="monthSelected"]').val();
+            var yearSelected = $('select[name="yearSelected"]').val();
+            
+            mainGraph.updateMain(dataFromServer,monthSelected,yearSelected);
+            
+            $('.monthSelected').hide().html(monthNames[monthSelected] + ' ' +yearSelected).fadeIn('slow');
+        });
     </script>
     
     <script src='/script/reportFormHandler.js'></script>
