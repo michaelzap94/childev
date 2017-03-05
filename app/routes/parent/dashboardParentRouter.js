@@ -11,6 +11,7 @@
  var Teacher = require("../../schemas/teacher/teacherSchema.js");
  var Parent = require("../../schemas/parent/parentSchema.js");
  var Message = require("../../schemas/messages/messagesSchema.js");
+ var Report = require("../../schemas/progressReports/reportSchema.js");
 
 
  /**
@@ -501,6 +502,47 @@ router.put("/profile/edit",function(req,res){
 
  });
  
+ /**SEE REPORT*****************************************************************************/
+
+  /**
+  * Gets the report, It makes sure child is actually registered in the same nursery as the teacher.
+  *
+  */
+   router.get('/report/:childId',isLoggedIn.isLoggedInNext,function(req, res) {
+      var nurseryId = req.user.nursery.id;//nursery the teacher belongs to.
+      
+      Report.find({"nursery.id":nurseryId , "children.id":req.params.childId}).populate('children.id',null,{
+            "parent": { $in: [req.user._id]}
+          }).exec(function(err, reportFound){
+          if(err){
+              console.log(err);
+              req.flash('error',err);
+              res.redirect('back');
+          }else{
+              console.log(reportFound);
+              //if a report was found, next
+              if(reportFound.length>0){
+                 
+                 //if the user is a parent of the child, next
+                 if(reportFound[0].children.id != null){
+                  res.render("./dashboards/parent/parentChildrenReport.ejs",{ reportFound:  reportFound }); 
+
+                 }else{
+                  req.flash('error',"You are not allowed to access this child's report.");
+                  res.redirect('/dashboard/parent/'+req.user._id+'/children');
+                 }
+                
+                
+              }else{
+                  req.flash('error','This child has no Reports yet.');
+                  res.redirect('/dashboard/parent/'+req.user._id+'/children');
+                  
+              }
+             
+          }
+      });
+
+ });
  
  /**
   * 

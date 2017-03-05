@@ -35,8 +35,17 @@ body {
     font-size: 50px;
     line-height: normal;
 }
+/*when screen is small navbar moves with screen*/
+.navbar{
+    position: absolute;
+}
 
 @media(min-width:868px) {
+/*when screen is big navbar is fixed*/
+
+    .navbar{
+    position: fixed;
+    }    
     #wrapper {
         padding-left: 150px;
     }

@@ -120,7 +120,7 @@ height: 500px; /* This is your slider height */
       border: 1px solid rgba(255,255,255,0.3);
 }
 
-/***********************************************/
+/***Evaluation*************************/
 
 #evaluationOverall{
 
@@ -134,7 +134,7 @@ height: 500px; /* This is your slider height */
 
 #informationByAge{
 	color:#384452;
-	padding-bottom: 20px;
+	padding-bottom: 30px;
 	text-align: center;
 
 
@@ -149,20 +149,21 @@ height: 500px; /* This is your slider height */
 	text-align: left;
 }
 
-#informationByAge .row{
-	border: 1px solid rgba(0,0,0,0.3);
-	background-color: #ffffff;
-  	color: #384452;
 
-	
-
-}
-
-.boxBorder{
-	border: 1px solid rgba(0,0,0,0.3);
+.prioritiesContent{
+    background-color: white;
+    border-radius:5px;
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-top: 5px;
+    padding:10px;
+    box-shadow: -2px 2px 5px #222222;
 
 }
-
+.prioritiesContent:hover {
+  box-shadow: -7px 7px 2px #222222;
+  transform: translate(3px, -3px);
+}
 
 /**Footer****************************************************/
 #footerwrap {
@@ -188,6 +189,8 @@ height: 500px; /* This is your slider height */
 #footerwrap i:hover {
 	color: #00b3fe
 }
+
+
 /***********************************/
 
 

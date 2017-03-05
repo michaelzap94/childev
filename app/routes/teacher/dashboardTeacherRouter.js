@@ -284,14 +284,24 @@ router.put("/profile/edit",function(req,res){
    router.get('/report/:childId',isLoggedIn.isLoggedInNext,function(req, res) {
       var nurseryId = req.user.nursery.id;//nursery the teacher belongs to.
       
-      Report.find({"nursery.id":nurseryId , "children.id":req.params.childId}).exec(function(err, reportFound){
+      Report.find({"nursery.id":nurseryId , "children.id":req.params.childId}).populate('children.id',null,'Children').exec(function(err, reportFound){
           if(err){
               console.log(err);
               req.flash('error',err);
-              res.redirect('/');
+              res.redirect('back');
           }else{
-             
-            res.render("./dashboards/teacher/teacherChildrenReport.ejs",{ reportFound:  reportFound }); 
+             //if a report was found, next
+             if(reportFound.length>0){
+
+                 var jsonReportFound = JSON.stringify(reportFound);
+                 
+                   res.render("./dashboards/teacher/teacherChildrenReport.ejs",{ reportFound:  reportFound ,jsonReportFound:jsonReportFound }); 
+
+              }else{
+                  req.flash('error','This child has no Reports yet.');
+                  res.redirect('/dashboard/teacher/'+req.user._id+'/children');
+                  
+              }
              
           }
       });

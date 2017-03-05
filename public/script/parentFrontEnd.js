@@ -38,7 +38,7 @@ $('.rowUserChildren').on('click',function(){
     $('#doctorAddress').find('.info').html(objchildren.medicalInfo[0].doctorAddress);
    
 
-   $('#seeProgress').attr('href',basicPath+'/children/'+objchildren._id+'/progress');
+   $('#seeProgress').attr('href',basicPath+'/report/'+objchildren._id);
    $('#editChildInfo').attr('href',basicPath+'/children/'+objchildren._id+'/profile');
    $('#editMedicalInfo').attr('href',basicPath+'/children/'+objchildren._id+'/medical');
     

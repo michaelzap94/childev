@@ -1,0 +1,215 @@
+<style>
+
+path:hover{
+     opacity:0.85;
+}
+rect:hover{
+     opacity: 0.85;
+}
+rect:active{
+     fill:darkblue;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: black;
+  stroke-width:2px;
+  shape-rendering: crispEdges;
+}
+
+/***********************/
+.svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 60%; /* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+
+   
+}
+.svg-content-responsive {
+    font-size:20px;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/**********************/
+
+table.myLegend{
+    table-layout:fixed;
+    width:100%;
+    border-collapse: collapse;
+    border-spacing: 0px;
+
+}
+
+.myLegend tr{    border-bottom:1px solid grey; }
+.myLegend tr:first-child{    border-top:1px solid grey; }
+
+.myLegend td{
+    padding:4px 5px;
+    vertical-align:bottom;
+}
+.myLegendValue , .myLegendPercentage{
+    text-align:right;
+    width:45px;
+}
+.myLegendColorLabel{
+    text-align:left;
+    margin-top:4px;
+      
+
+
+}
+.myLegendColorLabel span{
+    position:relative;
+    vertical-align: middle;
+    bottom: 2.5px;
+    
+}
+
+.myLegendColorLabel svg{
+    padding-left:2px;
+    padding-right:2px;
+}
+
+
+</style>
+
+<!-- d3 library -->
+<script src="/d3/d3.min.js" charset="utf-8"  ></script>
+<!----------------->
+<script>
+  var dataFromServer = <%- jsonReportFound %>;
+  var childAge = '<%- reportFound[0].childAge %>';
+  console.log(childAge);
+</script>
+
+<div  class="container-fluid">
+     <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header">
+               Progress Report of child: <small><strong><%=reportFound[0].children.id.details[0].firstname%> <%=reportFound[0].children.id.details[0].lastname%></strong>. DOB: <%=reportFound[0].children.id.details[0].dob%></span>. Age: <span><%=reportFound[0].childAge%></span>.</small>
+            </h2>
+          <!--  <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-tasks"></i> Report
+                </li>
+            </ol>   -->
+        </div>
+    </div>
+    <!-- /.row -->
+    
+    <div class="raw_title">
+        <h3>Data with priorities applied.</h3>
+    </div>
+    
+    <div class="row row-offset-0">
+            <div class="col-md-8 col-xs-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
+                           <div class="pull-right">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        Select Month
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li><a>miked</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                    </div> <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        
+                        <div id='mainGraph'></div>
+                        
+                    </div><!-- /.panel-body -->
+                </div><!--panel-->
+             </div><!--column-->
+            
+            <div class="col-md-4 col-xs-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> Area Chart Example
+                       
+                    </div> <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        
+                        <div id='pieChartMain'></div>
+                        <div id='legendPieChartMain'></div>    
+                            
+                    </div><!-- /.panel-body -->
+                </div><!--panel-->
+            </div><!--column-->
+
+    </div>
+    <!--FIRST ROW-->
+    <hr/> 
+ <!--   <div class="raw_title">
+        <h3>Raw data with No priorities applied.</h3>
+    </div>
+ -->      
+    
+    <div class="row row-offset-0">
+
+         <% include ./noPrioritiesGraph.ejs %>
+            
+    </div>
+    <!--SECOND ROW-->                
+
+</div>
+<!-- /.container-fluid -->
+
+
+
+</div>
+<!-- /#page-wrapper -->
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">
+                  <strong  id="myModalLabel"></strong>
+              </h4>
+            </div>
+            <div class="modal-body">
+                
+                <h4 id='myModalBody'></h4>
+
+            </div><!--modal-body-->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- Modal -->
+        
+</div>
+<!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <!--my own javascript files  -->
+    <script src='/myD3Functions/main.js'></script>
+    <script src='/myD3Functions/pieChartMain.js'></script>
+    <script>
+      main(dataFromServer);
+    </script>
+    
+    <script src='/script/reportFormHandler.js'></script>
+    
+</body>
+</html>
