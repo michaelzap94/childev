@@ -25,9 +25,17 @@ var Report = require("../../schemas/progressReports/reportSchema.js");
 */
 router.get('/', isLoggedIn.isLoggedInNext, votingFunctions.getUserPolls, function(req, res) {
   var userPollsRet = req.userPollsRet;// Polls created by this manager
+  var nurseryId = req.user._id;
+  Message.find({"nursery.id":nurseryId , "to.id":req.user._id, "to.deleted":false , "to.read":false}).exec(function(err, messagesFound){
+      if(err){
+          req.flash('error',err);
+          res.redirect('/');
+      }else{
+        res.render('dashboards/manager/managerDashboard.ejs', {userPollsRet:userPollsRet , messagesFound:  messagesFound}); 
+         
+      }
+  });
  
-  res.render('dashboards/manager/managerDashboard.ejs', {userPollsRet:userPollsRet} );
-
 });
 
 /**
@@ -705,7 +713,7 @@ router.put("/profile/edit",isLoggedIn.isLoggedInNext,function(req,res){
   router.get('/messages',isLoggedIn.isLoggedInNext,function(req, res) {
     
       var nurseryId = req.user._id;
-      Message.find({"nursery.id":nurseryId , "to.id":req.user._id}).exec(function(err, messagesFound){
+      Message.find({"nursery.id":nurseryId , "to.id":req.user._id, "to.deleted":false}).exec(function(err, messagesFound){
           if(err){
               req.flash('error',err);
               res.redirect('/');
@@ -723,7 +731,7 @@ router.put("/profile/edit",isLoggedIn.isLoggedInNext,function(req,res){
   */
   router.get('/messages/sent',isLoggedIn.isLoggedInNext,function(req, res) {
       var nurseryId = req.user._id;
-      Message.find({"nursery.id":nurseryId , "from.id":req.user._id}).exec(function(err, messagesFound){
+      Message.find({"nursery.id":nurseryId , "from.id":req.user._id , "from.deleted":false }).exec(function(err, messagesFound){
          if(err){
               req.flash('error',err);
               res.redirect('/');
@@ -735,6 +743,17 @@ router.put("/profile/edit",isLoggedIn.isLoggedInNext,function(req,res){
       });
 
  });
+ 
+  /**
+  * Message Read
+  *
+  */
+  router.post('/messages/:messageId/read',isLoggedIn.isLoggedInNext,function(req, res) {
+    
+    messagingFunctions.messageRead(req,res);
+
+ });
+ 
  
    /**
   * NEW MESSAGE
@@ -786,13 +805,23 @@ router.put("/profile/edit",isLoggedIn.isLoggedInNext,function(req,res){
 
  });
  
-   /**
-  * DELETE a message
+  /**
+  * DELETE a message from Inbox
   *
   */
-  router.get('/messages/:messageId/delete',isLoggedIn.isLoggedInNext,function(req, res) {
+  router.get('/messages/inbox/:messageId/delete',isLoggedIn.isLoggedInNext,function(req, res) {
 
-    messagingFunctions.deleteMessage(req,res);
+    messagingFunctions.deleteMessageInbox(req,res);
+
+ });
+ 
+   /**
+  * DELETE a message from Sent
+  *
+  */
+  router.get('/messages/sent/:messageId/delete',isLoggedIn.isLoggedInNext,function(req, res) {
+
+    messagingFunctions.deleteMessageSent(req,res);
 
  });
  

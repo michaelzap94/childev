@@ -17,7 +17,7 @@
                                 <i class="fa fa-dashboard"></i> Dashboard
                             </li>
                              <li>
-                                <a class='btn btn-xs btn-success' href="/dashboard/<%=currentUser.label%>/<%=currentUser._id%>/profile"><i class="fa fa-fw fa-user"></i> Profile</a>
+                                <a class='btn btn-xs btn-info' href="/dashboard/<%=currentUser.label%>/<%=currentUser._id%>/profile"><i class="fa fa-fw fa-user"></i> Profile</a>
                             </li>
                             <li>
                                 <a class='btn btn-xs btn-primary' href="/dashboard/<%=currentUser.label%>/<%=currentUser._id%>/settings"><i class="fa fa-fw fa-gear"></i> Settings</a>
@@ -30,48 +30,30 @@
                   <div class="row">    
                   
                    <div class="col-lg-6 col-md-6">
-                            <div class="panel panel-default">
+                            <div class="panel panel-info">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><i class="fa fa-envelope fa-fw"></i> My messages</h3>
+                                    <span class="panel-title">
+                                        <i class="fa fa-envelope fa-fw"></i> Unread messages
+                                    </span>
+                                    <span class='pull-right'>
+                                        <a class=" btn btn-success btn-xs" href="/dashboard/parent/<%=currentUser._id%>/messages/new"><i class="fa fa-fw fa-plus"></i> New message</a></a>
+                                    </span>
                                 </div>
-                                <div class="panel-body">
+                                <div class="panel-body fixedPanelDashboard">
                                   
-                                  
-                                  
-                                  
-                                    <div class="text-right">
-                                        <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
-                                    </div>
+                                  <% include ../../partials/messages/messagesInbox.ejs %>
+
                                 </div>
                             </div>
                     </div><!-- /.col polls -->
-                  
-                    <div class="col-lg-6 col-md-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title"><i class="fa fa-envelope fa-fw"></i> My messages</h3>
-                                </div>
-                                <div class="panel-body">
-                                  
-                                  
-                                  
-                                  
-                                    <div class="text-right">
-                                        <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                    </div><!-- /.col polls -->
+
                     
                     <div class="col-lg-6 col-md-6">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> All Polls </h3>
+                                    <h3 class="panel-title"><i class="fa fa-table fa-fw"></i> Current Polls:</h3>
                                 </div>
-                                <div class="panel-body">
-     
-                                     <h4><i><u>Current Polls:</u></i></h4>
-
+                                <div class="panel-body fixedPanelDashboard">
                                          <div class="list-group">
                                     
                                     
@@ -116,5 +98,13 @@
     
     
 
-  <% include ../../partials/dashboardCommon/dashboardFooter.ejs %>
+  <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+   <script src='/script/messagesHandler.js'></script>
+</body>
+
+</html>
 

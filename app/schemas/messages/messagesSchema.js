@@ -22,7 +22,8 @@ var mongoose = require('mongoose');
         },
         username: String,
         name:String,
-        label:String
+        label:String,
+        deleted:{type:Boolean, default: false}
      },
      to: {
          id:{
@@ -30,7 +31,9 @@ var mongoose = require('mongoose');
         },
         username: String,
         name:String,
-        label:String
+        label:String,
+        deleted:{type:Boolean, default: false},
+        read:{type:Boolean, default: false}
      },
      message: String,
      dateCreated:{type:Date, default: Date.now}// if date is empty the default is Date.now

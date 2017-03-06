@@ -46,19 +46,105 @@ function sendNewMessage(req,res){
          
 }
 
-function deleteMessage(req,res){
-     Message.findByIdAndRemove(req.params.messageId, function (err, messageDeleted) {
+function deleteMessageInbox(req,res){
+    var deletingUser = req.user._id;
+    
+     Message.findById(req.params.messageId, function (err, messageToDelete) {
       if (err){
           req.flash('errors','Error sending message.');
           res.redirect('/messages');
       }else{
-          req.flash('success','Success deleting message.');
-          res.redirect('back');
+          messageToDelete.to.deleted = true;
+          
+          if(messageToDelete.from.deleted == true){
+              messageToDelete.remove(function(err,result){
+                  if(err){
+                    req.flash('error','Error deleting message from database.');
+                    res.redirect('back');
+                  }else{
+                    req.flash('success','Success deleting message from database.');
+                    res.redirect('back');                      
+                  }
+                  
+              });
+          }else{
+              messageToDelete.save(function(err,objSaved){
+                  if(err){
+                    req.flash('error','Error deleting message.');
+                    res.redirect('back');
+                  }else{
+                    req.flash('success','Success deleting message.');
+                    res.redirect('back');                      
+                  }
+
+              });
+          }
+          
+
       }
     });
 }
 
+function deleteMessageSent(req,res){
+    var deletingUser = req.user._id;
+    
+     Message.findById(req.params.messageId, function (err, messageToDelete) {
+      if (err){
+          req.flash('errors','Error sending message.');
+          res.redirect('/messages');
+      }else{
+          messageToDelete.from.deleted = true;
+          
+          if(messageToDelete.to.deleted == true){
+              messageToDelete.remove(function(err,result){
+                  if(err){
+                    req.flash('error','Error deleting message from database.');
+                    res.redirect('back');
+                  }else{
+                    req.flash('success','Success deleting message from database.');
+                    res.redirect('back');                      
+                  }
+                  
+              });              
+          }else{
+              messageToDelete.save(function(err,objSaved){
+                  if(err){
+                    req.flash('error','Error deleting message.');
+                    res.redirect('back');
+                  }else{
+                    req.flash('success','Success deleting message.');
+                    res.redirect('back');                      
+                  }
+
+              });
+          }
+
+      }
+    });
+}
+
+function messageRead(req,res){
+      Message.findById(req.params.messageId).exec(function(err, messageFound){
+          if(err){
+              res.send({error:'Something went wrong while accessing the database.'});
+          }else{
+              messageFound.to.read = true;
+              messageFound.save(function(err,savedMessage){
+                  if(err){
+                      res.send({error:'Something went wrong while accessing the database.'});
+                  }else{
+                      res.send({ success:  'Success'}); 
+                  }
+              });
+            
+             
+          }
+      });
+}
+
 module.exports = {
     sendNewMessage:sendNewMessage,
-    deleteMessage:deleteMessage
+    deleteMessageInbox:deleteMessageInbox,
+    deleteMessageSent:deleteMessageSent,
+    messageRead:messageRead
 }

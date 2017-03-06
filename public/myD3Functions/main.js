@@ -27,9 +27,9 @@ function main(myDataArray,monthSelected,yearSelected){
 
 /****DIMENSIONS AND PADDING****************************************************************************/
     //dimensions of the SVG
-    var dim = {};
-    dim.width = 800; 
-    dim.height = 350;
+   
+    var widthMain = 800; 
+    var heightMain = 350;
     var colorBars = '#00B3FE';
     var paddingLeftSide = 60;
     var paddingBottom = 10;
@@ -51,31 +51,32 @@ function main(myDataArray,monthSelected,yearSelected){
    // create function for x-axis mapping.
     var xScale = d3.scale.ordinal()
         .domain(filteredDataByDate.map(function(d) { return d.reportNumber; }))
-        .rangeRoundBands([paddingLeftSide, dim.width-paddingLeftSide], 0.12);
+        .rangeRoundBands([paddingLeftSide, widthMain-paddingLeftSide], 0.12);
         
    // Create function for y-axis map.
     var yScale = d3.scale.linear()
         .domain([0, 1000])
-        .range([dim.height, 0])
+        .range([heightMain, 0])
         .nice();
 
 
 /*****AXIS********************************************************************************/
     // X axis of graph
-    var xAxisGen = d3.svg.axis().scale(xScale).orient("bottom");
+    var xAxisGen = d3.svg.axis().scale(xScale).orient("bottom");//.innerTickSize(-heightMain).outerTickSize(0).tickPadding(10);
     svg.append("g").attr({
         "class": "x axis",
-        "transform": "translate(0," + (dim.height+paddingBottom) + ")"
-        })
-        .call(xAxisGen);
+        "transform": "translate(0," + (heightMain+paddingBottom) + ")"
+        }).call(xAxisGen);
         
     // Y axis of graph 
-    var yAxisGen = d3.svg.axis().scale(yScale).orient("left").ticks(10);
+    var yAxisGen = d3.svg.axis().scale(yScale).orient("left").ticks(10).innerTickSize(-widthMain+paddingLeftSide+paddingLeftSide).outerTickSize(0).tickPadding(10);
     svg.append("g").attr({
         "class": "y axis",
        "transform": "translate("+paddingLeftSide+","+paddingBottom+")"
-        })
-        .call(yAxisGen);
+        }).call(yAxisGen);
+        
+   
+
 
 /******BARS*******************************************************************************/
  
@@ -90,7 +91,7 @@ function main(myDataArray,monthSelected,yearSelected){
                 x: function(d) { return xScale(d.reportNumber);},
                 y: function(d) { return yScale(d.avgValue);},
                 "width": xScale.rangeBand(),
-                "height": function(d) { return dim.height - yScale(d.avgValue)+9;},//the +9 is because the stroke-width is 2px and the padding in axis is 10
+                "height": function(d) { return heightMain - yScale(d.avgValue)+9;},//the +9 is because the stroke-width is 2px and the padding in axis is 10
                 "fill":colorBars
             })
             .on("click", myClickEvent);// myClickEvent is defined below.AND D3 PASSES DATA AS ARGUMENT AUTOMATICALLY.
@@ -185,19 +186,19 @@ function main(myDataArray,monthSelected,yearSelected){
 
     
         // Update function for y-axis map.
-        yScale.domain([0, 1000]).range([dim.height, 0]).nice();
+        yScale.domain([0, 1000]).range([heightMain, 0]).nice();
         
         
         //  Update function for x-axis map.
         xScale.domain(filteredDataUpdate.map(function(d) { return d.reportNumber; }))
-        .rangeRoundBands([paddingLeftSide, dim.width-paddingLeftSide], 0.12);
+        .rangeRoundBands([paddingLeftSide, widthMain-paddingLeftSide], 0.12);
         
         
         //  Update x-Axis.
         var xAxisUpdate = d3.svg.axis().scale(xScale).orient("bottom");
          svg.selectAll(".x").transition().duration(500)
          .attr({
-        "transform": "translate(0," + (dim.height+paddingBottom) + ")"
+        "transform": "translate(0," + (heightMain+paddingBottom) + ")"
         }).call(xAxisUpdate);
         
         
@@ -217,7 +218,7 @@ function main(myDataArray,monthSelected,yearSelected){
                 x: function(d) { return xScale(d.reportNumber);},
                 y: function(d) { return yScale(d.avgValue);},
                 "width": xScale.rangeBand(),
-                "height": function(d) { return dim.height - yScale(d.avgValue)+9;},//the +9 is because the stroke-width is 2px and the padding in axis is 10
+                "height": function(d) { return heightMain - yScale(d.avgValue)+9;},//the +9 is because the stroke-width is 2px and the padding in axis is 10
                 "fill":colorBars
             }).on("click", myClickEvent);;
         /*************************************************************/
@@ -228,7 +229,7 @@ function main(myDataArray,monthSelected,yearSelected){
                 x: function(d) { return xScale(d.reportNumber);},
                 y: function(d) { return yScale(d.avgValue);},
                 "width": xScale.rangeBand(),
-                "height": function(d) { return dim.height - yScale(d.avgValue)+9;},//the +9 is because the stroke-width is 2px and the padding in axis is 10
+                "height": function(d) { return heightMain - yScale(d.avgValue)+9;},//the +9 is because the stroke-width is 2px and the padding in axis is 10
                 "fill":colorBars
             });
             

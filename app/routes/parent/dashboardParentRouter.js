@@ -22,7 +22,16 @@
   */
  router.get('/', isLoggedIn.isLoggedInNext, votingFunctions.getUserPolls, function(req, res) {
      var userPollsRet = req.userPollsRet;// Polls created by this manager
-   res.render('./dashboards/parent/parentDashboard.ejs', {userPollsRet:userPollsRet});
+     var nurseryId = req.user.nursery.id;
+     Message.find({"nursery.id":nurseryId , "to.id":req.user._id , "to.deleted":false , "to.read":false}).exec(function(err, messagesFound){
+          if(err){
+              req.flash('error',err);
+              res.redirect('/');
+          }else{
+            res.render('./dashboards/parent/parentDashboard.ejs', {userPollsRet:userPollsRet , messagesFound:  messagesFound}); 
+             
+          }
+      });
 
  });
  
@@ -412,7 +421,7 @@ router.put("/profile/edit",function(req,res){
   */
   router.get('/messages',isLoggedIn.isLoggedInNext,function(req, res) {
       var nurseryId = req.user.nursery.id;
-      Message.find({"nursery.id":nurseryId , "to.id":req.user._id}).exec(function(err, messagesFound){
+      Message.find({"nursery.id":nurseryId , "to.id":req.user._id , "to.deleted":false}).exec(function(err, messagesFound){
           if(err){
               req.flash('error',err);
               res.redirect('/');
@@ -430,7 +439,7 @@ router.put("/profile/edit",function(req,res){
   */
   router.get('/messages/sent',isLoggedIn.isLoggedInNext,function(req, res) {
     var nurseryId = req.user.nursery.id;
-      Message.find({"nursery.id":nurseryId , "from.id":req.user._id}).exec(function(err, messagesFound){
+      Message.find({"nursery.id":nurseryId , "from.id":req.user._id, "from.deleted":false}).exec(function(err, messagesFound){
          if(err){
               req.flash('error',err);
               res.redirect('/');
@@ -442,6 +451,17 @@ router.put("/profile/edit",function(req,res){
       });
  });
 
+ 
+  /**
+  * Message Read
+  *
+  */
+  router.post('/messages/:messageId/read',isLoggedIn.isLoggedInNext,function(req, res) {
+    
+    messagingFunctions.messageRead(req,res);
+
+ });
+ 
   /**
   * NEW MESSAGE, check if URL has query arguments userIdTo & label, if so then populate the new message form with these details,
   * otherwise, populate the form with all of the nursery data including manager details and teacher details
@@ -493,12 +513,22 @@ router.put("/profile/edit",function(req,res){
  });
  
   /**
-  * DELETE a message
+  * DELETE a message from Inbox
   *
   */
-  router.get('/messages/:messageId/delete',isLoggedIn.isLoggedInNext,function(req, res) {
+  router.get('/messages/inbox/:messageId/delete',isLoggedIn.isLoggedInNext,function(req, res) {
 
-    messagingFunctions.deleteMessage(req,res);
+    messagingFunctions.deleteMessageInbox(req,res);
+
+ });
+ 
+   /**
+  * DELETE a message from Sent
+  *
+  */
+  router.get('/messages/sent/:messageId/delete',isLoggedIn.isLoggedInNext,function(req, res) {
+
+    messagingFunctions.deleteMessageSent(req,res);
 
  });
  
@@ -519,13 +549,14 @@ router.put("/profile/edit",function(req,res){
               req.flash('error',err);
               res.redirect('back');
           }else{
-              console.log(reportFound);
               //if a report was found, next
               if(reportFound.length>0){
                  
                  //if the user is a parent of the child, next
                  if(reportFound[0].children.id != null){
-                  res.render("./dashboards/parent/parentChildrenReport.ejs",{ reportFound:  reportFound }); 
+                     
+                    var jsonReportFound = JSON.stringify(reportFound);     
+                  res.render("./dashboards/parent/parentChildrenReport.ejs",{ reportFound:  reportFound, jsonReportFound:jsonReportFound }); 
 
                  }else{
                   req.flash('error',"You are not allowed to access this child's report.");
