@@ -70,7 +70,7 @@ function calculateValuesPhysical(physical,childAge){
 function createReport(req,res){
     var childAge = req.body.childAge;
     var teacherName = req.user.details[0].firstname +' '+ req.user.details[0].lastname;
-
+    
     var intellectual = req.body.intellectual;
     var social = req.body.social;
     var physical = req.body.physical;
@@ -87,6 +87,7 @@ function createReport(req,res){
     reportObject.nursery.id = req.user.nursery.id;
     reportObject.children.id = req.params.childId;
     reportObject.avgValue = avgValue;
+    reportObject.comments = req.body.comments;
     
     
     reportObject.teacher = { 

@@ -301,7 +301,27 @@ ul{
      cursor: hand; 
 }
 
+.myList{
+	text-align: left;
+}
 
+
+.prioritiesContent{
+    background-color: white;
+    border-radius:5px;
+    margin-left: -10px;
+    margin-right: -10px;
+    margin-top: 5px;
+    padding:10px;
+    box-shadow: -2px 2px 5px #222222;
+
+}
+.prioritiesContent:hover {
+  box-shadow: -5px 5px 2px #222222;
+  transform: translate(3px, -3px);
+}
+
+/********************/
 
 
 

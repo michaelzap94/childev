@@ -37,7 +37,8 @@
                     <input name='childAge' value='<%=childAge%>' type='hidden' />
                   <div class='row'>
 
-                   <div class='col-md-9'>
+                   <div class='col-md-6'>
+                    <div class='prioritiesContent'>
                     <h4 id='intellectualInfo' data-toggle="modal" data-target="#myModal"><span><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip" title='Click to see how this skill is evaluated at this age' ></i></span> <strong><u>Intellectual Development</u></strong></h4>
                      <ul>
                               <li>
@@ -97,12 +98,12 @@
                                 </div>
                               </li>
                             </ul>
+                        </div>
                    </div><!-- first column -->
-                   
-                 </div><!-- first row -->
-                 <div class='row'>
 
-                   <div class='col-md-9'>
+
+                   <div class='col-md-6'>
+                    <div class='prioritiesContent'>
                     <h4  id='socialInfo' data-toggle="modal" data-target="#myModal"><span><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip" title='Click to see how this skill is evaluated at this age' ></i></span> <strong><u>Social and Emotional Development</u></strong></h4>
                      <ul>
                               <li>
@@ -162,12 +163,14 @@
                                 </div>
                               </li>
                             </ul>
-                   </div><!-- first column -->
+                        </div>
+                   </div><!--column -->
                    
-                 </div><!-- second row -->
+                 </div><!-- first row -->
                  <div class='row'>
 
-                   <div class='col-md-9'>
+                  <div class='col-md-6'>
+                    <div class='prioritiesContent'>
                     <h4  id='physicalInfo' data-toggle="modal" data-target="#myModal"><span><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip" title='Click to see how this skill is evaluated at this age' ></i></span> <strong><u>Psychomotor and Physical Development</u></strong></h4>
                      <ul>
                               <li>
@@ -227,11 +230,21 @@
                                 </div>
                               </li>
                             </ul>
-                   </div><!-- first column -->
-                   
+                        </div>
+                   </div><!--column -->
+                   <div class='col-md-6'>
+                    <div class='prioritiesContent'>
+                    <h4 id='comments'><span><i class="fa fa-fw fa-info-circle clearBlue" aria-hidden="true" data-toggle="tooltip" title='Let the parents know if you have any concern about this child.' ></i></span> <strong><u>Comments and Suggestions</u></strong></h4>
+                         <div class="form-group">
+                            <label for="comments">Any comment about this child:</label>
+                            <textarea style='resize:vertical;'class="form-control" rows="7" name='comments' id="comments"></textarea>
+                         </div> 
+                    </div>
+                   </div><!-- second column -->
                  </div><!-- third row -->
-                 <div class='row'>
-                     <div class='col-lg-7 col-md-7 col-sm-12 col-xs-12'>
+                 
+                 <div class='row' style='margin-top:10px;'>
+                     <div class='col-lg-8 col-md-8 col-md-offset-2 col-lg-offset-2 col-sm-12 col-xs-12'>
                         <button class='btn btn-success btn-block' type='submit'>Create Report</button>
                     </div>
                  </div><!-- fourth row -->  

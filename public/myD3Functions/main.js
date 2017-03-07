@@ -55,7 +55,7 @@ function main(myDataArray,monthSelected,yearSelected){
         
    // Create function for y-axis map.
     var yScale = d3.scale.linear()
-        .domain([0, 1000])
+        .domain([0, 100])
         .range([heightMain, 0])
         .nice();
 
@@ -79,25 +79,32 @@ function main(myDataArray,monthSelected,yearSelected){
 
 
 /******BARS*******************************************************************************/
- 
+    //tooltip
+    var tooltip = d3.select("body").append("div")   
+                .attr("class", "tooltip")
+                .style("opacity", 0);
+                
+     
+                
+           
     // Bars of the main graph
     var myBars = svg.selectAll(".oneBar").data(filteredDataByDate).enter()
             .append("g").attr("class", "oneBar");
     
-    
+      
        //Rectangles.
         myBars.append("rect")
             .attr({
                 x: function(d) { return xScale(d.reportNumber);},
-                y: function(d) { return yScale(d.avgValue);},
+                y: function(d) { return yScale(Math.round(d.avgValue / 10))+paddingBottom;},
                 "width": xScale.rangeBand(),
-                "height": function(d) { return heightMain - yScale(d.avgValue)+9;},//the +9 is because the stroke-width is 2px and the padding in axis is 10
+                "height": function(d) { return heightMain - yScale(Math.round(d.avgValue / 10))-1;},//the - is because the stroke-width is 2px and the padding in axis is 10
                 "fill":colorBars
             })
-            .on("click", myClickEvent);// myClickEvent is defined below.AND D3 PASSES DATA AS ARGUMENT AUTOMATICALLY.
-         /*  .on("mouseover",myMouseOverEvent)
+            .on("click", myClickEvent)// myClickEvent is defined below.AND D3 PASSES DATA AS ARGUMENT AUTOMATICALLY.
+            .on("mouseover",myMouseOverEvent)
            .on("mouseout",myMouseOutEvent);// mouseout is defined below.
-           */
+           
            
  /****FUNCTIONS USED BY BARS*******************************************************/          
     function generateDataMainPieChart(myDataObject){
@@ -127,15 +134,28 @@ function main(myDataArray,monthSelected,yearSelected){
               { label: "Diet", value: parseInt(myDataObject.physical[0].skills.diet)}];
     } 
      
-    function myMouseOverEvent(d){
+    function myMouseOverEvent(d){/*
         var dataSet = generateDataMainPieChart(d);
        var _pieChartMain= pieChartMain(dataSet);
         _pieChartMain.updateChart(); //update main pie chart
         
         _pieChartMain.updateLegend();//update legend of main pie chart
+        */
+        tooltip.transition()
+            .duration(250)      
+            .style("opacity", 0.9);
+            
+        tooltip.html("<strong>Average mark: " + Math.round(d.avgValue / 10) + "%</strong>")  
+            .style("left", (d3.event.pageX) + "px")     
+            .style("top", (d3.event.pageY) + "px");   
     } 
 
-        function myMouseOutEvent(d){    // utility function to be called on mouseout.
+        function myMouseOutEvent(d){   
+        tooltip.transition()        
+                .duration(250)      
+                .style("opacity", 0);   
+            
+            // utility function to be called on mouseout.
       /*   var myStartData = [{ label: "Intellectual", value: 1 },
                       { label: "Social", value: 1 },
                       { label: "Physical", value: 1 }];
@@ -149,6 +169,22 @@ function main(myDataArray,monthSelected,yearSelected){
         }
      
     function myClickEvent(d){
+        
+        svg.selectAll('.myTooltip').text('');   
+        
+        svg.append("text").text(Math.round(d.avgValue / 10))
+         .attr({
+            "text-anchor": "middle",
+            x: parseFloat(d3.select(this).attr("x"))+parseFloat(d3.select(this).attr("width")/2), //complicated but works
+            y: parseFloat(d3.select(this).attr("y"))+22, //show inside the bars
+            "font-family": "sans-serif",
+            "font-weight":'bold',
+            "word-wrap": "break-word",
+            "font-size": 18,
+            "class": "myTooltip",
+            "id":"myIdTooltip",
+            "fill":'white'
+          });
         
         //Bars
         d3.selectAll('.oneBar rect').attr({"fill":colorBars});   
@@ -176,6 +212,8 @@ function main(myDataArray,monthSelected,yearSelected){
     
     mainFunctions.updateMain = function(myDataArray,monthSelected,yearSelected){
         
+        svg.selectAll('.myTooltip').text('');   
+        
         var filteredDataUpdate = filterData(myDataArray,monthSelected,yearSelected);
         
             //add a reportNumber attribute to object
@@ -185,8 +223,8 @@ function main(myDataArray,monthSelected,yearSelected){
     
 
     
-        // Update function for y-axis map.
-        yScale.domain([0, 1000]).range([heightMain, 0]).nice();
+        // Update function for y-axis map.ss
+        yScale.domain([0, 100]).range([heightMain, 0]).nice();
         
         
         //  Update function for x-axis map.
@@ -216,9 +254,9 @@ function main(myDataArray,monthSelected,yearSelected){
          myBarsUpdate.enter().append("g").attr("class", "oneBar").append("rect")
             .attr({
                 x: function(d) { return xScale(d.reportNumber);},
-                y: function(d) { return yScale(d.avgValue);},
+                y: function(d) { return yScale(Math.round(d.avgValue / 10));},
                 "width": xScale.rangeBand(),
-                "height": function(d) { return heightMain - yScale(d.avgValue)+9;},//the +9 is because the stroke-width is 2px and the padding in axis is 10
+                "height": function(d) { return heightMain - yScale(Math.round(d.avgValue / 10))+9;},//the +9 is because the stroke-width is 2px and the padding in axis is 10
                 "fill":colorBars
             }).on("click", myClickEvent);;
         /*************************************************************/
@@ -227,9 +265,9 @@ function main(myDataArray,monthSelected,yearSelected){
         myBarsUpdate.select("rect").transition().duration(500).ease("linear")
             .attr({
                 x: function(d) { return xScale(d.reportNumber);},
-                y: function(d) { return yScale(d.avgValue);},
+                y: function(d) { return yScale(Math.round(d.avgValue / 10))+paddingBottom;},
                 "width": xScale.rangeBand(),
-                "height": function(d) { return heightMain - yScale(d.avgValue)+9;},//the +9 is because the stroke-width is 2px and the padding in axis is 10
+                "height": function(d) { return heightMain - yScale(Math.round(d.avgValue / 10))-1;},//the -1 is because the stroke-width is 2px and the padding in axis is 10
                 "fill":colorBars
             });
             

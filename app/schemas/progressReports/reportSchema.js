@@ -86,6 +86,7 @@ var progressSchema = new mongoose.Schema({
     avgValue:Number,
     childAge:Number,
     dateCreated:{type:Date, default: Date.now},// if date is empty the default is Date.now
+    comments:{type:String, default: "No comments for this report."},
     nursery: {
         id:{
             type:mongoose.Schema.Types.ObjectId,
