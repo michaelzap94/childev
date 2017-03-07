@@ -103,7 +103,7 @@ function main(myDataArray,monthSelected,yearSelected){
             })
             .on("click", myClickEvent)// myClickEvent is defined below.AND D3 PASSES DATA AS ARGUMENT AUTOMATICALLY.
             .on("mouseover",myMouseOverEvent)
-           .on("mouseout",myMouseOutEvent);// mouseout is defined below.
+           .on("mouseout",myMouseOutEvent);// 
            
            
  /****FUNCTIONS USED BY BARS*******************************************************/          
@@ -211,7 +211,8 @@ function main(myDataArray,monthSelected,yearSelected){
     }
     
     mainFunctions.updateMain = function(myDataArray,monthSelected,yearSelected){
-        
+
+                
         svg.selectAll('.myTooltip').text('');   
         
         var filteredDataUpdate = filterData(myDataArray,monthSelected,yearSelected);
@@ -258,7 +259,8 @@ function main(myDataArray,monthSelected,yearSelected){
                 "width": xScale.rangeBand(),
                 "height": function(d) { return heightMain - yScale(Math.round(d.avgValue / 10))+9;},//the +9 is because the stroke-width is 2px and the padding in axis is 10
                 "fill":colorBars
-            }).on("click", myClickEvent);;
+            }).on("click", myClickEvent).on("mouseover",myMouseOverEvent)
+           .on("mouseout",myMouseOutEvent);
         /*************************************************************/
         
        //Rectangles update
