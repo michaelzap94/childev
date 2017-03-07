@@ -11,7 +11,6 @@ function filterData(myDataArray,monthSelected,yearSelected){
         }
     });
     
-    console.log(updatedData);
     return updatedData;
 }
 
@@ -62,12 +61,13 @@ function main(myDataArray,monthSelected,yearSelected){
 
 /*****AXIS********************************************************************************/
     // X axis of graph
-    var xAxisGen = d3.svg.axis().scale(xScale).orient("bottom");//.innerTickSize(-heightMain).outerTickSize(0).tickPadding(10);
+    var xAxisGen = d3.svg.axis().scale(xScale).orient("bottom");
     svg.append("g").attr({
         "class": "x axis",
         "transform": "translate(0," + (heightMain+paddingBottom) + ")"
         }).call(xAxisGen);
-        
+
+      
     // Y axis of graph 
     var yAxisGen = d3.svg.axis().scale(yScale).orient("left").ticks(10).innerTickSize(-widthMain+paddingLeftSide+paddingLeftSide).outerTickSize(0).tickPadding(10);
     svg.append("g").attr({
@@ -75,9 +75,14 @@ function main(myDataArray,monthSelected,yearSelected){
        "transform": "translate("+paddingLeftSide+","+paddingBottom+")"
         }).call(yAxisGen);
         
-   
+   /*
+d3.selectAll('.tick')
+  .on('click', function (d, i) {
+     // d3.select('#reportNumber').html(d);
+    console.log(filteredDataByDate[i])
+  });
 
-
+*/
 /******BARS*******************************************************************************/
     //tooltip
     var tooltip = d3.select("body").append("div")   
@@ -100,7 +105,7 @@ function main(myDataArray,monthSelected,yearSelected){
                 "width": xScale.rangeBand(),
                 "height": function(d) { return heightMain - yScale(Math.round(d.avgValue / 10))-1;},//the - is because the stroke-width is 2px and the padding in axis is 10
                 "fill":colorBars
-            })
+            }).style("cursor", "pointer")
             .on("click", myClickEvent)// myClickEvent is defined below.AND D3 PASSES DATA AS ARGUMENT AUTOMATICALLY.
             .on("mouseover",myMouseOverEvent)
            .on("mouseout",myMouseOutEvent);// 
@@ -134,13 +139,8 @@ function main(myDataArray,monthSelected,yearSelected){
               { label: "Diet", value: parseInt(myDataObject.physical[0].skills.diet)}];
     } 
      
-    function myMouseOverEvent(d){/*
-        var dataSet = generateDataMainPieChart(d);
-       var _pieChartMain= pieChartMain(dataSet);
-        _pieChartMain.updateChart(); //update main pie chart
-        
-        _pieChartMain.updateLegend();//update legend of main pie chart
-        */
+    function myMouseOverEvent(d){
+
         tooltip.transition()
             .duration(250)      
             .style("opacity", 0.9);
@@ -154,23 +154,25 @@ function main(myDataArray,monthSelected,yearSelected){
         tooltip.transition()        
                 .duration(250)      
                 .style("opacity", 0);   
-            
-            // utility function to be called on mouseout.
-      /*   var myStartData = [{ label: "Intellectual", value: 1 },
-                      { label: "Social", value: 1 },
-                      { label: "Physical", value: 1 }];
-              
-  
-        
-         var _pieChartMain= pieChartMain(myStartData);
-            _pieChartMain.updateChart(); //update main pie chart
-            _pieChartMain.updateLegend();//update legend of main pie chart
-            */
+
         }
      
     function myClickEvent(d){
+        if(userLabelFromEjs==='parent'){
+            var replyLink = '/dashboard/'+userLabelFromEjs+'/'+userIdFromEjs+'/messages/new?userIdTo='+d.teacher.id+'&labelTo=teacher';
+            d3.selectAll('.reportNumber').html(d.reportNumber);
+            document.getElementById("teacherInfo").disabled = false;
+            
+            d3.select('#teacherName .info').html(d.teacher.name);
+            d3.select('#teacherEmail .info').html(d.teacher.username);
+            d3.select('#dateCreated .info').html(d.dateCreated);
+            d3.select('#comments').html(d.comments);
+            d3.select('#sendMessageTeacher').attr('href', replyLink);
+        }            
         
-        svg.selectAll('.myTooltip').text('');   
+        
+        /*********************************************/
+        svg.selectAll('.myTextMark').text('');   
         
         svg.append("text").text(Math.round(d.avgValue / 10))
          .attr({
@@ -181,11 +183,12 @@ function main(myDataArray,monthSelected,yearSelected){
             "font-weight":'bold',
             "word-wrap": "break-word",
             "font-size": 18,
-            "class": "myTooltip",
-            "id":"myIdTooltip",
+            "class": "myTextMark",
+            "id":"myTextMark",
             "fill":'white'
           });
-        
+
+       /*******************************************************/ 
         //Bars
         d3.selectAll('.oneBar rect').attr({"fill":colorBars});   
         d3.select(this).attr({"fill":"darkblue"});        
@@ -213,7 +216,7 @@ function main(myDataArray,monthSelected,yearSelected){
     mainFunctions.updateMain = function(myDataArray,monthSelected,yearSelected){
 
                 
-        svg.selectAll('.myTooltip').text('');   
+        svg.selectAll('.myTextMark').text('');   
         
         var filteredDataUpdate = filterData(myDataArray,monthSelected,yearSelected);
         
@@ -276,14 +279,6 @@ function main(myDataArray,monthSelected,yearSelected){
         //Delete bars that don't exist in the new data    
         myBarsUpdate.exit().remove();
        
-       /*
-            // transition the frequency labels location and change value.
-            myBars.select("text").transition().duration(500)
-                .text(function(d){ return d3.format(",")(d[1])})
-                .attr("y", function(d) {return y(d[1])-5; });      */    
-                
-        
-        
 
         }        
 

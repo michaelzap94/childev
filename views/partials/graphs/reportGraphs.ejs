@@ -22,7 +22,7 @@ rect:active{
     display: inline-block;
     position: relative;
     width: 100%;
-    padding-bottom: 60%; /* aspect ratio */
+    padding-bottom: 55%; /* aspect ratio */
     vertical-align: top;
     overflow: hidden;
 
@@ -98,6 +98,18 @@ div.tooltip {
     font-size:12px;
 }
 
+#teacherInfo{
+    margin-top:0;
+}
+
+#myModalTeacher ul{
+    list-style-type: none;
+    padding-left:0;
+}
+
+
+
+
 </style>
 
 <!-- d3 library -->
@@ -130,7 +142,7 @@ div.tooltip {
     </div>
     
     <div class="row row-offset-0">
-            <div class="col-md-9 col-xs-12">
+            <div class="col-md-8 col-xs-12">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <div class='row'>
@@ -190,11 +202,15 @@ div.tooltip {
                         
                         <div id='mainGraph'></div>
                         
+                         <% if(currentUser.label==='parent'){%>
+                            <button  id='teacherInfo' class='btn btn-primary btn-block' data-toggle="modal" data-target="#myModalTeacher" disabled>Teacher Info for <span class='reportNumber'></span></button>
+                         <% }%>
+
                     </div><!-- /.panel-body -->
                 </div><!--panel-->
              </div><!--column-->
              
-            <div class="col-md-3 col-xs-12">
+            <div class="col-md-4 col-xs-12">
                 <div class="panel panel-success">
                     <div class="panel-heading">
                         <i class="fa fa-bar-chart-o fa-fw"></i> Average Data Using Priorities
@@ -202,7 +218,8 @@ div.tooltip {
                     </div> <!-- /.panel-heading -->
                     <div class="panel-body">
                         
-                         
+                        <div id='pieChartMain'></div>
+                        <div id='legendPieChartMain'></div>    
                             
                     </div><!-- /.panel-body -->
                 </div><!--panel-->
@@ -218,20 +235,6 @@ div.tooltip {
     
     <div class="row row-offset-0">
         
-            <div class="col-md-3 col-xs-12">
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> Average Data Using Priorities
-                       
-                    </div> <!-- /.panel-heading -->
-                    <div class="panel-body">
-                        
-                        <div id='pieChartMain'></div>
-                        <div id='legendPieChartMain'></div>    
-                            
-                    </div><!-- /.panel-body -->
-                </div><!--panel-->
-            </div><!--column-->
 
          <% include ./noPrioritiesGraph.ejs %>
             
@@ -245,6 +248,36 @@ div.tooltip {
 
 </div>
 <!-- /#page-wrapper -->
+     <!-- Modal -->
+      <div class="modal fade" id="myModalTeacher" tabindex="-1" role="dialog" aria-labelledby="myModalTeacherLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">
+                  <strong ><i class="fa fa-bar-chart-o fa-fw"></i> Teacher's details & Comments for <span class='reportNumber'></span></strong>
+              </h4>
+            </div>
+            <div class="modal-body">
+                       <ul>
+                          <li id='teacherName'><span><strong>Teacher's name: </strong></span><span class='info'></span></li>
+                          <li id='teacherEmail'><span><strong>Teacher's email: </strong></span><span class='info'></span></li>
+                          <li id='dateCreated'><span><strong>Date Created: </strong></span><span class='info'></span></li>
+                        </ul>     
+                         <div class="form-group">
+                            <label for="comments">Comments & Suggestions:</label>
+                            <textarea style='resize:vertical;'class="form-control" rows="7" name='comments' id="comments" readonly></textarea>
+                         </div>  
+                         
+                         <a class='btn btn-success btn-block' id='sendMessageTeacher'>Reply to Message</a>
+                            
+            </div><!--modal-body-->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- Modal Teacher-->
 
       <!-- Modal -->
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
