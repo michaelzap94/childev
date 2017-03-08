@@ -215,7 +215,7 @@ function saveToken(userRet,fn){
 /****************************************************************************************/
 
 /**
- * This function sends a link for users to reset their passwords.
+ * This function sends a warning link to parents.
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  * @param {String} userRet - This is the User object passed.
