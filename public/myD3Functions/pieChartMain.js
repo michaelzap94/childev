@@ -1,4 +1,7 @@
-
+    //tooltip
+    var tooltipMainPie = d3.select("body").append("div")   
+            .attr("class", "tooltip")
+            .style("opacity", 0);
     
         
     function chooseColorMainPieChart(label){ 
@@ -47,7 +50,25 @@
         svgPie.selectAll("path").data(pie(myStartData)).enter().append("path")
             .attr("d", arc)
             .each(function(d) { this._current = d; })
-            .style("fill", function(d) { return chooseColorMainPieChart(d.data.label); });
+            .style("fill", function(d) { return chooseColorMainPieChart(d.data.label); }).on("mouseover",myMouseOverMainPie)
+           .on("mouseout",myMouseOutMainPie);
+           
+    function myMouseOverMainPie(d){
+        tooltipMainPie.transition()
+            .duration(250)      
+            .style("opacity", 0.9);
+            
+        tooltipMainPie.html("<strong>Avg. Mark (priorities applied): " + Math.round(d.value / 10) + "</strong>")  
+            .style("left", (d3.event.pageX) + "px")     
+            .style("top", (d3.event.pageY) + "px");   
+    } 
+
+    function myMouseOutMainPie(d){   
+    tooltipMainPie.transition()        
+            .duration(250)      
+            .style("opacity", 0);   
+
+    }    
 
   /** create table for legend.********************************************************************************/
         var myLegend = d3.select('#legendPieChartMain').append("table").classed('myLegend',true);

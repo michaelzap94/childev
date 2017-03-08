@@ -81,7 +81,7 @@ router.post('/nursery', function(req, res) {
   });
 
   //--------------------------//
-  Nursery.register(newUser, req.body.password, function(err, dataRetUser) {
+  Nursery.register(newUser, req.body.password, function(err, nurseryFound) {
     if (err) {
 
       req.flash("error", err.message); //err is from "passport package"
@@ -89,7 +89,7 @@ router.post('/nursery', function(req, res) {
 
     } else {
 
-      sendEmail.sendConfirmationEmail(req.body.username, activationhash, 'nursery', 'noneyet', function(statusCode) {
+      sendEmail.sendConfirmationEmail(req.body.username, nurseryFound, 'nursery', 'noneyet', function(statusCode) {
         if (statusCode == 202) {
           req.flash("success", "Please, check your mail and confirm the link we have sent you to access the platform as a Manager.");
           res.redirect('/');

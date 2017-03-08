@@ -23,6 +23,11 @@ function main(myDataArray,monthSelected,yearSelected){
     filteredDataByDate.forEach(function(e,i){
         e.reportNumber = 'Report ' + (i+1);
     });
+    
+//tooltip
+var tooltip = d3.select("body").append("div")   
+            .attr("class", "tooltip")
+            .style("opacity", 0);
 
 /****DIMENSIONS AND PADDING****************************************************************************/
     //dimensions of the SVG
@@ -84,14 +89,6 @@ d3.selectAll('.tick')
 
 */
 /******BARS*******************************************************************************/
-    //tooltip
-    var tooltip = d3.select("body").append("div")   
-                .attr("class", "tooltip")
-                .style("opacity", 0);
-                
-     
-                
-           
     // Bars of the main graph
     var myBars = svg.selectAll(".oneBar").data(filteredDataByDate).enter()
             .append("g").attr("class", "oneBar");

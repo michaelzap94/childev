@@ -295,7 +295,7 @@ function mycheck(checkIfExistsInWaitingRegistration, existsInPopulated, email, p
       
         }else{
       
-                sendEmail.sendConfirmationEmail(email, nurseryFound.activationhash, parentOrTeacher, nurseryFound._id, function(statusCode) {
+                sendEmail.sendConfirmationEmail(email, nurseryFound, parentOrTeacher, nurseryFound._id, function(statusCode) {
                   if (statusCode == 202) {
                     nurseryFound.waitingRegistrationTeachers.push(email);
                     nurseryFound.save(function(err, savedUser) {

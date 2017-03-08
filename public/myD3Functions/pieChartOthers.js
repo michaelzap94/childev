@@ -1,4 +1,23 @@
+    //tooltip
+    var tooltipOthersPie = d3.select("body").append("div")   
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+    function myMouseOverOthersPie(d){
+        tooltipOthersPie.transition()
+            .duration(250)      
+            .style("opacity", 0.9);
+            
+        tooltipOthersPie.html("<strong>Mark: " + Math.round(d.value) + "</strong>")  
+            .style("left", (d3.event.pageX) + "px")     
+            .style("top", (d3.event.pageY) + "px");   
+    } 
 
+    function myMouseOutOthersPie(d){   
+    tooltipOthersPie.transition()        
+            .duration(250)      
+            .style("opacity", 0);   
+
+    }    
 /************COMMON TO 3 OTHERS PIE CHARTS **********************************/    
         
     function chooseColorOthersPieChart(label){ 
@@ -71,7 +90,8 @@
         svgPieInt.selectAll("path").data(pieInt(myStartDataIntellectual)).enter().append("path")
             .attr("d", arcInt)
             .each(function(d) { this._currentIntellectual = d; })
-            .style("fill", function(d) { return chooseColorOthersPieChart(d.data.label); });
+            .style("fill", function(d) { return chooseColorOthersPieChart(d.data.label); }).on("mouseover",myMouseOverOthersPie)
+           .on("mouseout",myMouseOutOthersPie);//
             
 
         /** create table for legend.********************************************************************************/
@@ -124,7 +144,8 @@
         svgPieSoc.selectAll("path").data(pieSoc(myStartDataSocial)).enter().append("path")
             .attr("d", arcSoc)
             .each(function(d) { this._currentSocial = d; })
-            .style("fill", function(d) { return chooseColorOthersPieChart(d.data.label); });
+            .style("fill", function(d) { return chooseColorOthersPieChart(d.data.label); }).on("mouseover",myMouseOverOthersPie)
+           .on("mouseout",myMouseOutOthersPie);//
             
 
         /** create table for legend.********************************************************************************/
@@ -177,8 +198,10 @@
         svgPiePhy.selectAll("path").data(piePhy(myStartDataPhysical)).enter().append("path")
             .attr("d", arcPhy)
             .each(function(d) { this._currentPhysical = d; })
-            .style("fill", function(d) { return chooseColorOthersPieChart(d.data.label); });
-            
+            .style("fill", function(d) { return chooseColorOthersPieChart(d.data.label); }).on("mouseover",myMouseOverOthersPie)
+           .on("mouseout",myMouseOutOthersPie);//
+        
+
 
         /** create table for legend.********************************************************************************/
         var myLegendPhysical = d3.selectAll('#legendPhysicalNP').append("table").classed('myLegend',true);
@@ -218,6 +241,8 @@
  *
  */
 function pieChartOthers(dataSetIntellectual,dataSetSocial,dataSetPhysical){
+    
+    
     
     var pieFunctions={};
     
