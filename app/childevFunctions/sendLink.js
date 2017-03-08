@@ -275,7 +275,7 @@ function mycheck(checkIfExistsInWaitingRegistration, existsInPopulated, email, p
     if (parentOrTeacher === 'parent') {
       
       
-      sendEmail.sendConfirmationEmailToParents(email, nurseryFound.activationhash, nurseryFound._id, childId, function(statusCode,isRegistered) {
+      sendEmail.sendConfirmationEmailToParents(email, nurseryFound, childId, function(statusCode,isRegistered) {
         if(statusCode == 202){
                     return linkChildToParent(email, parentOrTeacher, childId, isRegistered, nurseryFound,res);
    
