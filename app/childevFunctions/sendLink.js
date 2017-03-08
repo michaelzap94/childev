@@ -33,20 +33,18 @@ function findUser(req, res, email, parentOrTeacher, childId, loopnow, checktosen
         existsInPopulated = true;
 
         var populatedChildrenInParent = nurseryFound.parent[0].children;//array of children IDs in parentSchema.
-        if(populatedChildrenInParent>0){//if not empty, check that the ID does not already exists.
+        if(populatedChildrenInParent.length>0){//if not empty, check that the ID does not already exists.
               populatedChildrenInParent.forEach(function(element){//check if the parent is already linked to the child.
                 ++inserted;
                 if(element==childId){
                   exists = true;
                 }
                 if(inserted==populatedChildrenInParent.length && exists === true){
-
                   return res.send({
                           error: 'This parent is already linked to this child.'
                         });
                 }
                  if(inserted==populatedChildrenInParent.length && exists === false){
-
                       return loopnow(res, email, parentOrTeacher, childId, existsInPopulated, nurseryFound, checktosend);
       
                 }
