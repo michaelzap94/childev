@@ -61,7 +61,7 @@ $('.rowUserChildren').on('click',function(){
                         .append($('<li>').append($('<strong>').append('Email: ')).append(parent.username))
                         .append($('<li>').append($('<strong>').append('Relationship to child: ')).append(parent.carertype))
             )));
-            fragment.html(childrenInfo);
+            fragment.append(childrenInfo);
         });
           
     }else{
@@ -71,6 +71,12 @@ $('.rowUserChildren').on('click',function(){
     //$('[data-toggle="collapse"]').collapse();
 });
 
+
+
+$('body').on('hidden.bs.modal', '.modal', function () {
+        $(this).find('#containerParent').html('');//delete parent info being displayed
+        $('#page-wrapper').css('opacity','');
+    });
          
 /**
  * Search users by name

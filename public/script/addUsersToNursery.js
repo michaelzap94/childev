@@ -187,7 +187,7 @@ $('.rowUserChildren').on('click',function(){
 
     $('#deleteUser').attr('value',objchildren._id);
     
-            var fragment =$('#containerParent'); 
+    var fragment =$('#containerParent'); 
 
     if(objparentarr.length>0){
         objparentarr.forEach(function(parent,index){
@@ -205,7 +205,7 @@ $('.rowUserChildren').on('click',function(){
                         .append($('<li>').append($('<strong>').append('Email: ')).append(parent.username))
                         .append($('<li>').append($('<strong>').append('Relationship to child: ')).append(parent.carertype))
             )));
-            fragment.html(childrenInfo);
+            fragment.append(childrenInfo);
         });
           
     }else{
@@ -258,11 +258,11 @@ $('.rowUserParent').on('click',function(){
                         .append($('<li>').append($('<strong>').append('Date Of Birth: ')).append(child.details[0].dob))
                     
             )));
-            fragment.html(childrenInfo);
+            fragment.append(childrenInfo);
         });
           
     }else{
-        $('#containerParent').empty();
+        $('#containerChildren').empty();
     }    
      $('[data-toggle="tooltip"]').tooltip();       
 });
@@ -301,6 +301,7 @@ function mySearchFunction() {
  
 $('body').on('hidden.bs.modal', '.modal', function () {
      /*   $(this).removeData('bs.modal');*/
+        $(this).find('#containerParent').html('');//delete parent info being displayed
         $(this).find('#containerChildren').html("");//delete children info being displayed
         $('#page-wrapper').css('opacity','');
     });

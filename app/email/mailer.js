@@ -221,29 +221,43 @@ function saveToken(userRet,fn){
  * @param {String} userRet - This is the User object passed.
  * @param {Function} fn - This is the callback function that has as input parameter the status code: 'response.statusCode'.
  */
-function warnParent(req, res,userRet,fn) {
+function warnParent(req, res,childFound,comment, fn) {
     // Not the movie transporter!
-    var id = userRet._id;
-    var username = userRet.username;
-    var label = userRet.label;
+    var usernames = childFound.parentsemails;
+
     
-    var from_email = new helper.Email('noreply@admin.childev.com', 'Childev Team');
-    var to_email = new helper.Email(username);
     var subject =  "Warning about your latest child report.";
-    
     var bodyContent = 'You are receiving this email because one of the "High Priority" evaluated skills was "Needs Special Attention" in the latest Report.';
     var link="https://"+req.get('host')+"/";
     var btntitle = "Access Childev";
     var purpose="monitor the development of your child";
+    
+    var mail = new helper.Mail();
+    var from_email = new helper.Email('noreply@admin.childev.com', 'Childev Team');
+    mail.setFrom(from_email);
+    mail.setSubject(subject);
+    
+    
+    var personalization = new helper.Personalization();
+    usernames.forEach(function(email,i){
+      if(i!==0){
+          var  to_email = new helper.Email(email)
+         personalization.addTo(to_email);   
+      }
+
+    });
+    
+
+    mail.addPersonalization(personalization)
 
 
     var content = new helper.Content('text/html', bodyContent);
-    var mail = new helper.Mail(from_email, subject, to_email, content);
      mail.personalizations[0].addSubstitution(new helper.Substitution('-btnlink-', link));
      mail.personalizations[0].addSubstitution(new helper.Substitution('-purpose-', purpose));
      mail.personalizations[0].addSubstitution(new helper.Substitution('-btntitle-', btntitle));
      mail.setTemplateId(process.env.SENDGRID_TEMPLATE_WARNING);
-
+    
+    mail.addContent(content);
     var request = sg.emptyRequest({
       method: 'POST',
       path: '/v3/mail/send',
@@ -251,7 +265,9 @@ function warnParent(req, res,userRet,fn) {
     });
   
     sg.API(request, function(error, response) {
-  
+        if(error){
+          console.log(error);
+        }
       fn(response.statusCode); //callback to access it in the functin that calls this.
   
     });

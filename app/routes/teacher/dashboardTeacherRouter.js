@@ -303,7 +303,17 @@ router.put("/profile/edit",function(req,res){
   *
   */
     router.post('/report/:childId',isLoggedIn.isLoggedInNext,function(req, res) {
-     reportFunctions.createReport(req,res);
+        Children.findById(req.params.childId,function(err,childFound){
+            if(err){
+                console.log(err);
+                req.flash('error','Error finding child');
+                res.redirect('back');
+            }else{
+                reportFunctions.createReport(req,res,childFound);
+            }
+            
+        });
+     
      
  });
  

@@ -15,6 +15,7 @@ var phyDev56='At these age, it is very important that children are already aware
  
 var hp="<span class='label label-primary'>HP</span>";
 var lp="<span class='label label-warning'>LP</span>";
+var notifyParent = false;
 
 /**
 * description
@@ -161,6 +162,7 @@ $('#physicalInfo').on('click',function(){
     }
 
 //-----------------------------------------------------------------/
+
 
 
 /**

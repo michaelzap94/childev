@@ -21,7 +21,7 @@ function main(myDataArray,monthSelected,yearSelected){
     
     //add a reportNumber attribute to object
     filteredDataByDate.forEach(function(e,i){
-        e.reportNumber = 'Report ' + (i+1);
+        e.reportNumber = 'Rep ' + (i+1);
     });
     
 //tooltip
