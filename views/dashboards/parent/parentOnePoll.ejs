@@ -26,10 +26,8 @@
                 </div>
                 <!-- /.row -->
     
-            <div class="container" id="showPollContainer">
-                
                 <div class="row">
-                    <div class="col-sm-5 col-md-5"  >
+                    <div class="col-md-5"  >
                         <div class="well" >
                             <h3><strong><u>Description</u></strong><h3>
                             <%=showOnePoll.description%>
@@ -55,19 +53,20 @@
                     </div>
                 
                 
-                    <div class="col-sm-5 col-md-5">
+                    <div class="col-md-5">
                       <div id="chart-area" class="row">
-                        <div class="col-sm-9 col-md-9">
-                            
+
                             <canvas id="canvasId"></canvas>
-                        </div>
+                      </div>
+                    </div> <!--Graph --> 
                 
-                          <div id="legend" class="col-sm-2 col-md-2"></div>
-                          <script>
+                    <div id="legend" class="col-md-2"></div><!--legend--> 
+                    
+                <script>
                           
                          
                               
-                               var pieData = <%-JSON.stringify(showOnePoll.optionsArray)%>;
+                        var pieData = <%-JSON.stringify(showOnePoll.optionsArray)%>;
                          
                           
                           
@@ -90,11 +89,9 @@
                             legendHolder.innerHTML = lineChart.generateLegend();
                             
                             document.getElementById('legend').appendChild(legendHolder.firstChild);
-                          </script> 
-                      </div>
-                    </div> <!--Graph and legend--> 
+                </script> 
+
               </div><!--row-->
-            </div><!--shsowOnePoll-->
 
       </div>
     </div><!--page-wrapper-->

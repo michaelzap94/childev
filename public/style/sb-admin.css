@@ -229,7 +229,7 @@ tr:hover{
 #canvasId{
     margin-top: 10px;
 height: 350px;
-max-width: 350px;
+max-width: 450px;
     width: 100%;
 }
 
@@ -238,7 +238,6 @@ max-width: 350px;
 }
 #legend ul li {
   display: block;
-  padding-left: 30px;
   position: relative;
   margin-bottom: 4px;
   border-radius: 5px;

@@ -33,11 +33,11 @@ $("#remLastOption").on("click",function (event) {
         rules: {
             title: {
                 minlength: 3,
-                maxlength: 20,
+                maxlength: 150,
                 required: true
             }, description: {
                 minlength: 3,
-                maxlength: 50,
+                maxlength: 500,
                 required: true,
             },
             "option[]": {

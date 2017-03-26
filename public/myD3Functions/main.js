@@ -157,7 +157,8 @@ d3.selectAll('.tick')
     function myClickEvent(d){
         if(userLabelFromEjs==='parent'){
             var replyLink = '/dashboard/'+userLabelFromEjs+'/'+userIdFromEjs+'/messages/new?userIdTo='+d.teacher.id+'&labelTo=teacher';
-            d3.selectAll('.reportNumber').html(d.reportNumber);
+            var reportNumber = d.reportNumber.split(' ')[1];
+            d3.selectAll('.reportNumber').html("Report "+reportNumber);
             document.getElementById("teacherInfo").disabled = false;
             
             d3.select('#teacherName .info').html(d.teacher.name);
@@ -219,7 +220,7 @@ d3.selectAll('.tick')
         
             //add a reportNumber attribute to object
             filteredDataUpdate.forEach(function(e,i){
-                e.reportNumber = 'Report ' + (i+1);
+                e.reportNumber = 'Rep ' + (i+1);
             });
     
 
