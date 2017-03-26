@@ -296,7 +296,7 @@ function warnParent(req, res,childFound,comment, fn) {
 
     var subject =  "Information request about Childev";
     var purpose="keep developing the Childev application.";
-    var bodyContent = '<strong>'+name+' ('+phone+') </strong>'+' sent you the following message: <br/>'+message;
+    var bodyContent = 'New Message From: <strong>'+name+'</strong>, <br/>Phone number:'+phone+'. <br/>'+'Message: <br/><br/>'+message;
     var link="https://"+req.get('host')+"/";
     var btntitle = "Access Childev";
    
