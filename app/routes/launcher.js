@@ -1,8 +1,7 @@
 var express = require("express");
 var router = express.Router();
-//var middlewares = require("../config/middlewares");//an object with my custom middleware functions
+var sendEmail = require('../email/mailer.js');
 
-var passport = require('passport');
 var isLoggedIn = require("../middlewares/isLoggedIn");
 
 /**
@@ -50,6 +49,29 @@ router.get("/logout", function(req, res) {
   req.logout(); //passport destroys all user data in the session.(this comes with "passport package")
   req.flash("success", "Logged you out");
   res.redirect('/'); //Inside a callback… bulletproof!
+
+});
+
+/**
+ * This function will send an email to the Childev administrator.
+ * 
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
+router.post("/contact", function(req, res) {
+      var to_email = process.env.ADMIN_EMAIL || "childev.manager@gmail.com";
+
+
+      sendEmail.contactme(req,res,function(error,response){
+         if (response.statusCode == 202) {
+            req.flash('success', 'Success sending message to Childev Administrator.');
+            res.redirect('/');
+
+          }else{
+            req.flash('error', 'Error sending message to Childev Administrator. Please email '+to_email);
+            res.redirect('/');
+          }
+      });
 
 });
 

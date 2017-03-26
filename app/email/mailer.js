@@ -275,6 +275,50 @@ function warnParent(req, res,childFound,comment, fn) {
     
 }
 
+/****************************************************************************************/
+
+/**
+ * This function handles the contact me message from the home page
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} fn - This is the callback function that has as input parameter the status code: 'response.statusCode'.
+ */
+ function contactme(req, res,fn) {
+    // Not the movie transporter!
+    var from_email = req.body.email;
+    var name = req.body.name;
+    var phone = req.body.phone;
+    var message = req.body.message;
+    var to_email = process.env.ADMIN_EMAIL || "childev.manager@gmail.com";
+
+    var subject =  "Information request about Childev";
+    var purpose="keep developing the Childev application.";
+    var bodyContent = '<strong>'+name+' ('+phone+') </strong>'+' sent you the following message: <br/>'+message;
+    var link="https://"+req.get('host')+"/";
+    var btntitle = "Access Childev";
+   
+
+    var content = new helper.Content('text/html', bodyContent);
+    var mail = new helper.Mail(from_email, subject, to_email, content);
+     mail.personalizations[0].addSubstitution(new helper.Substitution('-btnlink-', link));
+     mail.personalizations[0].addSubstitution(new helper.Substitution('-purpose-', purpose));
+     mail.personalizations[0].addSubstitution(new helper.Substitution('-btntitle-', btntitle));
+     mail.setTemplateId(process.env.SENDGRID_TEMPLATE_WARNING);
+    var request = sg.emptyRequest({
+      method: 'POST',
+      path: '/v3/mail/send',
+      body: mail.toJSON(),
+    });
+  
+    sg.API(request, function(error, response) {
+  
+      fn(error,response); //callback to access it in the functin that calls this.
+  
+    });
+
+    
+}
+
 
 
 
@@ -286,6 +330,7 @@ module.exports = {
   sendConfirmationEmail: sendConfirmationEmail,
   sendConfirmationEmailToParents: sendConfirmationEmailToParents,
   sendResetPasswordLink:sendResetPasswordLink,
-  warnParent:warnParent
+  warnParent:warnParent,
+  contactme:contactme
 };
 
