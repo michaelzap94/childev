@@ -295,8 +295,8 @@ function warnParent(req, res,childFound,comment, fn) {
     var to_email = new helper.Email(to);
 
     var subject =  "Information request about Childev";
-    var purpose="keep developing the Childev application.";
-    var bodyContent = 'New Message From: <strong>'+name+'</strong>, <br/>Phone number:'+phone+'. <br/>'+'Message: <br/><br/>'+message;
+    var purpose="keep developing the Childev application";
+    var bodyContent = 'New Message From: <strong>'+name+'</strong>, <br/>Phone number: '+phone+'. <br/>'+'Message: <br/><br/>'+message;
     var link="https://"+req.get('host')+"/";
     var btntitle = "Access Childev";
    
