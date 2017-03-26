@@ -285,11 +285,14 @@ function warnParent(req, res,childFound,comment, fn) {
  */
  function contactme(req, res,fn) {
     // Not the movie transporter!
-    var from_email = req.body.email;
+    var from = req.body.email;
     var name = req.body.name;
     var phone = req.body.phone;
     var message = req.body.message;
-    var to_email = process.env.ADMIN_EMAIL || "childev.manager@gmail.com";
+    var to = process.env.ADMIN_EMAIL || "childev.manager@gmail.com";
+    
+    var from_email = new helper.Email(from, name);
+    var to_email = new helper.Email(to);
 
     var subject =  "Information request about Childev";
     var purpose="keep developing the Childev application.";
