@@ -149,6 +149,9 @@ height: 500px; /* This is your slider height */
 	color:white;
 
 }
+
+
+
 .myList{
 	text-align: left;
 }
@@ -169,6 +172,9 @@ height: 500px; /* This is your slider height */
   transform: translate(3px, -3px);
 }
 
+.agesTitleColor{
+ 	color:black;
+}
 /**Footer****************************************************/
 #footerwrap {
 	padding-top: 30px;
