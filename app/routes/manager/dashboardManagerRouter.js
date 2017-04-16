@@ -17,7 +17,8 @@ var Report = require("../../schemas/progressReports/reportSchema.js");
 
 
 /**
-* This function, first checks that the user is logged in and then it renders the manager Dashboard.
+* This function, first checks that the user is logged in, then gets the polls available to this user
+* and then it renders the manager Dashboard.
 * 
 * @middleware {function} votingFunctions.getUserPolls - Gets the polls created by manager and pass them to the router as req.userPollsRet
 * @param {Object} req - Express request object
@@ -826,30 +827,7 @@ router.put("/profile/edit",isLoggedIn.isLoggedInNext,function(req,res){
  });
  
  
-  /**SEE REPORT*****************************************************************************/
-
-  /**
-  * Gets the report, It makes sure child is actually registered in the same nursery as the teacher.
-  *
-  
-   router.get('/report/:childId',isLoggedIn.isLoggedInNext,function(req, res) {
-      var nurseryId = req.user._id;//nursery the teacher belongs to.
-      
-      Report.find({"nursery.id":nurseryId , "children.id":req.params.childId}).populate('children.id',null,'Children').exec(function(err, reportFound){
-          if(err){
-              console.log(err);
-              req.flash('error',err);
-              res.redirect('/');
-          }else{
-             console.log(reportFound);
-            res.render("./dashboards/manager/managerChildrenReport.ejs",{ reportFound:  reportFound }); 
-             
-          }
-      });
-
- });
  
- */
  /**
   * 
   * @module app/routes/manager/dashboardManagerRouter

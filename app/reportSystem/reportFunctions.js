@@ -3,7 +3,10 @@ var Report = require("../schemas/progressReports/reportSchema.js");
 var sendEmail = require("../email/mailer.js");
 
 var notifyParent = false;
-
+/**
+ * This function calculates the value of the Intellectual measurament taking into consideration the priority order.
+ *
+ */
 function calculateValuesIntellectual(intellectual,childAge){
     var realValuePrioritiesApplied;
     
@@ -37,7 +40,10 @@ function calculateValuesIntellectual(intellectual,childAge){
     return realValuePrioritiesApplied;
 }
 
-
+/**
+ * This function calculates the value of the Social measurament taking into consideration the priority order.
+ *
+ */
 function calculateValuesSocial(social,childAge){
     var realValuePrioritiesApplied;
 
@@ -74,6 +80,10 @@ function calculateValuesSocial(social,childAge){
     return realValuePrioritiesApplied;
 }
 
+/**
+ * This function calculates the value of the Physical measurament taking into consideration the priority order.
+ *
+ */
 function calculateValuesPhysical(physical,childAge){
     var realValuePrioritiesApplied;
     
@@ -107,6 +117,10 @@ function calculateValuesPhysical(physical,childAge){
     return realValuePrioritiesApplied;
 }
 
+/**
+ * This function creates the report
+ *
+ */
 function createReport(req,res,childFound){
     var childAge = req.body.childAge;
     var teacherName = req.user.details[0].firstname +' '+ req.user.details[0].lastname;

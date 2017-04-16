@@ -13,6 +13,10 @@ var Teacher = require('./app/schemas/teacher/teacherSchema.js');
 var Parent = require('./app/schemas/parent/parentSchema.js');
 var methodOverride = require("method-override");
 
+
+var pathfinderUI = require('pathfinder-ui');
+
+
 //var myConfiguration = require('./config/configuration.js');
 var passport = require('passport');
 
@@ -40,6 +44,7 @@ mongoose.connect(dburl);
     }));
     app.use(passport.initialize());
     app.use(passport.session());
+    
     
     
 passport.use("nursery",new LocalStrategy(Nursery.authenticate()));
@@ -105,8 +110,19 @@ app.use(function(req,res,next){
     
 });
 
+/** 
+ * This is a middleware used to retreive all the routes that the application uses.
+ * @function
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
+app.use('/pathfinder', function(req, res, next){
+	pathfinderUI(app)
+	next()
+}, pathfinderUI.router);
 
-// routes ======================================================================
+// routes used in Childev======================================================================
 var launcher = require("./app/routes/launcher.js");
 var registerRouter = require("./app/routes/registerRouter.js");
 var loginRouter = require("./app/routes/loginRouter.js");

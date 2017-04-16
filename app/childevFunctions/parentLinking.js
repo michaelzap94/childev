@@ -51,6 +51,7 @@ function checkIsParentOfChild(req, res,foundNursery, childId, username) {
  * @param {Object} res - Express response object
  * @param {object} foundParent - The new Parent Object that has already been registered.
  * @param {object} foundChild - The Child Object to which the parent will be related to.
+ * @param {object} foundNursery - The nursery object the parent belongs to.
  * @returns {function} addChildToParentSchema - A callback function is returned if parent was added to Children Schema successfully.
  */
 function addParentToChildrenSchema(req, res,foundNursery,foundChild, foundParent ) {

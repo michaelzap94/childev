@@ -15,7 +15,8 @@
 
 
  /**
-  * This function, first checks that the user is logged in and, if so,  it renders the parent Dashboard.
+  * This function, first checks that the user is logged in, then gets the polls available to this user
+  * and then it renders the parent Dashboard.
   * 
   * @param {Object} req - Express request object
   * @param {Object} res - Express response object
@@ -36,7 +37,7 @@
  });
  
  /**
-  * Get children this parent have
+  * Get all the children this parent has
   *
   */
  router.get('/children',isLoggedIn.isLoggedInNext,function(req,res){
@@ -286,6 +287,10 @@ router.post("/polls/:id/vote",isLoggedIn.isLoggedInNext,function(req,res){
 
 /****SETTINGS*************************************************************************/
 //--------------------------------------
+/**
+ * Gets the settings page
+ *
+ */
 router.get("/settings",function(req, res) {
    res.render("./dashboards/parent/parentSettings.ejs"); 
 });
@@ -364,6 +369,10 @@ router.get("/settings",function(req, res) {
 
 /****PROFILE*************************************************************************/
 //--------------------------------------
+/**
+ * Gets the profile page
+ *
+ */
 router.get("/profile",function(req, res) {
    res.render("./dashboards/parent/parentProfile.ejs"); 
 });

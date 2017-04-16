@@ -24,12 +24,35 @@ function logoutFirst(req, res, next) {
 //login logic -----------------------------------------------------------------------------
 
 /**
+ * Checks the user is has confirmed his email.
+ *
+ */
+ 
+function checkEmailVerified(req,res,next){
+  Nursery.findOne({
+      'username': req.body.username
+    }, function(err, foundUser) {
+       if (foundUser.active === 1) {
+         
+          
+          
+       }else{
+   
+            req.flash("error", "Please, confirm your email by clicking on the link we sent you.");
+            
+
+          }
+          
+      next();
+});
+}
+/**
  * This function catches a POST submission and uses the data so managers can login. Before this, the 'logoutFirst' middleware will log any user out of the browser being used.
  * 
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  */
-router.post('/staff/manager', logoutFirst, passport.authenticate("nursery", {
+router.post('/staff/manager', logoutFirst, checkEmailVerified, passport.authenticate("nursery", {
   failureRedirect: "/",
   failureFlash: true // allow flash messages
 

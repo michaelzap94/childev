@@ -1,7 +1,11 @@
 var Message = require("../schemas/messages/messagesSchema.js");
 
 
-
+/**
+ * This function sends a new message to a user
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 function sendNewMessage(req,res){
     var nurseryId;
     if(req.user.label==='manager'){
@@ -46,6 +50,11 @@ function sendNewMessage(req,res){
          
 }
 
+/**
+ * This function deletes a message from the Inbox of a user.
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 function deleteMessageInbox(req,res){
     var deletingUser = req.user._id;
     
@@ -85,6 +94,11 @@ function deleteMessageInbox(req,res){
     });
 }
 
+/**
+ * This function deletes the message from the sent page of a user.
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 function deleteMessageSent(req,res){
     var deletingUser = req.user._id;
     
@@ -123,6 +137,11 @@ function deleteMessageSent(req,res){
     });
 }
 
+/**
+ * This function marks a message as read.
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 function messageRead(req,res){
       Message.findById(req.params.messageId).exec(function(err, messageFound){
           if(err){

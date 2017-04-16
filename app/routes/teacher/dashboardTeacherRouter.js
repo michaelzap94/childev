@@ -18,7 +18,8 @@
  var Children = require("../../schemas/children/childrenSchema.js");
 
  /**
-  * This function, first checks that the user is logged in and then it renders the teacher Dashboard.
+  * This function, first checks that the user is logged in, then gets the polls available to this user
+  * and then it renders the teacher Dashboard.
   * 
   * @param {Object} req - Express request object
   * @param {Object} res - Express response object
@@ -85,6 +86,10 @@ router.post("/polls/:id/vote",isLoggedIn.isLoggedInNext,function(req,res){
   
 });
 //--------------------------------------
+/**
+ * Get the settings page
+ *
+ */
 router.get("/settings",function(req, res) {
    res.render("./dashboards/teacher/teacherSettings.ejs"); 
 });
@@ -106,6 +111,10 @@ router.delete("/settings/delete",function(req,res){
 });
 
 //--------------------------------------
+/**
+ * Gets the profile page
+ *
+ */
 router.get("/profile",function(req, res) {
    res.render("./dashboards/teacher/teacherProfile.ejs"); 
 });
@@ -157,7 +166,7 @@ router.put("/profile/edit",function(req,res){
  /**MESSAGES*************************************************/
   
  /**
-  * INBOX
+  * Gets the inbox page
   *
   */
   router.get('/messages',isLoggedIn.isLoggedInNext,function(req, res) {
@@ -175,7 +184,7 @@ router.put("/profile/edit",function(req,res){
  });
 
  /**
-  * SENT
+  * Gets the sent page
   *
   */
   router.get('/messages/sent',isLoggedIn.isLoggedInNext,function(req, res) {
@@ -194,7 +203,7 @@ router.put("/profile/edit",function(req,res){
  });
  
   /**
-  * NEW MESSAGE
+  * Creates a new message
   *
   */
   router.get('/messages/new',isLoggedIn.isLoggedInNext,function(req, res) {

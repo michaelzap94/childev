@@ -1,13 +1,13 @@
 var mongoose = require('mongoose');
 /**
- * This Object defines the parent Schema
+ * This Object defines the Message Schema
  * @namespace
  * @property {string}  label - A label of the type of user.
  * @property {object}  dateCreated - The date the account was created.
  * @property {object}  from - Object containing information of the user that sent the message.
  * @property {object}  to -  Object containing information of the user that the messsage was sent to.
  * @property {object}  message -  The message.
- * @property {object}  nursery -  The 'Nursery'.
+ * @property {object}  nursery -  The 'Nursery' object this message belongs to.
  */
  var messageSchema = new mongoose.Schema({
     nursery: {

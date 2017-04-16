@@ -8,6 +8,14 @@ var Poll = require("../schemas/voting/votingSchema");
 //-----POLLS OF USER AUTHENTICATED
 
 //GET dashboard /dashboard FORM
+
+/**
+ * Get all the polls available to a user
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ *
+ */
 function getUserPolls(req,res,next){
     var query; 
     
@@ -61,7 +69,12 @@ function getUserPolls(req,res,next){
         return rgbColor;
     };
 
-
+/**
+ * This function creates a poll
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ *
+ */
 function createPollWithOptions(req,res){
     var ArrayWithEmptyFields = req.body.option;
     
@@ -102,6 +115,11 @@ function createPollWithOptions(req,res){
                  
 }
 
+/**
+ * This function deletes a poll
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ */
 function deletePoll(req,res){
     Poll.findByIdAndRemove(req.params.id,function(err,pollDeleted){
          if(err){
@@ -121,7 +139,12 @@ function deletePoll(req,res){
 }
 
 
-//SHOW SPECIFIC POLL :id
+/**
+ * This function SHOWs a SPECIFIC POLL by its :id
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware function
+ */
 
 function showOnePoll(req,res,next){
      Poll.findById(req.params.id).populate("optionsArray").exec(function(err, showOnePoll){
@@ -167,7 +190,7 @@ function checkNursery(req,res,oneVote,saveVote){
 
 
 /**
- * This function makes sure a user can vote only only.
+ * This function makes sure a user can vote only once.
  *
  */
 function oneVote(req,res,showOnePoll,saveVote){
@@ -197,6 +220,12 @@ function oneVote(req,res,showOnePoll,saveVote){
 
 }
 
+/**
+ * This function will store the vote in the database
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ *
+ */
 function saveVote(req,res){
      var inserted = 0, //This variable is a counter used to make sure that all of the elements in the array have been checked.
      exists = false;

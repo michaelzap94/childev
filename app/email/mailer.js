@@ -9,6 +9,7 @@ var Parent = require("../schemas/parent/parentSchema.js");
  * This function sends a confirmation email to teachers.
  * @param {String} username - This parameter is the email of the user.
  * @param {String} activationhash - This parameter is the activation code.
+ * @param {String} nurseryFound - This is the nursery found in the previus middleware.
  * @param {String} accountType - This is the type of the account, can be 'manager', 'teacher' or 'parent'.
  * @param {String} nurseryId - This is the ID to which the user should be registerd to.
  * @param {Function} fn - This is the callback function that has as input parameter the status code: 'response.statusCode'.
@@ -71,8 +72,7 @@ function sendConfirmationEmail(username, nurseryFound, accountType, nurseryId, f
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
  * @param {String} username - This parameter is the email of the user.
- * @param {String} activationhash - This parameter is the activation code.
- * @param {String} nurseryId - This is the ID to which the user should be registerd to.
+ * @param {String} nurseryFound - This is the nursery found in the previus middleware.
  * @param {String} childId - This is the Id of the child this user is a parent of.
  * @param {Function} fn - This is the callback function that has as input parameter the status code: 'response.statusCode'.
  */
@@ -147,7 +147,7 @@ function sendConfirmationEmailToParents(username, nurseryFound, childId, fn) {
  * This function sends a link for users to reset their passwords.
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
- * @param {String} userRet - This is the User object passed.
+ * @param {Object} userRet - This is the User object passed.
  * @param {Function} fn - This is the callback function that has as input parameter the status code: 'response.statusCode'.
  */
 
@@ -196,7 +196,11 @@ function sendResetPasswordLink(req, res,userRet,fn) {
     
 }
 
-
+/**
+ * This function will save or reset the token neccessary to change the password of a user.
+ * @param {Object} userRet - This is the User object passed.
+ * @param {Function} fn - This is a callback function.
+ */
 function saveToken(userRet,fn){
   
     if(userRet.resetPasswordToken){
@@ -218,7 +222,8 @@ function saveToken(userRet,fn){
  * This function sends a warning link to parents.
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
- * @param {String} userRet - This is the User object passed.
+ * @param {Object} childFound - This is the child Found in the previus function.
+ * @param {Object} comment - This is the comment the teacher has made about a child.
  * @param {Function} fn - This is the callback function that has as input parameter the status code: 'response.statusCode'.
  */
 function warnParent(req, res,childFound,comment, fn) {

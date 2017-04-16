@@ -47,7 +47,7 @@ function checkIsParentOfChild(req, res, newUser, password, foundNursery, childId
 }
 
 /**
- * This function adds a parent to Children Schema.
+ * This function adds a parent to the Children Schema.
  * 
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object

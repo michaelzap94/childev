@@ -1,5 +1,5 @@
 var mongoose = require("mongoose");
-
+//This is the Schema that defines the values of each option
 var optionSchema = new mongoose.Schema({
    value: {type:Number, default: 0},
    label: String,
@@ -8,6 +8,7 @@ var optionSchema = new mongoose.Schema({
 });
 var Option = mongoose.model("Option", optionSchema);
 
+//This is the Schema that defines the values of each Poll
 var pollsSchema = new mongoose.Schema({
    title: String,
    description: String,
@@ -17,9 +18,7 @@ var pollsSchema = new mongoose.Schema({
             ref: "Nursery"
         },
         username: String,
-        label:String,
-        dateCreated:{type:Date, default: Date.now},// if date is empty the default is Date.now
-       
+        label:String
     }, optionsArray: [optionSchema],
     voters: [{
          id:{
@@ -27,7 +26,8 @@ var pollsSchema = new mongoose.Schema({
             },
         username: String
        
-    }]
+    }],
+    dateCreated:{type:Date, default: Date.now},// if date is empty the default is Date.now
 });
 
 module.exports = mongoose.model("Poll", pollsSchema);

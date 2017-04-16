@@ -9,7 +9,10 @@ var Parent = require("../schemas/parent/parentSchema.js");
 
 
 
-
+/**
+ * This function will handle the request for a new password
+ *
+ */
 router.post("/:label/newpassword/link",function(req,res){
     var label = req.params.label;
     var schema;
@@ -57,7 +60,10 @@ router.post("/:label/newpassword/link",function(req,res){
     
 });
 
-//new password Form;
+/**
+ * This function gets the new password form
+ *
+ */
 router.get("/:label/newpassword",function(req,res){
     var token = req.query.token;
     var id = req.query.id;
@@ -105,7 +111,10 @@ router.get("/:label/newpassword",function(req,res){
 
 
 
-//new Password set up.
+/**
+ * This function will change the current password for the requested password
+ *
+ */
 router.put("/:label/newpassword/:id",function(req,res){
     var id = req.params.id;
     var label = req.params.label;

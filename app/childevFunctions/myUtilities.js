@@ -8,7 +8,7 @@ var passport = require('passport');
 
 
 /**
- * This function resets the password of user
+ * This function resets the password of a user
  * 
  * @param {Object} req - Express request object
  * @param {Object} res - Express response object
@@ -50,6 +50,7 @@ function resetPassword(req, res) {
 }
 
   /**
+   * This function deletes a user account from Childev
    * schema.authenticate(password,cb); Checks the password submitted matches with the actual password of user.
    *
    */
@@ -126,7 +127,10 @@ function capitalizeStarter(str) {
 }
 
 
-
+/**
+ * This function unlink a parent from a child.
+ *
+ */
 function unlinkParentFromChild(req,res,parentId,childId){
         
         Parent.findById(parentId,function(err, parentFound) {
@@ -151,7 +155,10 @@ function unlinkParentFromChild(req,res,parentId,childId){
   
 }
 
-
+/**
+ * This function unlink a child from a parent.
+ *
+ */
 function unlinkChildFromParent(req,res,parentId,childId,parentFound){
      Children.update({
             _id: childId
@@ -172,7 +179,7 @@ function unlinkChildFromParent(req,res,parentId,childId,parentFound){
 }
 
 /**
- * will return the age of a child based on his birthday
+ * This function will return the age of a child based on his birthday
  *
  */
 function calculateAge(birthdate){
