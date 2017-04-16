@@ -14,9 +14,6 @@ var Parent = require('./app/schemas/parent/parentSchema.js');
 var methodOverride = require("method-override");
 
 
-var pathfinderUI = require('pathfinder-ui');
-
-
 //var myConfiguration = require('./config/configuration.js');
 var passport = require('passport');
 
@@ -110,17 +107,7 @@ app.use(function(req,res,next){
     
 });
 
-/** 
- * This is a middleware used to retreive all the routes that the application uses.
- * @function
- * @param {Object} req - Express request object
- * @param {Object} res - Express response object
- * @param {Function} next - Express next middleware function
- */
-app.use('/pathfinder', function(req, res, next){
-	pathfinderUI(app)
-	next()
-}, pathfinderUI.router);
+
 
 // routes used in Childev======================================================================
 var launcher = require("./app/routes/launcher.js");
