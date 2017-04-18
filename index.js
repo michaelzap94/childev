@@ -23,7 +23,7 @@ mongoose.connect(dburl);
 //process.env.DATABASEURL || "mongodb://localhost/childevDB"
 
 
-// configuration ===============================================================
+// configuration 
 
     //app.use(cookieParser()); 
     app.use(bodyParser.urlencoded({extended:true}));
@@ -33,7 +33,7 @@ mongoose.connect(dburl);
     app.use(flash()); 
     
     
-//WE NEED THIS LINES FOR SESSIONS-------------------------------------------
+//WE NEED THIS LINES FOR SESSIONS
   app.use(expressSession({
         secret:"I am a full stack developer",
         resave:false,
@@ -108,8 +108,7 @@ app.use(function(req,res,next){
 });
 
 
-
-// routes used in Childev======================================================================
+// routes used in Childev
 var launcher = require("./app/routes/launcher.js");
 var registerRouter = require("./app/routes/registerRouter.js");
 var loginRouter = require("./app/routes/loginRouter.js");
@@ -141,7 +140,6 @@ app.use('/',launcher);
 
 
  
-//======================================================================================
 
 app.listen(process.env.PORT, process.env.IP, function(){
    console.log("The Childev Server Has Started!");

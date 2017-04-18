@@ -70,7 +70,7 @@
 
     }    
 
-  /** create table for legend.********************************************************************************/
+  /** create table for legend.**********/
         var myLegend = d3.select('#legendPieChartMain').append("table").classed('myLegend',true);
         
         var tr = myLegend.append("tbody").selectAll("tr").data(myStartData).enter().append("tr");
@@ -98,7 +98,6 @@
         tr.append("td").classed('myLegendPercentage',true)
             .text(function(d){ return getLegend(d,myStartData);});
 
-    /****************************************************************************************************************/   
 
 /**
  * This function receives data object from the main graph when a bar is clicked.
@@ -130,7 +129,7 @@ function pieChartMain(myDataSet){
             this._current = i(0);
             return function(t) { return arc(i(t));    };
         }    
-    /*************************************************************************/  
+
      
         // Utility function to be used to update the legend.
         pieFunctions.updateLegend = function(){

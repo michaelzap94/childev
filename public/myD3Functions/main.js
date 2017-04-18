@@ -29,7 +29,7 @@ var tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
             .style("opacity", 0);
 
-/****DIMENSIONS AND PADDING****************************************************************************/
+/****DIMENSIONS AND PADDING*****/
     //dimensions of the SVG
    
     var widthMain = 800; 
@@ -38,7 +38,7 @@ var tooltip = d3.select("body").append("div")
     var paddingLeftSide = 60;
     var paddingBottom = 10;
  
-/*****SVG*******************************************************************************/        
+/*****SVG**********/        
 
     var svg = d3.select("#mainGraph")
            .append("div")
@@ -50,7 +50,7 @@ var tooltip = d3.select("body").append("div")
            .classed("svg-content-responsive", true);//class to make it responsive
            
            
-/****SCALES****************************************************************************/   
+/****SCALES******/   
 
    // create function for x-axis mapping.
     var xScale = d3.scale.ordinal()
@@ -64,7 +64,7 @@ var tooltip = d3.select("body").append("div")
         .nice();
 
 
-/*****AXIS********************************************************************************/
+/*****AXIS******/
     // X axis of graph
     var xAxisGen = d3.svg.axis().scale(xScale).orient("bottom");
     svg.append("g").attr({
@@ -88,7 +88,7 @@ d3.selectAll('.tick')
   });
 
 */
-/******BARS*******************************************************************************/
+/******BARS*******/
     // Bars of the main graph
     var myBars = svg.selectAll(".oneBar").data(filteredDataByDate).enter()
             .append("g").attr("class", "oneBar");
@@ -108,7 +108,7 @@ d3.selectAll('.tick')
            .on("mouseout",myMouseOutEvent);// 
            
            
- /****FUNCTIONS USED BY BARS*******************************************************/          
+ /****FUNCTIONS USED BY BARS**********/          
     function generateDataMainPieChart(myDataObject){
       return [{ label: "Intellectual", value: parseInt(myDataObject.intellectual[0].realValue) },
               { label: "Social", value: parseInt(myDataObject.social[0].realValue) },
@@ -169,7 +169,7 @@ d3.selectAll('.tick')
         }            
         
         
-        /*********************************************/
+        /*****************/
         svg.selectAll('.myTextMark').text('');   
         
         svg.append("text").text(Math.round(d.avgValue / 10))
@@ -186,19 +186,19 @@ d3.selectAll('.tick')
             "fill":'white'
           });
 
-       /*******************************************************/ 
+       /*******************/ 
         //Bars
         d3.selectAll('.oneBar rect').attr({"fill":colorBars});   
         d3.select(this).attr({"fill":"darkblue"});        
         
-        /**pie chart MAIN**********************************/
+        /**pie chart MAIN*********/
            var dataSet = generateDataMainPieChart(d);
            var _pieChartMain= pieChartMain(dataSet);
             _pieChartMain.updateChart(); //update main pie chart
             _pieChartMain.updateLegend();//update legend of main pie chart
-        /************************************************/
+        /********************/
        
-        /**pie chart OTHERS**********************************/
+        /**pie chart OTHERS**********/
           var dataSetIntellectual = generateDataIntellectualPieChart(d);
            var dataSetSocial = generateDataSocialPieChart(d);
            var dataSetPhysical = generateDataPhysicalPieChart(d);
@@ -206,7 +206,7 @@ d3.selectAll('.tick')
            var _pieChartOthers= pieChartOthers(dataSetIntellectual,dataSetSocial,dataSetPhysical);
             _pieChartOthers.updateChart(); //update main pie chart
             _pieChartOthers.updateLegend();//update legend of main pie chart
-        /************************************************/
+        /***********************/
 
 
     }
@@ -251,7 +251,7 @@ d3.selectAll('.tick')
         // Update bars Data of the main graph with the new data
          var myBarsUpdate = svg.selectAll(".oneBar").data(filteredDataUpdate);
          
-         /***************************************************/
+
          //if one bar was previusly deleted, create it again.
          myBarsUpdate.enter().append("g").attr("class", "oneBar").append("rect")
             .attr({
@@ -262,7 +262,7 @@ d3.selectAll('.tick')
                 "fill":colorBars
             }).on("click", myClickEvent).on("mouseover",myMouseOverEvent)
            .on("mouseout",myMouseOutEvent);
-        /*************************************************************/
+        /**************************/
         
        //Rectangles update
         myBarsUpdate.select("rect").transition().duration(500).ease("linear")

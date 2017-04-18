@@ -1,5 +1,5 @@
 $(document).ready(function () {
-//-----------------------------------------------------
+//-------------
     var pollOptionInc = 2;
 
 $("#moreOptions").on("click",function (event) {
@@ -27,7 +27,7 @@ $("#remLastOption").on("click",function (event) {
 
 });
 
-//------------------------------------------------------
+//----------
  
     $('#pollForm').validate({
         rules: {
@@ -85,7 +85,7 @@ $("#remLastOption").on("click",function (event) {
         validator.resetForm();
     });
 
-//---------------------------------
+//------------
 
 
 });

@@ -10,7 +10,7 @@ body {
 
 	}
 
-/*Presentation*************************************/
+/*Presentation*******/
 
 #presentation {
 	min-height: 500px;
@@ -36,7 +36,7 @@ height: 500px; /* This is your slider height */
 }
 
 
-/*******************************************/
+/**********************/
 
 #wrapper {
   margin-top: 50px;
@@ -80,7 +80,7 @@ height: 500px; /* This is your slider height */
     margin-top: -1px;
 }
 
-/*********************************************/
+/*****************/
 
 
 
@@ -102,7 +102,7 @@ height: 500px; /* This is your slider height */
 	
 }
 
-/*Benefits*******************************************************/
+/*Benefits************/
 
 #benefits{
   	background-color: #00b3fe;
@@ -124,7 +124,7 @@ height: 500px; /* This is your slider height */
 	text-align: left;
 	font-size: 1.12em;
 }
-/***Evaluation*************************/
+/***Evaluation*******/
 
 #evaluationOverall{
 
@@ -175,7 +175,7 @@ height: 500px; /* This is your slider height */
 .agesTitleColor{
  	color:black;
 }
-/**Footer****************************************************/
+/**Footer******************/
 #footerwrap {
 	padding-top: 30px;
 	padding-bottom: 30px;
@@ -201,7 +201,7 @@ height: 500px; /* This is your slider height */
 }
 
 
-/***********************************/
+/*************/
 
 
 .mySeparator {

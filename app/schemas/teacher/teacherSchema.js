@@ -95,9 +95,9 @@ teacherSchema.methods.generateHash = function(password) {
 };
 
 
-/////////////////////////////////////////IMPORTANT
+///////////////IMPORTANT
 teacherSchema.plugin(passportLocalMongoose);
-///////////////////////////////////////////////////////
+///////////////
 /**
 * Creates the Parent Schema to be saved in the database.
 * @module app/schemas/teacher/teacherSchema

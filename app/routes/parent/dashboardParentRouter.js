@@ -55,33 +55,13 @@
    
  });
  
- /******PROGRESS******************************************************************************/
+
+ 
+ 
+/******PROFILE************/
 
   /**
-  * Get children this parent have
-  *
-  */
- router.get('/children/:childId/progress',isLoggedIn.isLoggedInNext,function(req,res){
-
-     Parent.findById(req.user._id).populate('children').exec(function(err, populatedData) {
-        if (err) {
-          console.log(err);
-        } else {
-          //pass to the ejs an array of objects containing all of the teachers' data that work for this nursery
-          res.render('dashboards/parent/parentChildren.ejs', {
-            populatedData: populatedData
-          });
-        }
-      });
-   
- });
- 
- 
- 
-/******PROFILE******************************************************************************/
-
-  /**
-  * Get children this parent have
+  * Get the profile of a child that this parent has in the nursery.
   *
   */
  router.get('/children/:childId/profile',isLoggedIn.isLoggedInNext,function(req,res){
@@ -167,7 +147,7 @@ router.put("/children/:childId/profile/edit",function(req,res){
 
  
  
-/******MEDICAL******************************************************************************/
+/******MEDICAL*********/
  
  /**
   * Get children this parent have
@@ -252,7 +232,7 @@ router.put("/children/:childId/profile/edit",function(req,res){
    
  });
  
-  /******NURSERY******************************************************************************/
+  /******NURSERY***********/
 
   /**
   * Get children this parent have
@@ -274,7 +254,7 @@ router.put("/children/:childId/profile/edit",function(req,res){
  
  
  
- /*****POLLS*****************************************************************/
+ /*****POLLS***********/
 //Show poll info
 router.get("/polls/:id",isLoggedIn.isLoggedInNext,votingFunctions.showOnePoll,function(req, res) {
     res.render("./dashboards/parent/parentOnePoll.ejs",{showOnePoll:req.showOnePoll});
@@ -285,8 +265,7 @@ router.post("/polls/:id/vote",isLoggedIn.isLoggedInNext,function(req,res){
   
 });
 
-/****SETTINGS*************************************************************************/
-//--------------------------------------
+/****SETTINGS******/
 /**
  * Gets the settings page
  *
@@ -367,8 +346,7 @@ router.get("/settings",function(req, res) {
 });
 
 
-/****PROFILE*************************************************************************/
-//--------------------------------------
+/****PROFILE***********/
 /**
  * Gets the profile page
  *
@@ -421,7 +399,7 @@ router.put("/profile/edit",function(req,res){
 });
 
 
- /**MESSAGES*************************************************/
+ /**MESSAGES************/
  
  
  /**
@@ -541,7 +519,7 @@ router.put("/profile/edit",function(req,res){
 
  });
  
- /**SEE REPORT*****************************************************************************/
+ /**SEE REPORT*******/
 
   /**
   * Gets the report, It makes sure child is actually registered in the same nursery as the teacher.

@@ -7,7 +7,7 @@ var Nursery = require("../schemas/admin/nursery.js");
 var Teacher = require("../schemas/teacher/teacherSchema.js");
 var Parent = require("../schemas/parent/parentSchema.js");
 
-//--------------------------------------------------------------------------   
+//----------
 
 /**
  * This function catches a GET request and renders the form 'stuffLogin' for users to register
@@ -21,7 +21,7 @@ function logoutFirst(req, res, next) {
   next();
 }
 
-//login logic -----------------------------------------------------------------------------
+//login logic
 
 /**
  * Checks the user is has confirmed his email.
@@ -91,7 +91,7 @@ router.post('/parent', logoutFirst, passport.authenticate("parent", {
 
 });
 
-//--------------------------------------------------------------------------    
+//-----------
 /**
  * 
  * @module app/routes/loginRouter

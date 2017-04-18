@@ -11,7 +11,7 @@ var Nursery = require("../schemas/admin/nursery.js");
 var Teacher = require("../schemas/teacher/teacherSchema.js");
 var Parent = require("../schemas/parent/parentSchema.js");
 
-//-----------------------------------------------------------------    
+//--------------
 
 /**
  * This function catches a GET request, in which, the acount type is nursery. This function will activate and verify the email used
@@ -68,7 +68,7 @@ router.get('/activate/:accountType', function(req, res) {
 
 });
 
-//-------------------------------------------------------------------------------------------
+//-------------
 /**
  * Renders the form to register parent or teachers, only if the activationhash and nurseryId match.
  *
@@ -127,7 +127,7 @@ router.get('/activate/:accountType/:nurseryId', function(req, res) {
   }
 });
 
-//-------------------------------------------------------------------------------------------
+//-----------
 /**
  * Link a children account to a parent account
  *

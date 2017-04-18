@@ -69,6 +69,6 @@ function mySearchFunction() {
 }
 
 
-//------------------------------------------------------------
+//-----------------
 $('[data-toggle="tooltip"]').tooltip();
 $( document ).tooltip();

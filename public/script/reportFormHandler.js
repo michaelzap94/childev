@@ -83,7 +83,7 @@ $('#physicalInfo').on('click',function(){
 
 
 /**LABEL**************************/
-//----------INTELLECTUAL---------------------------/
+//----------INTELLECTUAL-----/
     if(0<=childAge<2){
         $('#Mathematical').find('.infoLabel').html(lp);
         $('#Language').find('.infoLabel').html(hp);
@@ -107,7 +107,7 @@ $('#physicalInfo').on('click',function(){
         $('#Recognition').find('.infoLabel').html(lp);        
     }
 
-//-----------SOCIAL------------------------------------------/
+//-----------SOCIAL----/
     if(0<=childAge<2){
         $('#Respect').find('.infoLabel').html(lp);
         $('#Team-working').find('.infoLabel').html(lp);
@@ -134,7 +134,7 @@ $('#physicalInfo').on('click',function(){
         
     }
 
-//-------PHYSICAL---------------------------------------------------/
+//-------PHYSICAL------/
     if(0<=childAge<2){
         $('#Motor').find('.infoLabel').html(hp);
         $('#Manipulative').find('.infoLabel').html(hp);
@@ -161,7 +161,7 @@ $('#physicalInfo').on('click',function(){
         
     }
 
-//-----------------------------------------------------------------/
+//----------/
 
 
 
@@ -180,7 +180,7 @@ $('body').on('hidden.bs.modal', '.modal', function () {
         $('#page-wrapper').css('opacity','');
     });
     
-//------------------------------------------------------------
+//--------------
 $('[data-toggle="tooltip"]').tooltip();
-//------------------------------------------------
+//------------
 

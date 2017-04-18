@@ -18,7 +18,7 @@
             .style("opacity", 0);   
 
     }    
-/************COMMON TO 3 OTHERS PIE CHARTS **********************************/    
+/************COMMON TO 3 OTHERS PIE CHARTS ****/    
         
     function chooseColorOthersPieChart(label){ 
         return {"Mathematical":"#C63D0F", 
@@ -52,7 +52,7 @@
         var fontSize = Math.min(width,height)/4;
         
         
-/********START DATA****************************************************************************************************/
+/********START DATA*****************/
     
     var myStartDataIntellectual = [{ label: "Mathematical", value: 1 },
                                   { label: "Language", value: 1 },
@@ -68,8 +68,7 @@
                                   { label: "Manipulative", value: 1 },
                                   { label: "Hygiene", value: 1 },
                                   { label: "Diet", value: 1 }];              
-/**************************************************************************************************************************/         
-/*****INTELLECTUAL*********************************************************************************************************************/ 
+/*****INTELLECTUAL*****************/ 
     // create svg for pie chart.
         var svgPieInt = d3.selectAll('#intellectualNP')
            .append("div")
@@ -94,7 +93,7 @@
            .on("mouseout",myMouseOutOthersPie);//
             
 
-        /** create table for legend.********************************************************************************/
+        /** create table for legend.*******/
         var myLegendIntellectual = d3.selectAll('#legendIntellectualNP').append("table").classed('myLegend',true);
 
         var trIntellectual = myLegendIntellectual.append("tbody").selectAll("tr").data(myStartDataIntellectual).enter().append("tr");
@@ -123,8 +122,7 @@
 
         trIntellectual.append("td").classed('myLegendPercentage',true)
             .text(function(d){ return getLegend(d,myStartDataIntellectual);});
-/**************************************************************************************************************************/              
-/*****SOCIAL*********************************************************************************************************************/ 
+/*****SOCIAL**********/ 
     // create svg for pie chart.
         var svgPieSoc = d3.selectAll('#socialNP')
            .append("div")
@@ -148,7 +146,7 @@
            .on("mouseout",myMouseOutOthersPie);//
             
 
-        /** create table for legend.********************************************************************************/
+        /** create table for legend.******/
         var myLegendSocial = d3.selectAll('#legendSocialNP').append("table").classed('myLegend',true);
 
         var trSocial = myLegendSocial.append("tbody").selectAll("tr").data(myStartDataSocial).enter().append("tr");
@@ -177,8 +175,7 @@
 
         trSocial.append("td").classed('myLegendPercentage',true)
             .text(function(d){ return getLegend(d,myStartDataSocial);});
-/**************************************************************************************************************************/              
-/*****PHYSICAL*********************************************************************************************************************/
+/*****PHYSICAL**************************/
     // create svg for pie chart.
         var svgPiePhy = d3.selectAll('#physicalNP')
            .append("div")
@@ -203,7 +200,7 @@
         
 
 
-        /** create table for legend.********************************************************************************/
+        /** create table for legend.******/
         var myLegendPhysical = d3.selectAll('#legendPhysicalNP').append("table").classed('myLegend',true);
 
         var trPhysical = myLegendPhysical.append("tbody").selectAll("tr").data(myStartDataPhysical).enter().append("tr");
@@ -232,7 +229,6 @@
 
         trPhysical.append("td").classed('myLegendPercentage',true)
             .text(function(d){ return getLegend(d,myStartDataPhysical);});
-/**************************************************************************************************************************/              
 
 
 

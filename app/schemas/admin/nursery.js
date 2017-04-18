@@ -5,7 +5,7 @@ var passportLocalMongoose = require("passport-local-mongoose");
 var ObjectId = require('mongodb').ObjectID;
 
 
-// nursaryDetails Schema ---------------------------------------------------
+// nursaryDetails Schema 
 
 
 /**
@@ -45,7 +45,7 @@ var NurseryDetailsSchema = new mongoose.Schema({
     
 });
 mongoose.model("NurseryDetails", NurseryDetailsSchema);
-//----------------------------------------------------------------
+//------------------------
 
 
 
@@ -132,9 +132,9 @@ nurserySchema.methods.generateHash = function(password) {
 nurserySchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
-/////////////////////////////////////////IMPORTANT
+///////////////IMPORTANT
 nurserySchema.plugin(passportLocalMongoose);
-///////////////////////////////////////////////////////
+///////////
 // 
 /**
 * Creates the Nursery Schema to be saved in the database.

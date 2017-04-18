@@ -101,7 +101,7 @@
 
 
     });
-//---------------------------------------------------  
+//------------------
    $('#teacherRegisterForm').validate({
       ignore: ".ignore",
         rules: {
@@ -146,7 +146,7 @@
 
 
     });
-//---------------------------------------------------  
+//----------------
  $('#parentRegisterForm').validate({
       ignore: ".ignore",
         rules: {
@@ -211,7 +211,7 @@
 
 
     });
-//---------------------------------------------------  
+//-------------------------
  $('#childrenRegisterForm').validate({
       ignore: ".ignore",
         rules: {
@@ -272,7 +272,7 @@
 
     });
     
-//---------------------------------------------------------------------
+//--------------------
 
  $('#passwordChangeForm').validate({
         rules: {
@@ -306,7 +306,7 @@
 
     });
 
-//-------------------------------------------------------------------
+//--------------------
   function resetThisForm(event,btnId) {
         event.preventDefault(); //  IMPORTANT. THIS IS HOW YOU GET THE EVENT OF A CLICK.
         var form;
@@ -340,7 +340,7 @@
         }
         validator.resetForm();
     };
-//---------------------------------
+//-------------
 
  $( function() {
         Date.format = 'dd/mm/yyyy';

@@ -121,7 +121,7 @@ function registerParent(req, res, newUser, password, foundNursery, childId, foun
           console.log(err);
         } else {
           /**
-           * This will delete this email from the 'waitingRegistrationParents' array in the Nursery Schema and then will proceed to the next function.                                         *
+           * This will delete this email from the 'waitingRegistrationParents' array in the Nursery Schema and then will proceed to the next function.
            */
           foundNursery.update({
             $pull: { 

@@ -30,7 +30,7 @@ var passportLocalMongoose = require("passport-local-mongoose");
     }
 });
 mongoose.model("ParentDetails", ParentDetailsSchema);
-//----------------------------------------------------------------
+//---------
 
 /**
  * This Object defines the parent Schema
@@ -100,9 +100,9 @@ parentSchema.pre('remove', function (next) {
 };
 
 
-/////////////////////////////////////////IMPORTANT
+///////IMPORTANT
 parentSchema.plugin(passportLocalMongoose);
-///////////////////////////////////////////////////////
+///////////////
 /**
 * Creates the Parent Schema to be saved in the database.
 * @module app/schemas/parent/parentSchema

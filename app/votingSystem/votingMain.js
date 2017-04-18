@@ -5,7 +5,7 @@ var passport = require("passport");
 var Poll = require("../schemas/voting/votingSchema");
 
 
-//-----POLLS OF USER AUTHENTICATED
+//POLLS OF USER AUTHENTICATED
 
 //GET dashboard /dashboard FORM
 
@@ -158,7 +158,7 @@ function showOnePoll(req,res,next){
     });
    
 }
-//----------------------------------------------------------------------
+//-------------------------
 /**
  * Checks that only people register in the Nursery that created the poll can vote.
  *
@@ -281,7 +281,7 @@ function saveVote(req,res){
 
        
 }
-////////////////////////////////////////////////////////
+/////////////
 
 
 

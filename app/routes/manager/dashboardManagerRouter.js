@@ -282,7 +282,7 @@ router.post("/children/registerForm", isLoggedIn.isLoggedInNext, function(req, r
   });
 });
 
-//------------------------------------------------------------------------------------------------------------
+//------------
 
 /**
 * This function, first checks that the user is logged in and then it sends a registration link to the specified email passed in the POST data.
@@ -301,7 +301,7 @@ router.post('/sendlink', isLoggedIn.isLoggedInNext, function(req, res) {
   }
 
 });
-/****************************************************************************************************************/
+/********************/
 
 /**
 * This function, first checks that the user is logged in and then it resends a registration link to the specified email passed in the data.
@@ -340,7 +340,7 @@ router.get('/resendlink/:email', isLoggedIn.isLoggedInNext, function(req, res) {
   }
 });
 
-/********************************************************************************************************************/
+/********************/
 
 
 /**
@@ -424,7 +424,7 @@ router.get('/removeFromPending/:email', isLoggedIn.isLoggedInNext, function(req,
 
 });
 
-//******************************************************************************************************/
+//*********************/
 
 /**
 * This function deletes the Object Id Reference stored in the nursery Database when a user is created'.
@@ -573,7 +573,7 @@ router.get("/deleteUser/:label/:id", function(req, res) {
 
 });
 
-/*****POLLS*****************************************************************/
+/*****POLLS*************/
 // get Form to create Poll
 router.get("/polls/new", function(req, res) {
   
@@ -607,7 +607,7 @@ router.post("/polls/:id/vote",isLoggedIn.isLoggedInNext,function(req,res){
  return votingFunctions.checkNursery(req,res,votingFunctions.oneVote,votingFunctions.saveVote);
   
 });
-//--------------------------------------
+//--------------
 /**
  * Render the settings Form
  *
@@ -634,7 +634,7 @@ router.delete("/settings/delete",function(req,res){
    myUtilities.deleteUser(req,res);
 
 });
-//--------------------------------------
+//----------------
 /**
  * Render the profile Form
  *
@@ -693,7 +693,7 @@ router.put("/profile/edit",isLoggedIn.isLoggedInNext,function(req,res){
  
     
 });
-//-----------------------------------------------------
+//------
 /**
  * Unlink parent from child
  *
@@ -705,7 +705,7 @@ router.put("/profile/edit",isLoggedIn.isLoggedInNext,function(req,res){
  });
  
  
- /**MESSAGES*************************************************/
+ /**MESSAGES***********/
   
  /**
   * INBOX

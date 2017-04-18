@@ -27,7 +27,7 @@ function capitalizeStarter(str) {
 
   return capitalizedWordArr.join(' '); //returns every word passed capitalized
 }
-//------------------------------------------------------------------
+//--------------------
 
 /**
  * This function renders the Nursery Register Form.
@@ -39,7 +39,7 @@ router.get('/nursery', function(req, res) {
   res.render('./registrationForms/nurseryRegister.ejs');
 });
 
-//-----------------------------------------------------------------   
+//----------------- 
 
 /**
  * This function catches a POST submission and uses the data register a nursery and also, it sends a confirmation email.
@@ -106,7 +106,7 @@ router.post('/nursery', function(req, res) {
 
 });
 
-//--------------------------------------------------------------------------------
+//----------------------
 
 /**
  * This function catches POST submissions and uses the data to register a user as a teacher.
@@ -161,8 +161,7 @@ router.post('/teacher/:nurseryId', function(req, res) {
     }
   });
 });
-//-------------------------------------------------------------------------------------------------------------------------------------
-
+//----------------
 /**
  * This function catches POST submissions and uses the data to register a user as a parent.
  * User got here, because the activationhash and nurseryid and childID matched and the form was rendered,

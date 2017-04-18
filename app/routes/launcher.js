@@ -48,7 +48,7 @@ router.get("/logout", function(req, res) {
 
   req.logout(); //passport destroys all user data in the session.(this comes with "passport package")
   req.flash("success", "Logged you out");
-  res.redirect('/'); //Inside a callback… bulletproof!
+  res.redirect('/'); //Inside a callback
 
 });
 

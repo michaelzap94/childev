@@ -73,7 +73,7 @@
 
  });
  
- /*****POLLS*****************************************************************/
+ /*****POLLS********/
 
 
 //Show poll info
@@ -85,7 +85,7 @@ router.post("/polls/:id/vote",isLoggedIn.isLoggedInNext,function(req,res){
  return votingFunctions.checkNursery(req,res,votingFunctions.oneVote,votingFunctions.saveVote);
   
 });
-//--------------------------------------
+//---------
 /**
  * Get the settings page
  *
@@ -110,7 +110,7 @@ router.delete("/settings/delete",function(req,res){
 
 });
 
-//--------------------------------------
+//-------------
 /**
  * Gets the profile page
  *
@@ -163,7 +163,7 @@ router.put("/profile/edit",function(req,res){
 });
 
 
- /**MESSAGES*************************************************/
+ /**MESSAGES*************/
   
  /**
   * Gets the inbox page
@@ -284,7 +284,7 @@ router.put("/profile/edit",function(req,res){
 
  });
  
- /***REPORT************************************************************/
+ /***REPORT**************/
  
  /**
   * Gets the form to write a report, It makes sure child is actually registered in the same nursery as the teacher.

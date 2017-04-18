@@ -141,7 +141,7 @@ function sendConfirmationEmailToParents(username, nurseryFound, childId, fn) {
        
 }
 
-/*********************************************************************************************/
+/*****************************************/
 
 /**
  * This function sends a link for users to reset their passwords.
@@ -216,7 +216,7 @@ function saveToken(userRet,fn){
 }
 
 
-/****************************************************************************************/
+/******************************/
 
 /**
  * This function sends a warning link to parents.
@@ -280,7 +280,7 @@ function warnParent(req, res,childFound,comment, fn) {
     
 }
 
-/****************************************************************************************/
+/***************************************/
 
 /**
  * This function handles the contact me message from the home page
